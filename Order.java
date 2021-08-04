@@ -156,7 +156,7 @@ class Order {
                 for(int ind=0, i=0 ; ind<allOrders.length ; ind++) {
                     if(
                         allOrders[ind].date.compareTo(initialDate) >= 0 &&
-                        allOrders[ind].date.compareTo(finalDate) <= 0
+                        allOrders[ind].date.compareTo(finalDate) < 0
                     ) {
                         searchedOrdersLength++;
                         searchedPositions[i++] = ind;
