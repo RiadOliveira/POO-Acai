@@ -4,10 +4,10 @@ class Product {
     String category;
     double price;
 
-    public Product(User user, String mName, String mCategory, double mPrice) {
+    public Product(User loggedUser, String mName, String mCategory, double mPrice) {
         try {
-            if(user.type != UserType.admin) {
-                throw new Exception("The user not has permission to execute this action.");
+            if(loggedUser.type != UserType.admin) {
+                throw new Exception("The user does not have permission to execute this action.");
             }
 
             //Insert product's data into database.
@@ -42,5 +42,37 @@ class Product {
         Product products[] = {product1, product2};
 
         return products;
+    }
+
+    public boolean update(String mName, String mCategory, double mPrice) {
+        try {
+            //Update product on database.
+
+            name = mName;
+            category = mCategory;
+            price = mPrice;
+
+            return true;
+        } catch(Exception err) {
+            //Handle the exception.
+
+            return false;
+        }
+    }
+
+    public boolean delete(User loggedUser) {
+        try {
+            if(loggedUser.type != UserType.admin) {
+                throw new Exception("The user does not have permission to execute this action.");
+            }
+
+            //Delete product from database.
+
+            return true;
+        } catch(Exception err) {
+            //Handle the exception.
+
+            return false;
+        }
     }
 }

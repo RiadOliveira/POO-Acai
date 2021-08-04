@@ -35,7 +35,7 @@ class User {
         try {
             //Uses database's find method to verify if a user with this cpf exists.
 
-            //If not exists throw Exception.
+            //If not exists throw Exception or if the user is a customer (Customers can't use the application).
 
             //Else:
             String findedPassword = "passwordTest"; //To simulate database's password.
@@ -92,5 +92,51 @@ class User {
         }
 
         return findedCustomers;
+    }
+
+    public boolean update(User updatedUser) {
+        try {
+            if(updatedUser.type == UserType.admin && type != UserType.admin) {
+                throw new Exception("The user does not have permission to execute this action.");
+            }
+
+            if(
+                updatedUser.id != id && type != UserType.admin && 
+                updatedUser.type == UserType.employee
+            ) {
+                throw new Exception("The user does not have permission to execute this action.");
+            }
+
+            //Update user on database.
+
+            return true;
+        } catch(Exception err) {
+            //Handle the exception.
+
+            return false;
+        }
+    }
+
+    public boolean delete(User userToDelete) {
+        try {
+            if(userToDelete.type == UserType.admin) {
+                throw new Exception("That user can't be deleted.");
+            }
+
+            if(
+                userToDelete.id != id && type != UserType.admin && 
+                userToDelete.type == UserType.employee
+            ) {
+                throw new Exception("The user does not have permission to execute this action.");
+            }
+
+            //Delete user from database.
+
+            return true;
+        } catch(Exception err) {
+            //Handle the exception.
+
+            return false;
+        }
     }
 }

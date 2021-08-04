@@ -2,30 +2,32 @@ import java.time.LocalDate;
 
 class Order {
     String id;
-    User customer;
-    Product product;
+    String customerId;
+    String productId;
     PaymentMethods paymentMethod;
     OrderStatus status;
     LocalDate date;
     int quantity;
 
     public Order(
-        String customerId, String productId, PaymentMethods mPaymentMethod,
+        String mCustomerId, String mProductId, PaymentMethods mPaymentMethod,
         LocalDate mDate, int mQuantity
     ) {
         try {
-            User mCustomer = User.findById(customerId);
-            Product mProduct = Product.findById(productId);
-
-            if(mCustomer == null) {
+            if(User.findById(customerId) == null) {
                 throw new Exception("Requested customer does not exists.");
+            }
+
+            if(Product.findById(productId) == null) {
+                throw new Exception("Requested product does not exists.");
             }
 
             //Insert order's data into database.
 
-            customer = mCustomer;
-            product = mProduct;
+            customerId = mCustomerId;
+            productId = mProductId;
             paymentMethod = mPaymentMethod;
+            status = OrderStatus.analyzing;
             date = mDate;
             quantity = mQuantity;
         } catch(Exception err) {
@@ -117,5 +119,47 @@ class Order {
         }
 
         return searchedOrders;
+    }
+
+    public boolean update(
+        String mCustomerId, String mProductId, PaymentMethods mPaymentMethod, 
+        OrderStatus mStatus, LocalDate mDate, int mQuantity
+    ) {
+        try {
+            if(User.findById(customerId) == null) {
+                throw new Exception("Requested customer does not exists.");
+            }
+
+            if(Product.findById(productId) == null) {
+                throw new Exception("Requested product does not exists.");
+            }
+
+            //Update order on database.
+
+            customerId = mCustomerId;
+            productId = mProductId;
+            paymentMethod = mPaymentMethod;
+            status = mStatus;
+            date = mDate;
+            quantity = mQuantity;
+
+            return true;
+        } catch(Exception err) {
+            //Handle the exception.
+
+            return false;
+        }
+    }
+
+    public boolean delete() {
+        try {
+            //Delete product from database.
+
+            return true;
+        } catch(Exception err) {
+            //Handle the exception.
+
+            return false;
+        }
     }
 }
