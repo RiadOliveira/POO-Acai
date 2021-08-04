@@ -46,4 +46,39 @@ class User {
             //Handle the exception.
         }
     }
+
+    public static User[] findAllCustomers() {
+        //Database's find method to get all users where type == 0 (customer);
+
+        //To simulate database's return:
+        User usr1 = new User("cpf01", "password01");
+        User usr2 = new User("cpf02", "password02");
+
+        User users[] = {usr1, usr2};
+
+        return users;
+    }
+
+    public static User[] findCustomersByName(User allCustomers[], String searchedName) {
+        //May uses findAllCustomers function instead of receive from params.
+
+        //Search logic
+        int findedCustomersLength = 0;
+
+        for(int ind=0 ; ind<allCustomers.length ; ind++) {
+            if(allCustomers[ind].name.contains(searchedName)) {
+                findedCustomersLength++;
+            }
+        }
+
+        User findedCustomers[] = new User[findedCustomersLength];
+
+        for(int ind=0, i=0 ; ind<allCustomers.length ; ind++) {
+            if(allCustomers[ind].name.contains(searchedName)) {
+                findedCustomers[i++] = allCustomers[ind];
+            }
+        }
+
+        return findedCustomers;
+    }
 }
