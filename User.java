@@ -8,13 +8,16 @@ class User {
     UserType type;
 
     //Sign in constructor.
-    public User(String uName,String uCpf, String uPassword, String uAdress, String uPhoneNumber, UserType uType) {
+    public User(
+        String uName,String uCpf, String uPassword, 
+        String uAdress, String uPhoneNumber, UserType uType
+    ) {
         try {
-            //Find method on database to verify if exists a user with this cpf.
+            //Uses database's find method to verify if exists a user with this cpf.
 
             //If exists, throw Exception.
 
-            //Else, insert a new user on database and set object attributes.
+            //Else, insert a new user into database and set object attributes.
 
             name = uName;
             cpf = uCpf;
@@ -30,7 +33,7 @@ class User {
     //Login constructor.
     public User(String cpf, String password) {
         try {
-            //Find method on database to verify if a user with this cpf exists.
+            //Uses database's find method to verify if a user with this cpf exists.
 
             //If not exists throw Exception.
 
@@ -45,6 +48,15 @@ class User {
         } catch (Exception err) {
             //Handle the exception.
         }
+    }
+
+    public static User findById(String id) {
+        //Database's find method to get requested user;
+
+        //To simulate database's return:
+        User findedUser = new User("cpf01", "password01");
+
+        return findedUser;
     }
 
     public static User[] findAllCustomers() {

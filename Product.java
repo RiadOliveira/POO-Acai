@@ -4,16 +4,30 @@ class Product {
     String category;
     double price;
 
-    public Product(User user, String name, String category, double price) {
+    public Product(User user, String mName, String mCategory, double mPrice) {
         try {
             if(user.type != UserType.admin) {
                 throw new Exception("The user not has permission to execute this action.");
             }
 
-            //Insert product data on database.
+            //Insert product's data into database.
+
+            name = mName;
+            category = mCategory;
+            price = mPrice;
         } catch(Exception err) {
             //Handle the exception.
         }
+    }
+
+    public static Product findById(String id) {
+        //Database's find method to get requested product;
+
+        //To simulate database's return:
+        User usr1 = new User("cpf01", "password01");
+        Product findedProduct = new Product(usr1, "product01", "category01", 5.25);
+
+        return findedProduct;
     }
 
     public static Product[] findAll() {
