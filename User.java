@@ -76,19 +76,19 @@ class User {
 
         //Search logic
         int findedCustomersLength = 0;
+        int findedCustomersPositions[] = new int[allCustomers.length];
 
-        for(int ind=0 ; ind<allCustomers.length ; ind++) {
+        for(int ind=0, i=0 ; ind<allCustomers.length ; ind++) {
             if(allCustomers[ind].name.contains(searchedName)) {
                 findedCustomersLength++;
+                findedCustomersPositions[i++] = ind;
             }
         }
 
         User findedCustomers[] = new User[findedCustomersLength];
 
-        for(int ind=0, i=0 ; ind<allCustomers.length ; ind++) {
-            if(allCustomers[ind].name.contains(searchedName)) {
-                findedCustomers[i++] = allCustomers[ind];
-            }
+        for(int ind=0 ; ind<findedCustomersLength ; ind++) {
+            findedCustomers[ind] = allCustomers[findedCustomersPositions[ind]];
         }
 
         return findedCustomers;

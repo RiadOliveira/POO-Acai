@@ -95,18 +95,7 @@ class Order {
 
         //Search logic
         int searchedOrdersLength = 0;
-
-        for(int ind=0 ; ind<orders.length ; ind++) {
-            if(
-                orders[ind].date.getDayOfMonth() == day && 
-                orders[ind].date.getMonthValue() == month &&
-                orders[ind].date.getYear() == year    
-            ) {
-                searchedOrdersLength++;
-            }
-        }
-
-        Order searchedOrders[] = new Order[searchedOrdersLength];
+        int searchedPositions[] = new int[orders.length];
 
         for(int ind=0, i=0 ; ind<orders.length ; ind++) {
             if(
@@ -114,11 +103,100 @@ class Order {
                 orders[ind].date.getMonthValue() == month &&
                 orders[ind].date.getYear() == year    
             ) {
-                searchedOrders[i++] = orders[ind];
+                searchedOrdersLength++;
+                searchedPositions[i++] = ind;
             }
         }
 
+        Order searchedOrders[] = new Order[searchedOrdersLength];
+
+        for(int ind=0 ; ind<searchedOrdersLength ; ind++) {
+            searchedOrders[ind] = orders[searchedPositions[ind]];
+        }
+
         return searchedOrders;
+    }
+
+    public static Order[] generateReport(
+        Order allOrders[], ReportTypes type, 
+        int day, int month, int year
+    ) {
+        switch(type) { 
+            case day: {
+                LocalDate date = LocalDate.of(year, month, day);
+
+                int searchedOrdersLength = 0;
+                int searchedPositions[] = new int[allOrders.length];
+
+                for(int ind=0, i=0 ; ind<allOrders.length ; ind++) {
+                    if(allOrders[ind].date.compareTo(date) == 0) {
+                        searchedOrdersLength++;
+                        searchedPositions[i++] = ind;
+                    }
+                }
+
+                Order searchedOrders[] = new Order[searchedOrdersLength];
+
+                for(int ind=0 ; ind<searchedOrdersLength ; ind++) {
+                    searchedOrders[ind] = allOrders[searchedPositions[ind]];
+                }
+
+                return searchedOrders;
+            }
+            
+            case week: {
+                int startOfWeek = day - LocalDate.of(year, month, day).getDayOfWeek().getValue();
+
+                LocalDate initialDate = LocalDate.of(year, month, startOfWeek);
+                LocalDate finalDate = LocalDate.of(year, month, startOfWeek).plusDays(7);
+
+                int searchedOrdersLength = 0;
+                int searchedPositions[] = new int[allOrders.length];
+
+                for(int ind=0, i=0 ; ind<allOrders.length ; ind++) {
+                    if(
+                        allOrders[ind].date.compareTo(initialDate) >= 0 &&
+                        allOrders[ind].date.compareTo(finalDate) <= 0
+                    ) {
+                        searchedOrdersLength++;
+                        searchedPositions[i++] = ind;
+                    }
+                }
+
+                Order searchedOrders[] = new Order[searchedOrdersLength];
+
+                for(int ind=0 ; ind<searchedOrdersLength ; ind++) {
+                    searchedOrders[ind] = allOrders[searchedPositions[ind]];
+                }
+
+                return searchedOrders;
+            }
+            
+            case month: {
+                int searchedOrdersLength = 0;
+                int searchedPositions[] = new int[allOrders.length];
+
+                for(int ind=0, i=0 ; ind<allOrders.length ; ind++) {
+                    if(
+                        allOrders[ind].date.getYear() == year &&
+                        allOrders[ind].date.getMonthValue() == month
+                    ) {
+                        searchedOrdersLength++;
+                        searchedPositions[i++] = ind;
+                    }
+                }
+
+                Order searchedOrders[] = new Order[searchedOrdersLength];
+
+                for(int ind=0 ; ind<searchedOrdersLength ; ind++) {
+                    searchedOrders[ind] = allOrders[searchedPositions[ind]];
+                }
+
+                return searchedOrders;
+            }
+
+            default: return null;
+        }
     }
 
     public boolean update(
