@@ -93,7 +93,7 @@ class User {
     }
 
     //When a user will register another (admin registering employee/customer or employee registering customer).
-    public User register(
+    public User registerNewUser(
         String mName, String mCpf, String mPassword, 
         String mAdress, String mPhoneNumber, UserType mType
     ) {
