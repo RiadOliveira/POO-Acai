@@ -80,29 +80,14 @@ class Order {
         return orders;
     }
 
-    public static Order[] findByDate(int day, int month, int year) {
-        //Uses database's find method to get all orders on that date.
+    public static Order[] findByDate(Order allOrders[], int day, int month, int year) {
+        LocalDate date = LocalDate.of(year, month, day);
 
-        //To simulate database's return:
-        User usr1 = new User("cpf01", "password01");
-        Product product1 = new Product(usr1, "product01", "category01", 5.25);
-
-        LocalDate date = LocalDate.now();
-        Order order1 = new Order(usr1.id, product1.id, PaymentMethods.Card, date, 10);
-        Order order2 = new Order(usr1.id, product1.id, PaymentMethods.Money, date, 2);
-
-        Order orders[] = {order1, order2};
-
-        //Search logic
         int searchedOrdersLength = 0;
-        int searchedPositions[] = new int[orders.length];
+        int searchedPositions[] = new int[allOrders.length];
 
-        for(int ind=0, i=0 ; ind<orders.length ; ind++) {
-            if(
-                orders[ind].date.getDayOfMonth() == day && 
-                orders[ind].date.getMonthValue() == month &&
-                orders[ind].date.getYear() == year    
-            ) {
+        for(int ind=0, i=0 ; ind<allOrders.length ; ind++) {
+            if(allOrders[ind].date.compareTo(date) == 0) {
                 searchedOrdersLength++;
                 searchedPositions[i++] = ind;
             }
@@ -111,7 +96,7 @@ class Order {
         Order searchedOrders[] = new Order[searchedOrdersLength];
 
         for(int ind=0 ; ind<searchedOrdersLength ; ind++) {
-            searchedOrders[ind] = orders[searchedPositions[ind]];
+            searchedOrders[ind] = allOrders[searchedPositions[ind]];
         }
 
         return searchedOrders;
@@ -122,27 +107,7 @@ class Order {
         int day, int month, int year
     ) {
         switch(type) { 
-            case day: {
-                LocalDate date = LocalDate.of(year, month, day);
-
-                int searchedOrdersLength = 0;
-                int searchedPositions[] = new int[allOrders.length];
-
-                for(int ind=0, i=0 ; ind<allOrders.length ; ind++) {
-                    if(allOrders[ind].date.compareTo(date) == 0) {
-                        searchedOrdersLength++;
-                        searchedPositions[i++] = ind;
-                    }
-                }
-
-                Order searchedOrders[] = new Order[searchedOrdersLength];
-
-                for(int ind=0 ; ind<searchedOrdersLength ; ind++) {
-                    searchedOrders[ind] = allOrders[searchedPositions[ind]];
-                }
-
-                return searchedOrders;
-            }
+            case day: return Order.findByDate(allOrders, day, month, year);
             
             case week: {
                 int startOfWeek = day - LocalDate.of(year, month, day).getDayOfWeek().getValue();
