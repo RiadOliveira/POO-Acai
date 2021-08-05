@@ -66,7 +66,9 @@ class Product {
                 throw new Exception("The user does not have permission to execute this action.");
             }
 
-            //Delete product from database.
+            //Delete product on database.
+
+            //After that, on main class, needs to delete this object on product's array.
 
             return true;
         } catch(Exception err) {

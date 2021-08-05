@@ -41,7 +41,7 @@ class User {
             String findedPassword = "passwordTest"; //To simulate database's password.
 
             if(!password.equals(findedPassword)) {
-                throw new Exception("Exception message");
+                throw new Exception("Invalid cpf or password.");
             }
 
             //If password is equal, fills all attributes of the object with user's data from DB.
@@ -72,9 +72,6 @@ class User {
     }
 
     public static User[] findCustomersByName(User allCustomers[], String searchedName) {
-        //May uses findAllCustomers function instead of receive from params.
-
-        //Search logic
         int findedCustomersLength = 0;
         int findedCustomersPositions[] = new int[allCustomers.length];
 
@@ -94,7 +91,10 @@ class User {
         return findedCustomers;
     }
 
-    public boolean update(User updatedUser) {
+    public boolean update(
+        User updatedUser, String uName,String uCpf, String uPassword, 
+        String uAdress, String uPhoneNumber, UserType uType
+    ) {
         try {
             if(updatedUser.type == UserType.admin && type != UserType.admin) {
                 throw new Exception("The user does not have permission to execute this action.");
@@ -108,6 +108,13 @@ class User {
             }
 
             //Update user on database.
+
+            updatedUser.name = uName;
+            updatedUser.cpf = uCpf;
+            updatedUser.password = uPassword;
+            updatedUser.adress = uAdress;
+            updatedUser.phoneNumber = uPhoneNumber;
+            updatedUser.type = uType;
 
             return true;
         } catch(Exception err) {
@@ -130,7 +137,9 @@ class User {
                 throw new Exception("The user does not have permission to execute this action.");
             }
 
-            //Delete user from database.
+            //Delete user on database.
+
+            //After that, on main class, needs to delete this object on customers/employees' array.
 
             return true;
         } catch(Exception err) {

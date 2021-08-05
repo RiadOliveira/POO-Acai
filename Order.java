@@ -36,7 +36,7 @@ class Order {
     }
 
     public static Order findById(String id) {
-        //Database's find method to get requested order;
+        //Database's find method to get requested order.
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
@@ -196,7 +196,9 @@ class Order {
 
     public boolean delete() {
         try {
-            //Delete product from database.
+            //Delete order on database.
+
+            //After that, on main class, needs to delete this object on order's array.
 
             return true;
         } catch(Exception err) {
