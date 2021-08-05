@@ -9,8 +9,8 @@ class User {
 
     //Sign in constructor.
     public User(
-        String uName,String uCpf, String uPassword, 
-        String uAdress, String uPhoneNumber, UserType uType
+        String mName, String mCpf, String mPassword, 
+        String mAdress, String mPhoneNumber, UserType mType
     ) {
         try {
             //Uses database's find method to verify if exists a user with this cpf.
@@ -19,12 +19,12 @@ class User {
 
             //Else, insert a new user into database and set object attributes.
 
-            name = uName;
-            cpf = uCpf;
-            password = uPassword;
-            adress = uAdress;
-            phoneNumber = uPhoneNumber;
-            type = uType;
+            name = mName;
+            cpf = mCpf;
+            password = mPassword;
+            adress = mAdress;
+            phoneNumber = mPhoneNumber;
+            type = mType;
         } catch(Exception err) {
             //Handle the exception.
         }
@@ -33,9 +33,10 @@ class User {
     //Login constructor.
     public User(String cpf, String password) {
         try {
-            //Uses database's find method to verify if a user with this cpf exists.
+            //Uses database's find method to verify if an user with this cpf exists.
 
-            //If not exists throw Exception or if the user is a customer (Customers can't use the application).
+            //If not exists or the user is a customer(type == 0) (Customers can't use the application), 
+            //throw an Exception.
 
             //Else:
             String findedPassword = "passwordTest"; //To simulate database's password.
@@ -91,30 +92,58 @@ class User {
         return findedCustomers;
     }
 
-    public boolean update(
-        User updatedUser, String uName,String uCpf, String uPassword, 
-        String uAdress, String uPhoneNumber, UserType uType
+    //When a user will register another (admin registering employee/customer or employee registering customer).
+    public User register(
+        String mName, String mCpf, String mPassword, 
+        String mAdress, String mPhoneNumber, UserType mType
     ) {
         try {
-            if(updatedUser.type == UserType.admin && type != UserType.admin) {
+            if(mType == UserType.admin) {
+                throw new Exception("The application can't has more than one admin.");
+            }
+
+            if(type == UserType.employee && mType == UserType.employee) {
+                throw new Exception("The user does not have permission to execute this action.");
+            }
+            //Uses database's find method to verify if exists a user with this cpf.
+
+            //If exists, throw Exception.
+
+            //Else, insert a new user into database and set object attributes.
+            User newUser = new User(mName, mCpf, mPassword, mAdress, mPhoneNumber, mType);
+
+            return newUser;
+        } catch(Exception err) {
+            //Handle the exception.
+
+            return null;
+        }
+    }
+
+    public boolean update(
+        User userToUpdate, String mName,String mCpf, String mPassword, 
+        String mAdress, String mPhoneNumber, UserType mType
+    ) {
+        try {
+            if(userToUpdate.type == UserType.admin && type != UserType.admin) {
                 throw new Exception("The user does not have permission to execute this action.");
             }
 
             if(
-                updatedUser.id != id && type != UserType.admin && 
-                updatedUser.type == UserType.employee
+                userToUpdate.id != id && type != UserType.admin && 
+                userToUpdate.type == UserType.employee
             ) {
                 throw new Exception("The user does not have permission to execute this action.");
             }
 
             //Update user on database.
 
-            updatedUser.name = uName;
-            updatedUser.cpf = uCpf;
-            updatedUser.password = uPassword;
-            updatedUser.adress = uAdress;
-            updatedUser.phoneNumber = uPhoneNumber;
-            updatedUser.type = uType;
+            userToUpdate.name = mName;
+            userToUpdate.cpf = mCpf;
+            userToUpdate.password = mPassword;
+            userToUpdate.adress = mAdress;
+            userToUpdate.phoneNumber = mPhoneNumber;
+            userToUpdate.type = mType;
 
             return true;
         } catch(Exception err) {
