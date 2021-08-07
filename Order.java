@@ -4,13 +4,13 @@ class Order {
     String id;
     String customerId;
     String productId;
-    PaymentMethods paymentMethod;
+    PaymentMethod paymentMethod;
     OrderStatus status;
     LocalDate date;
     int quantity;
 
     public Order(
-        String mCustomerId, String mProductId, PaymentMethods mPaymentMethod,
+        String mCustomerId, String mProductId, PaymentMethod mPaymentMethod,
         LocalDate mDate, int mQuantity
     ) {
         try {
@@ -43,7 +43,7 @@ class Order {
         Product product1 = new Product(usr1, "product01", "category01", 5.25);
         LocalDate date = LocalDate.now();
 
-        Order order1 = new Order(usr1.id, product1.id, PaymentMethods.Card, date, 10);
+        Order order1 = new Order(usr1.id, product1.id, PaymentMethod.Card, date, 10);
 
         return order1;
     }
@@ -56,8 +56,8 @@ class Order {
         Product product1 = new Product(usr1, "product01", "category01", 5.25);
         LocalDate date = LocalDate.now();
 
-        Order order1 = new Order(usr1.id, product1.id, PaymentMethods.Card, date, 10);
-        Order order2 = new Order(usr1.id, product1.id, PaymentMethods.Money, date, 2);
+        Order order1 = new Order(usr1.id, product1.id, PaymentMethod.Card, date, 10);
+        Order order2 = new Order(usr1.id, product1.id, PaymentMethod.Money, date, 2);
 
         Order orders[] = {order1, order2};
 
@@ -72,8 +72,8 @@ class Order {
         Product product1 = new Product(usr1, "product01", "category01", 5.25);
         LocalDate date = LocalDate.now();
 
-        Order order1 = new Order(usr1.id, product1.id, PaymentMethods.Card, date, 10);
-        Order order2 = new Order(usr1.id, product1.id, PaymentMethods.Money, date, 2);
+        Order order1 = new Order(usr1.id, product1.id, PaymentMethod.Card, date, 10);
+        Order order2 = new Order(usr1.id, product1.id, PaymentMethod.Money, date, 2);
 
         Order orders[] = {order1, order2};
 
@@ -165,7 +165,7 @@ class Order {
     }
 
     public boolean update(
-        String mCustomerId, String mProductId, PaymentMethods mPaymentMethod, 
+        String mCustomerId, String mProductId, PaymentMethod mPaymentMethod, 
         OrderStatus mStatus, LocalDate mDate, int mQuantity
     ) {
         try {

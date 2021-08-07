@@ -17,7 +17,7 @@ class User {
 
             //If exists, throw Exception.
 
-            //Else, insert a new user into database and set object attributes.
+            //Else, insert a new user into database.
 
             name = mName;
             cpf = mCpf;
@@ -45,7 +45,7 @@ class User {
                 throw new Exception("Invalid cpf or password.");
             }
 
-            //If password is equal, fills all attributes of the object with user's data from DB.
+            //If password is equal, sets all attributes to user's data from DB.
         } catch (Exception err) {
             //Handle the exception.
         }
@@ -109,7 +109,8 @@ class User {
 
             //If exists, throw Exception.
 
-            //Else, insert a new user into database and set object attributes.
+            //Else, insert a new user into database.
+
             User newUser = new User(mName, mCpf, mPassword, mAdress, mPhoneNumber, mType);
 
             return newUser;
