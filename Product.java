@@ -1,3 +1,5 @@
+import utils.UserType;
+
 class Product {
     String id;
     String name;

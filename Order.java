@@ -1,5 +1,9 @@
 import java.time.LocalDate;
 
+import utils.OrderStatus;
+import utils.PaymentMethod;
+import utils.ReportTypes;
+
 class Order {
     String id;
     String customerId;

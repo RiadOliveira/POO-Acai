@@ -1,3 +1,5 @@
+import utils.UserType;
+
 class User extends Person {
     String password;
     UserType type;
