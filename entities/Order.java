@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import utils.OrderStatus;
 import utils.PaymentMethod;
 import utils.ReportTypes;
+import utils.Category;
 
 public class Order {
     String id;
@@ -46,7 +47,7 @@ public class Order {
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
-        Product product1 = new Product(usr1, "product01", "category01", 5.25);
+        Product product1 = new Product(usr1, "product01", Category.acai, 5.25);
         LocalDate date = LocalDate.now();
 
         Order order1 = new Order(usr1.id, product1.id, PaymentMethod.Card, date, 10);
@@ -59,7 +60,7 @@ public class Order {
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
-        Product product1 = new Product(usr1, "product01", "category01", 5.25);
+        Product product1 = new Product(usr1, "product01", Category.acai, 5.25);
         LocalDate date = LocalDate.now();
 
         Order order1 = new Order(usr1.id, product1.id, PaymentMethod.Card, date, 10);
@@ -75,7 +76,7 @@ public class Order {
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
-        Product product1 = new Product(usr1, "product01", "category01", 5.25);
+        Product product1 = new Product(usr1, "product01", Category.acai, 5.25);
         LocalDate date = LocalDate.now();
 
         Order order1 = new Order(usr1.id, product1.id, PaymentMethod.Card, date, 10);

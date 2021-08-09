@@ -1,14 +1,15 @@
 package entities;
 
 import utils.UserType;
+import utils.Category;
 
 public class Product {
     String id;
     String name;
-    String category;
+    Category category;
     double price;
 
-    public Product(User loggedUser, String mName, String mCategory, double mPrice) {
+    public Product(User loggedUser, String mName, Category mCategory, double mPrice) {
         try {
             if(loggedUser.type != UserType.admin) {
                 throw new Exception("The user does not have permission to execute this action.");
@@ -29,7 +30,7 @@ public class Product {
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
-        Product findedProduct = new Product(usr1, "product01", "category01", 5.25);
+        Product findedProduct = new Product(usr1, "product01", Category.acai, 5.25);
 
         return findedProduct;
     }
@@ -40,15 +41,15 @@ public class Product {
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
 
-        Product product1 = new Product(usr1, "product01", "category01", 5.25);
-        Product product2 = new Product(usr1, "product02", "category02", 4.10);
+        Product product1 = new Product(usr1, "product01", Category.acai, 5.25);
+        Product product2 = new Product(usr1, "product02", Category.pizza, 4.10);
 
         Product products[] = {product1, product2};
 
         return products;
     }
 
-    public boolean update(String mName, String mCategory, double mPrice) {
+    public boolean update(String mName, Category mCategory, double mPrice) {
         try {
             //Update product on database.
 
