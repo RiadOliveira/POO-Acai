@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import utils.OrderStatus;
 import utils.PaymentMethod;
-import utils.ReportTypes;
+import utils.ReportType;
 import utils.Category;
 
 public class Order {
@@ -110,7 +110,7 @@ public class Order {
     }
 
     public static Order[] generateReport(
-        Order allOrders[], ReportTypes type, 
+        Order allOrders[], ReportType type, 
         int day, int month, int year
     ) {
         switch(type) { 

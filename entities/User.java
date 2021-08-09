@@ -6,7 +6,7 @@ public class User extends Person {
     String password;
     UserType type;
 
-    //Sign in constructor.
+    //Sign up constructor.
     public User(
         String mName, String mCpf, String mPassword, 
         String mAdress, String mPhoneNumber, UserType mType
@@ -33,8 +33,7 @@ public class User extends Person {
         try {
             //Uses database's find method to verify if an user with this cpf exists.
 
-            //If not exists or the user is a customer(type == 0) (Customers can't use the application), 
-            //throw an Exception.
+            //If not exists or the user, throw an Exception.
 
             //Else:
             String findedPassword = "passwordTest"; //To simulate database's password.
@@ -49,6 +48,18 @@ public class User extends Person {
         }
     }
 
+    public static User[] findAllEmployees() {
+        //Database's find method to get all employees (where type == 0);
+
+        //To simulate database's return:
+        User user1 = new User("cpf01", "password01");
+        User user2 = new User("cpf02", "password02");
+
+        User users[] = {user1, user2};
+
+        return users;
+    }
+
     public static User findById(String id) {
         //Database's find method to get requested user;
 
@@ -59,8 +70,8 @@ public class User extends Person {
     }
 
     public boolean update(
-        User userToUpdate, String mName,String mCpf, String mPassword, 
-        String mPhoneNumber, UserType mType
+        User userToUpdate, String mName,String mCpf, 
+        String mPassword, String mPhoneNumber
     ) {
         try {
             if(userToUpdate.type == UserType.admin && type != UserType.admin) {
@@ -77,7 +88,6 @@ public class User extends Person {
             userToUpdate.cpf = mCpf;
             userToUpdate.password = mPassword;
             userToUpdate.phoneNumber = mPhoneNumber;
-            userToUpdate.type = mType;
 
             return true;
         } catch(Exception err) {

@@ -1,5 +1,5 @@
 package utils;
 
-public enum ReportTypes {
+public enum ReportType {
     day, week, month
 }
