@@ -17,6 +17,7 @@ public class Product {
 
             //Insert product's data into database.
 
+            //Needs to insert id of Product.
             name = mName;
             category = mCategory;
             price = mPrice;

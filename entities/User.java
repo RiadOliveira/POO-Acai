@@ -18,6 +18,7 @@ public class User extends Person {
 
             //Else, insert a new user into database.
 
+            //Needs to insert id of User.
             name = mName;
             cpf = mCpf;
             password = mPassword;

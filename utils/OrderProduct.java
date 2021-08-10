@@ -3,8 +3,8 @@ package utils;
 import entities.Product;
 
 public class OrderProduct {
-    public String productId;
-    public int quantity;
+    private String productId;
+    private int quantity;
 
     public OrderProduct(String mProductId, int mQuantity) {
         try {
@@ -17,5 +17,13 @@ public class OrderProduct {
         } catch(Exception err) {
             //Handle exception.
         }
+    }
+
+    public String getProductId() {
+        return this.productId;
+    }
+
+    public int getQuantity() {
+        return this.quantity;
     }
 }

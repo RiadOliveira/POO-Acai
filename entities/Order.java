@@ -14,11 +14,11 @@ public class Order {
     PaymentMethod paymentMethod;
     OrderStatus status;
     LocalDate date;
-    int quantity;
+    double totalPrice;
 
     public Order(
         String mCustomerId, OrderProduct mProducts[], PaymentMethod mPaymentMethod,
-        LocalDate mDate, int mQuantity
+        LocalDate mDate, double mTotalPrice
     ) {
         try {
             if(User.findById(customerId) == null) {
@@ -33,7 +33,7 @@ public class Order {
             paymentMethod = mPaymentMethod;
             status = OrderStatus.analyzing;
             date = mDate;
-            quantity = mQuantity;
+            totalPrice = mTotalPrice;
         } catch(Exception err) {
             //Handle the exception.
         }
@@ -180,7 +180,7 @@ public class Order {
 
     public boolean update(
         String mCustomerId, OrderProduct mProducts[], PaymentMethod mPaymentMethod, 
-        OrderStatus mStatus, LocalDate mDate, int mQuantity
+        OrderStatus mStatus, LocalDate mDate, double mTotalPrice
     ) {
         try {
             if(User.findById(customerId) == null) {
@@ -194,7 +194,7 @@ public class Order {
             paymentMethod = mPaymentMethod;
             status = mStatus;
             date = mDate;
-            quantity = mQuantity;
+            totalPrice = mTotalPrice;
 
             return true;
         } catch(Exception err) {

@@ -11,6 +11,7 @@ public class Customer extends Person {
 
             //Else, insert a new customer into database.
 
+            //Needs to insert id of Customer.
             name = mName;
             cpf = mCpf;
             adress = mAdress;
