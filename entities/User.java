@@ -70,8 +70,7 @@ public class User extends Person {
     }
 
     public boolean update(
-        User userToUpdate, String mName,String mCpf, 
-        String mPassword, String mPhoneNumber
+        User userToUpdate, String mName, String mPassword, String mPhoneNumber
     ) {
         try {
             if(userToUpdate.type == UserType.admin && type != UserType.admin) {
@@ -85,7 +84,6 @@ public class User extends Person {
             //Update user on database.
 
             userToUpdate.name = mName;
-            userToUpdate.cpf = mCpf;
             userToUpdate.password = mPassword;
             userToUpdate.phoneNumber = mPhoneNumber;
 

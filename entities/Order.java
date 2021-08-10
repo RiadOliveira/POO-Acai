@@ -5,34 +5,31 @@ import java.time.LocalDate;
 import utils.OrderStatus;
 import utils.PaymentMethod;
 import utils.ReportType;
-import utils.Category;
+import utils.OrderProduct;
 
 public class Order {
     String id;
+    OrderProduct[] orderProducts;
     String customerId;
-    String productId;
     PaymentMethod paymentMethod;
     OrderStatus status;
     LocalDate date;
     int quantity;
 
     public Order(
-        String mCustomerId, String mProductId, PaymentMethod mPaymentMethod,
+        String mCustomerId, OrderProduct mProducts[], PaymentMethod mPaymentMethod,
         LocalDate mDate, int mQuantity
     ) {
         try {
             if(User.findById(customerId) == null) {
-                throw new Exception("Requested customer does not exists.");
-            }
-
-            if(Product.findById(productId) == null) {
-                throw new Exception("Requested product does not exists.");
+                throw new Exception("Requested customer does not exist.");
             }
 
             //Insert order's data into database.
 
+            //Needs to insert id of Order.
             customerId = mCustomerId;
-            productId = mProductId;
+            orderProducts = mProducts;
             paymentMethod = mPaymentMethod;
             status = OrderStatus.analyzing;
             date = mDate;
@@ -47,10 +44,12 @@ public class Order {
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
-        Product product1 = new Product(usr1, "product01", Category.acai, 5.25);
+        OrderProduct product1 = new OrderProduct("idProduct1", 5);
         LocalDate date = LocalDate.now();
 
-        Order order1 = new Order(usr1.id, product1.id, PaymentMethod.Card, date, 10);
+        OrderProduct products[] = {product1};
+
+        Order order1 = new Order(usr1.id, products, PaymentMethod.Card, date, 10);
 
         return order1;
     }
@@ -60,11 +59,15 @@ public class Order {
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
-        Product product1 = new Product(usr1, "product01", Category.acai, 5.25);
+        OrderProduct product1 = new OrderProduct("idProduct1", 5);
+        OrderProduct product2 = new OrderProduct("idProduct1", 5);
+
         LocalDate date = LocalDate.now();
 
-        Order order1 = new Order(usr1.id, product1.id, PaymentMethod.Card, date, 10);
-        Order order2 = new Order(usr1.id, product1.id, PaymentMethod.Money, date, 2);
+        OrderProduct products[] = {product1, product2};
+
+        Order order1 = new Order(usr1.id, products, PaymentMethod.Card, date, 10);
+        Order order2 = new Order(usr1.id, products, PaymentMethod.Money, date, 2);
 
         Order orders[] = {order1, order2};
 
@@ -76,11 +79,15 @@ public class Order {
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
-        Product product1 = new Product(usr1, "product01", Category.acai, 5.25);
+        OrderProduct product1 = new OrderProduct("idProduct1", 5);
+        OrderProduct product2 = new OrderProduct("idProduct1", 5);
+
         LocalDate date = LocalDate.now();
 
-        Order order1 = new Order(usr1.id, product1.id, PaymentMethod.Card, date, 10);
-        Order order2 = new Order(usr1.id, product1.id, PaymentMethod.Money, date, 2);
+        OrderProduct products[] = {product1, product2};
+
+        Order order1 = new Order(usr1.id, products, PaymentMethod.Card, date, 10);
+        Order order2 = new Order(usr1.id, products, PaymentMethod.Money, date, 2);
 
         Order orders[] = {order1, order2};
 
@@ -172,22 +179,18 @@ public class Order {
     }
 
     public boolean update(
-        String mCustomerId, String mProductId, PaymentMethod mPaymentMethod, 
+        String mCustomerId, OrderProduct mProducts[], PaymentMethod mPaymentMethod, 
         OrderStatus mStatus, LocalDate mDate, int mQuantity
     ) {
         try {
             if(User.findById(customerId) == null) {
-                throw new Exception("Requested customer does not exists.");
-            }
-
-            if(Product.findById(productId) == null) {
-                throw new Exception("Requested product does not exists.");
+                throw new Exception("Requested customer does not exist.");
             }
 
             //Update order on database.
 
             customerId = mCustomerId;
-            productId = mProductId;
+            orderProducts = mProducts;
             paymentMethod = mPaymentMethod;
             status = mStatus;
             date = mDate;
