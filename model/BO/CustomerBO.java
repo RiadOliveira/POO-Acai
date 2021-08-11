@@ -3,7 +3,10 @@ package model.BO;
 import model.VO.CustomerVO;
 
 public class CustomerBO {    
-    public static boolean create(CustomerVO customer, String name, String cpf, String adress, String phoneNumber) {
+    public static boolean create(
+        CustomerVO customer, String name, String cpf, 
+        String adress, String phoneNumber
+    ) {
         try {
             //Uses database's find method to verify if exists a customer with this cpf.
 
@@ -71,12 +74,13 @@ public class CustomerBO {
         return findedCustomers;
     }
 
-    public static boolean update(CustomerVO customer, String name, String cpf, String adress, String phoneNumber) {
+    public static boolean update(
+        CustomerVO customer, String name, String adress, String phoneNumber
+    ) {
         try {
             //Update customer on database.
 
             customer.setName(name);
-            customer.setCpf(cpf);
             customer.setAdress(adress);
             customer.setPhoneNumber(phoneNumber);
 

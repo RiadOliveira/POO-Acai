@@ -7,25 +7,25 @@ public class OrderProduct {
     private String productId;
     private int quantity;
 
-    public OrderProduct(String mOrderId, String mProductId, int mQuantity) {
+    public OrderProduct(String orderId, String productId, int quantity) {
         try {
-            if(ProductBO.findById(mProductId) == null) {
+            if(ProductBO.findById(productId) == null) {
                 throw new Exception("Requested product does not exist.");
             }
 
-            this.orderId = mOrderId;
-            this.productId = mProductId;
-            this.quantity = mQuantity;
+            this.orderId = orderId;
+            this.productId = productId;
+            this.quantity = quantity;
         } catch(Exception err) {
             //Handle exception.
         }
     }
 
-    public boolean updateQuantity(int mQuantity) {
+    public boolean updateQuantity(int quantity) {
         try {
             //Updates quantity on database.
 
-            this.quantity = mQuantity;
+            this.quantity = quantity;
 
             return true;
         } catch (Exception err) {

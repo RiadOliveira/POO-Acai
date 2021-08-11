@@ -21,6 +21,7 @@ public class UserBO {
             user.setPassword(password);
             user.setPhoneNumber(phoneNumber);
             user.setType(type);
+            user.setIsLogged(true);
 
             return true;
         } catch(Exception err) {
@@ -53,6 +54,10 @@ public class UserBO {
 
             return false;
         }
+    }
+
+    public static void signOut(UserVO user) {
+        user.setIsLogged(false);
     }
 
     public static UserVO[] findAllEmployees() {

@@ -10,8 +10,8 @@ import utils.OrderProduct;
 
 public class OrderBO {
     public static boolean create(
-        OrderVO order, String customerId, OrderProduct[] orderProducts, PaymentMethod paymentMethod,
-        LocalDate date, double totalPrice
+        OrderVO order, String customerId, OrderProduct[] orderProducts, 
+        PaymentMethod paymentMethod, LocalDate date, double totalPrice
     ) {
         try {
             if(UserBO.findById(customerId) == null) {
@@ -92,7 +92,7 @@ public class OrderBO {
         return orders;
     }
 
-    public static OrderVO[] findByDate(OrderVO allOrders[], int day, int month, int year) {
+    public static OrderVO[] findByDate(OrderVO[] allOrders, int day, int month, int year) {
         LocalDate date = LocalDate.of(year, month, day);
 
         int searchedOrdersLength = 0;
@@ -177,8 +177,8 @@ public class OrderBO {
     }
 
     public static boolean update(
-        OrderVO order, String customerId, OrderProduct orderProducts[], PaymentMethod paymentMethod, 
-        OrderStatus status, LocalDate date, double totalPrice
+        OrderVO order, String customerId, OrderProduct[] orderProducts, 
+        PaymentMethod paymentMethod, OrderStatus status, LocalDate date, double totalPrice
     ) {
         try {
             if(UserBO.findById(customerId) == null) {
@@ -190,7 +190,7 @@ public class OrderBO {
             order.setCustomerId(customerId);
             order.setOrderProducts(orderProducts);
             order.setPaymentMethod(paymentMethod);
-            order.setOrderStatus(OrderStatus.analyzing);
+            order.setOrderStatus(status);
             order.setDate(date);
             order.setTotalPrice(totalPrice);
 

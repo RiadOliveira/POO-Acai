@@ -6,7 +6,10 @@ import model.VO.UserVO;
 import utils.Category;
 
 public class ProductBO {
-    public static boolean create(UserType loggedUserType, ProductVO product, String name, Category category, double price) {
+    public static boolean create(
+        UserType loggedUserType, ProductVO product, String name, 
+        Category category, double price
+    ) {
         try {
             if(loggedUserType != UserType.admin) {
                 throw new Exception("The user does not have permission to execute this action.");
@@ -60,7 +63,9 @@ public class ProductBO {
         return products;
     }
 
-    public static boolean update(ProductVO product, String name, Category category, double price) {
+    public static boolean update(
+        ProductVO product, String name, Category category, double price
+    ) {
         try {
             //Update product on database.
 
