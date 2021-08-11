@@ -8,8 +8,8 @@ public class User extends Person {
 
     //Sign up constructor.
     public User(
-        String mName, String mCpf, String mPassword, 
-        String mAdress, String mPhoneNumber, UserType mType
+        String name, String cpf, String password, 
+        String phoneNumber, UserType type
     ) {
         try {
             //Uses database's find method to verify if exists a user with this cpf.
@@ -19,11 +19,11 @@ public class User extends Person {
             //Else, insert a new user into database.
 
             //Needs to insert id of User.
-            name = mName;
-            cpf = mCpf;
-            password = mPassword;
-            phoneNumber = mPhoneNumber;
-            type = mType;
+            this.name = name;
+            this.cpf = cpf;
+            this.password = password;
+            this.phoneNumber = phoneNumber;
+            this.type = type;
         } catch(Exception err) {
             //Handle the exception.
         }
@@ -70,13 +70,13 @@ public class User extends Person {
         return findedUser;
     }
 
-    public boolean update(String mName, String mPassword, String mPhoneNumber) {
+    public boolean update(String name, String password, String phoneNumber) {
         try {
             //Update user on database.
 
-            name = mName;
-            password = mPassword;
-            phoneNumber = mPhoneNumber;
+            this.name = name;
+            this.password = password;
+            this.phoneNumber = phoneNumber;
 
             return true;
         } catch(Exception err) {

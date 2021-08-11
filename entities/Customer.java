@@ -3,7 +3,7 @@ package entities;
 public class Customer extends Person {
     String adress;
     
-    public Customer(String mName, String mCpf, String mAdress, String mPhoneNumber) {
+    public Customer(String name, String cpf, String adress, String phoneNumber) {
         try {
             //Uses database's find method to verify if exists a customer with this cpf.
 
@@ -12,10 +12,10 @@ public class Customer extends Person {
             //Else, insert a new customer into database.
 
             //Needs to insert id of Customer.
-            name = mName;
-            cpf = mCpf;
-            adress = mAdress;
-            phoneNumber = mPhoneNumber;
+            this.name = name;
+            this.cpf = cpf;
+            this.adress = adress;
+            this.phoneNumber = phoneNumber;
 
         } catch(Exception err) {
             //Handle the exception.
@@ -63,14 +63,14 @@ public class Customer extends Person {
         return findedCustomers;
     }
 
-    public boolean update(String mName, String mCpf, String mAdress, String mPhoneNumber) {
+    public boolean update(String name, String cpf, String adress, String phoneNumber) {
         try {
             //Update customer on database.
 
-            name = mName;
-            cpf = mCpf;
-            adress = mAdress;
-            phoneNumber = mPhoneNumber;
+            this.name = name;
+            this.cpf = cpf;
+            this.adress = adress;
+            this.phoneNumber = phoneNumber;
 
             return true;
         } catch(Exception err) {

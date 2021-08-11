@@ -17,8 +17,8 @@ public class Order {
     double totalPrice;
 
     public Order(
-        String mCustomerId, OrderProduct mProducts[], PaymentMethod mPaymentMethod,
-        LocalDate mDate, double mTotalPrice
+        String customerId, OrderProduct orderProducts[], PaymentMethod paymentMethod,
+        LocalDate date, double totalPrice
     ) {
         try {
             if(User.findById(customerId) == null) {
@@ -28,12 +28,12 @@ public class Order {
             //Insert order's data into database.
 
             //Needs to insert id of Order.
-            customerId = mCustomerId;
-            orderProducts = mProducts;
-            paymentMethod = mPaymentMethod;
+            this.customerId = customerId;
+            this.orderProducts = orderProducts;
+            this.paymentMethod = paymentMethod;
             status = OrderStatus.analyzing;
-            date = mDate;
-            totalPrice = mTotalPrice;
+            this.date = date;
+            this.totalPrice = totalPrice;
         } catch(Exception err) {
             //Handle the exception.
         }
@@ -179,8 +179,8 @@ public class Order {
     }
 
     public boolean update(
-        String mCustomerId, OrderProduct mProducts[], PaymentMethod mPaymentMethod, 
-        OrderStatus mStatus, LocalDate mDate, double mTotalPrice
+        String customerId, OrderProduct orderProducts[], PaymentMethod paymentMethod, 
+        OrderStatus status, LocalDate date, double totalPrice
     ) {
         try {
             if(User.findById(customerId) == null) {
@@ -189,12 +189,12 @@ public class Order {
 
             //Update order on database.
 
-            customerId = mCustomerId;
-            orderProducts = mProducts;
-            paymentMethod = mPaymentMethod;
-            status = mStatus;
-            date = mDate;
-            totalPrice = mTotalPrice;
+            this.customerId = customerId;
+            this.orderProducts = orderProducts;
+            this.paymentMethod = paymentMethod;
+            this.status = status;
+            this.date = date;
+            this.totalPrice = totalPrice;
 
             return true;
         } catch(Exception err) {

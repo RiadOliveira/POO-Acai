@@ -9,7 +9,7 @@ public class Product {
     Category category;
     double price;
 
-    public Product(User loggedUser, String mName, Category mCategory, double mPrice) {
+    public Product(User loggedUser, String name, Category category, double price) {
         try {
             if(loggedUser.type != UserType.admin) {
                 throw new Exception("The user does not have permission to execute this action.");
@@ -18,9 +18,9 @@ public class Product {
             //Insert product's data into database.
 
             //Needs to insert id of Product.
-            name = mName;
-            category = mCategory;
-            price = mPrice;
+            this.name = name;
+            this.category = category;
+            this.price = price;
         } catch(Exception err) {
             //Handle the exception.
         }
@@ -37,7 +37,7 @@ public class Product {
     }
 
     public static Product[] findAll() {
-        //Database's find method to get all users where type == 0 (customer);
+        //Database's find method to get all products;
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
@@ -50,13 +50,13 @@ public class Product {
         return products;
     }
 
-    public boolean update(String mName, Category mCategory, double mPrice) {
+    public boolean update(String name, Category category, double price) {
         try {
             //Update product on database.
 
-            name = mName;
-            category = mCategory;
-            price = mPrice;
+            this.name = name;
+            this.category = category;
+            this.price = price;
 
             return true;
         } catch(Exception err) {
