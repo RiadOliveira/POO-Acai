@@ -176,7 +176,7 @@ public class OrderBO {
         }
     }
 
-    public boolean update(
+    public static boolean update(
         OrderVO order, String customerId, OrderProduct orderProducts[], PaymentMethod paymentMethod, 
         OrderStatus status, LocalDate date, double totalPrice
     ) {
@@ -202,7 +202,7 @@ public class OrderBO {
         }
     }
 
-    public boolean delete(OrderVO order) { //Verify if can pass only order's id.
+    public static boolean delete(OrderVO order) { //Verify if can pass only order's id.
         try {
             //Delete order on database.
 

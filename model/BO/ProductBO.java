@@ -60,7 +60,7 @@ public class ProductBO {
         return products;
     }
 
-    public boolean update(ProductVO product, String name, Category category, double price) {
+    public static boolean update(ProductVO product, String name, Category category, double price) {
         try {
             //Update product on database.
 
@@ -76,7 +76,7 @@ public class ProductBO {
         }
     }
 
-    public boolean delete(UserType loggedUserType, ProductVO product) { //Verify if can pass only product's id.
+    public static boolean delete(UserType loggedUserType, ProductVO product) { //Verify if can pass only product's id.
         try {
             if(loggedUserType != UserType.admin) {
                 throw new Exception("The user does not have permission to execute this action.");

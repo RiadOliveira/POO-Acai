@@ -71,7 +71,7 @@ public class CustomerBO {
         return findedCustomers;
     }
 
-    public boolean update(CustomerVO customer, String name, String cpf, String adress, String phoneNumber) {
+    public static boolean update(CustomerVO customer, String name, String cpf, String adress, String phoneNumber) {
         try {
             //Update customer on database.
 
@@ -88,7 +88,7 @@ public class CustomerBO {
         }
     }
 
-    public boolean delete(CustomerVO customer) { //Verify if can pass only customer's id.
+    public static boolean delete(CustomerVO customer) { //Verify if can pass only customer's id.
         try {
             //Delete customer on database.
 

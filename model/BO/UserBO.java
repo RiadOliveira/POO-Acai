@@ -99,7 +99,7 @@ public class UserBO {
         }
     }
 
-    public boolean delete(UserVO user) { //Verify if can pass only employee's id.
+    public static boolean delete(UserVO user) { //Verify if can pass only employee's id.
         try {
             if(user.getType() == UserType.admin) {
                 throw new Exception("That user can't be deleted.");
