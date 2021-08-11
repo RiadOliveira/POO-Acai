@@ -44,7 +44,7 @@ public class Order {
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
-        OrderProduct product1 = new OrderProduct("idProduct1", 5);
+        OrderProduct product1 = new OrderProduct("orderId","productId", 5);
         LocalDate date = LocalDate.now();
 
         OrderProduct products[] = {product1};
@@ -59,8 +59,8 @@ public class Order {
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
-        OrderProduct product1 = new OrderProduct("idProduct1", 5);
-        OrderProduct product2 = new OrderProduct("idProduct1", 5);
+        OrderProduct product1 = new OrderProduct("order1Id","product1Id", 5);
+        OrderProduct product2 = new OrderProduct("order2Id","product2Id", 5);
 
         LocalDate date = LocalDate.now();
 
@@ -79,8 +79,8 @@ public class Order {
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
-        OrderProduct product1 = new OrderProduct("idProduct1", 5);
-        OrderProduct product2 = new OrderProduct("idProduct1", 5);
+        OrderProduct product1 = new OrderProduct("order1Id","product1Id", 5);
+        OrderProduct product2 = new OrderProduct("order2Id","product2Id", 5);
 
         LocalDate date = LocalDate.now();
 
