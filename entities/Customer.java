@@ -63,12 +63,11 @@ public class Customer extends Person {
         return findedCustomers;
     }
 
-    public boolean update(String name, String cpf, String adress, String phoneNumber) {
+    public boolean update(String name, String adress, String phoneNumber) {
         try {
             //Update customer on database.
 
             this.name = name;
-            this.cpf = cpf;
             this.adress = adress;
             this.phoneNumber = phoneNumber;
 

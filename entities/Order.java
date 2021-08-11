@@ -17,8 +17,8 @@ public class Order {
     double totalPrice;
 
     public Order(
-        String customerId, OrderProduct orderProducts[], PaymentMethod paymentMethod,
-        LocalDate date, double totalPrice
+        String customerId, OrderProduct orderProducts[], 
+        PaymentMethod paymentMethod, LocalDate date, double totalPrice
     ) {
         try {
             if(User.findById(customerId) == null) {

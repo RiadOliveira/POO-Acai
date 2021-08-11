@@ -9,9 +9,9 @@ public class Product {
     Category category;
     double price;
 
-    public Product(User loggedUser, String name, Category category, double price) {
+    public Product(UserType loggedUserType, String name, Category category, double price) {
         try {
-            if(loggedUser.type != UserType.admin) {
+            if(loggedUserType != UserType.admin) {
                 throw new Exception("The user does not have permission to execute this action.");
             }
 
@@ -31,7 +31,7 @@ public class Product {
 
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
-        Product findedProduct = new Product(usr1, "product01", Category.acai, 5.25);
+        Product findedProduct = new Product(usr1.type, "product01", Category.acai, 5.25);
 
         return findedProduct;
     }
@@ -42,8 +42,8 @@ public class Product {
         //To simulate database's return:
         User usr1 = new User("cpf01", "password01");
 
-        Product product1 = new Product(usr1, "product01", Category.acai, 5.25);
-        Product product2 = new Product(usr1, "product02", Category.pizza, 4.10);
+        Product product1 = new Product(usr1.type, "product01", Category.acai, 5.25);
+        Product product2 = new Product(usr1.type, "product02", Category.pizza, 4.10);
 
         Product products[] = {product1, product2};
 
