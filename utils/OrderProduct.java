@@ -1,6 +1,6 @@
 package utils;
 
-import entities.Product;
+import model.BO.ProductBO;
 
 public class OrderProduct {
     private String orderId;
@@ -9,7 +9,7 @@ public class OrderProduct {
 
     public OrderProduct(String mOrderId, String mProductId, int mQuantity) {
         try {
-            if(Product.findById(mProductId) == null) {
+            if(ProductBO.findById(mProductId) == null) {
                 throw new Exception("Requested product does not exist.");
             }
 
