@@ -70,23 +70,13 @@ public class User extends Person {
         return findedUser;
     }
 
-    public boolean update(
-        User userToUpdate, String mName, String mPassword, String mPhoneNumber
-    ) {
+    public boolean update(String mName, String mPassword, String mPhoneNumber) {
         try {
-            if(userToUpdate.type == UserType.admin && type != UserType.admin) {
-                throw new Exception("The user does not have permission to execute this action.");
-            }
-
-            if(userToUpdate.id != id && type != UserType.admin) {
-                throw new Exception("The user does not have permission to execute this action.");
-            }
-
             //Update user on database.
 
-            userToUpdate.name = mName;
-            userToUpdate.password = mPassword;
-            userToUpdate.phoneNumber = mPhoneNumber;
+            name = mName;
+            password = mPassword;
+            phoneNumber = mPhoneNumber;
 
             return true;
         } catch(Exception err) {
@@ -96,14 +86,10 @@ public class User extends Person {
         }
     }
 
-    public boolean deleteEmployee(User employeeToDelete) {
+    public boolean delete() {
         try {
-            if(employeeToDelete.type == UserType.admin) {
+            if(type == UserType.admin) {
                 throw new Exception("That user can't be deleted.");
-            }
-
-            if(employeeToDelete.id != id && type != UserType.admin) {
-                throw new Exception("The user does not have permission to execute this action.");
             }
 
             //Delete employee on database.
