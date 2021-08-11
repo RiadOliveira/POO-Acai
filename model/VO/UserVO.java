@@ -2,9 +2,10 @@ package model.VO;
 
 import utils.UserType;
 
-public class User extends Person {
+public class UserVO extends PersonVO {
     private String password;
     private UserType type;
+    private boolean isLogged = false;
 
     public String getPassword() {
         return this.password;
@@ -20,5 +21,13 @@ public class User extends Person {
 
     public void setType(UserType type) {
         this.type = type;
+    }
+
+    public boolean getIsLogged() {
+        return this.isLogged;
+    }
+
+    public void setIsLogged(boolean isLogged) {
+        this.isLogged = isLogged;
     }
 }

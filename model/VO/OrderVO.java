@@ -6,7 +6,7 @@ import utils.OrderStatus;
 import utils.PaymentMethod;
 import utils.OrderProduct;
 
-public class Order {
+public class OrderVO {
     private String id;
     private OrderProduct[] orderProducts;
     private String customerId;

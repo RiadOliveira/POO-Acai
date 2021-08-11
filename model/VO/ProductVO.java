@@ -2,7 +2,7 @@ package model.VO;
 
 import utils.Category;
 
-public class Product {
+public class ProductVO {
     private String id;
     private String name;
     private Category category;

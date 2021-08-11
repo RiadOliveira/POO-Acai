@@ -1,6 +1,6 @@
 package model.VO;
 
-public class Customer extends Person {
+public class CustomerVO extends PersonVO {
     private String adress;
 
     public String getAdress() {

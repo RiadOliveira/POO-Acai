@@ -1,6 +1,6 @@
 package model.VO;
 
-class Person {
+class PersonVO {
     private String id;
     private String name;
     private String cpf;
