@@ -1,16 +1,18 @@
 package model.VO;
 
+import java.util.UUID;
+
 class PersonVO {
-    private String id;
+    private UUID id;
     private String name;
     private String cpf;
     private String phoneNumber;
 
-    public String getId() {
+    public UUID getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

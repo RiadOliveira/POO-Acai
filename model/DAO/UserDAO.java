@@ -1,16 +1,18 @@
 package model.DAO;
 
+import java.util.UUID;
+
 import model.VO.UserVO;
 import utils.UserType;
 
 public class UserDAO {
-    public static String insert(
+    public static UUID insert(
         String name, String cpf, String password, 
         String phoneNumber, UserType type
     ) {
         //Inserts user on database.
         
-        return "userId";
+        return UUID.randomUUID(); //To simulates user's id from database.
     }
 
     public static UserVO[] findAllEmployees() {
@@ -25,7 +27,7 @@ public class UserDAO {
         return users;
     }
 
-    public static UserVO findById(String id) {
+    public static UserVO findById(UUID id) {
         //Database's find method to get requested user;
 
         //To simulate database's return:
@@ -44,12 +46,12 @@ public class UserDAO {
     }
 
     public static void update(
-        String id, String name, String password, String phoneNumber
+        UUID id, String name, String password, String phoneNumber
     ) {
         //Updates User on database.
     }
 
-    public static void delete(String id) {
+    public static void delete(UUID id) {
         //Deletes User on database.
     }
 }

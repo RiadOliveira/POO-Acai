@@ -1,18 +1,20 @@
 package model.VO;
 
+import java.util.UUID;
+
 import utils.Category;
 
 public class ProductVO {
-    private String id;
+    private UUID id;
     private String name;
     private Category category;
     private double price;
 
-    public String getId() {
+    public UUID getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

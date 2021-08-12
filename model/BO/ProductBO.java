@@ -1,6 +1,9 @@
 package model.BO;
 
 import utils.UserType;
+
+import java.util.UUID;
+
 import model.DAO.ProductDAO;
 import model.VO.ProductVO;
 import utils.Category;
@@ -15,7 +18,7 @@ public class ProductBO {
                 throw new Exception("The user does not have permission to execute this action.");
             }
 
-            String productId = ProductDAO.insert(name, category, price);
+            UUID productId = ProductDAO.insert(name, category, price);
 
             product.setId(productId);
             product.setName(name);

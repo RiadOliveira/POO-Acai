@@ -1,16 +1,18 @@
 package model.DAO;
 
+import java.util.UUID;
+
 import model.VO.ProductVO;
 import utils.Category;
 
 public class ProductDAO {
-    public static String insert(String name, Category category, double price) {
+    public static UUID insert(String name, Category category, double price) {
         //Inserts product on database.
         
-        return "productId";
+        return UUID.randomUUID(); //To simulates product's id from database.
     }
 
-    public static ProductVO findById(String id) {
+    public static ProductVO findById(UUID id) {
         //Database's find method to get requested product;
 
         //To simulate database's return:
@@ -32,12 +34,12 @@ public class ProductDAO {
     }
 
     public static void update(
-        String id, String name, Category category, double price
+        UUID id, String name, Category category, double price
     ) {
         //Updates product on database.
     }
 
-    public static void delete(String id) {
+    public static void delete(UUID id) {
         //Deletes product on database.
     }
 }

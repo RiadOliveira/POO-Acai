@@ -1,5 +1,7 @@
 package model.BO;
 
+import java.util.UUID;
+
 import model.DAO.CustomerDAO;
 import model.VO.CustomerVO;
 
@@ -13,7 +15,7 @@ public class CustomerBO {
                 throw new Exception("A customer with this cpf already exists.");
             }
 
-            String customerId = CustomerDAO.insert(name, cpf, phoneNumber, adress);
+            UUID customerId = CustomerDAO.insert(name, cpf, phoneNumber, adress);
 
             customer.setId(customerId);
             customer.setName(name);

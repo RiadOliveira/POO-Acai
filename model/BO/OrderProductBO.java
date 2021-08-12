@@ -1,5 +1,7 @@
 package model.BO;
 
+import java.util.UUID;
+
 import model.DAO.OrderDAO;
 import model.DAO.OrderProductDAO;
 import model.DAO.ProductDAO;
@@ -7,8 +9,8 @@ import model.VO.OrderProductVO;
 
 public class OrderProductBO {
     public static boolean create(
-        OrderProductVO orderProduct, String orderId, 
-        String productId, int quantity
+        OrderProductVO orderProduct, UUID orderId, 
+        UUID productId, int quantity
     ) {
         try {
             if(OrderDAO.findById(orderId) == null) {
@@ -19,7 +21,7 @@ public class OrderProductBO {
                 throw new Exception("Product not found.");
             }
 
-            String orderProductId = OrderProductDAO.insert(orderId, productId, quantity);
+            UUID orderProductId = OrderProductDAO.insert(orderId, productId, quantity);
 
             orderProduct.setId(orderProductId);
             orderProduct.setOrderId(orderId);

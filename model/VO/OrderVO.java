@@ -1,24 +1,25 @@
 package model.VO;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import utils.OrderStatus;
 import utils.PaymentMethod;
 
 public class OrderVO {
-    private String id;
+    private UUID id;
     private OrderProductVO[] orderProducts;
-    private String customerId;
+    private UUID customerId;
     private PaymentMethod paymentMethod;
     private OrderStatus status;
     private LocalDate date;
     private double totalPrice;
 
-    public String getId() {
+    public UUID getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -30,11 +31,11 @@ public class OrderVO {
         this.orderProducts = orderProducts;
     }
 
-    public String getCustomerId() {
+    public UUID getCustomerId() {
         return this.customerId;
     }
 
-    public void setCustomerId(String customerId) {
+    public void setCustomerId(UUID customerId) {
         this.customerId = customerId;
     }
 

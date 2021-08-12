@@ -1,6 +1,7 @@
 package model.BO;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import model.DAO.OrderDAO;
 import model.DAO.UserDAO;
@@ -12,7 +13,7 @@ import utils.ReportType;
 
 public class OrderBO {
     public static boolean create(
-        OrderVO order, String customerId, OrderProductVO[] orderProducts, 
+        OrderVO order, UUID customerId, OrderProductVO[] orderProducts, 
         PaymentMethod paymentMethod, LocalDate date, double totalPrice
     ) {
         try {
@@ -20,7 +21,7 @@ public class OrderBO {
                 throw new Exception("Requested customer does not exist.");
             }
 
-            String orderId = OrderDAO.insert(
+            UUID orderId = OrderDAO.insert(
                 customerId, orderProducts, paymentMethod, 
                 OrderStatus.analyzing, date, totalPrice
             );
@@ -126,7 +127,7 @@ public class OrderBO {
     }
 
     public static boolean update(
-        OrderVO order, String customerId, OrderProductVO[] orderProducts, 
+        OrderVO order, UUID customerId, OrderProductVO[] orderProducts, 
         PaymentMethod paymentMethod, OrderStatus status, LocalDate date, double totalPrice
     ) {
         try {

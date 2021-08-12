@@ -1,32 +1,34 @@
 package model.VO;
 
+import java.util.UUID;
+
 public class OrderProductVO {
-    private String id;
-    private String orderId;
-    private String productId;
+    private UUID id;
+    private UUID orderId;
+    private UUID productId;
     private int quantity;
 
-    public String getId() {
+    public UUID getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public String getOrderId() {
+    public UUID getOrderId() {
         return this.orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(UUID orderId) {
         this.orderId = orderId;
     }
 
-    public String getProductId() {
+    public UUID getProductId() {
         return this.productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(UUID productId) {
         this.productId = productId;
     }
 
@@ -35,7 +37,15 @@ public class OrderProductVO {
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
+        try {
+            if(quantity <= 0) {
+                throw new Exception("Quantity of order needs to be higher than zero.");
+            }
+
+            this.quantity = quantity;
+        } catch (Exception err) {
+            //Handle the exception.
+        }
     }
 
     public String toString() {

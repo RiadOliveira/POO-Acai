@@ -1,15 +1,17 @@
 package model.DAO;
 
+import java.util.UUID;
+
 import model.VO.CustomerVO;
 
 public class CustomerDAO {
-    public static String insert(
+    public static UUID insert(
         String name, String cpf, 
         String phoneNumber, String adress
     ) {
         //Inserts customer on database.
 
-        return "customerId";
+        return UUID.randomUUID(); //To simulates customer's id from database.
     }
 
     public static CustomerVO[] findAll() {
@@ -24,7 +26,7 @@ public class CustomerDAO {
         return customers;
     }
 
-    public static CustomerVO findById(String id) {
+    public static CustomerVO findById(UUID id) {
         //Database's find method to get requested customer;
 
         //To simulate database's return:
@@ -43,12 +45,12 @@ public class CustomerDAO {
     }
 
     public static void update(
-        String id, String name, String phoneNumber, String adress
+        UUID id, String name, String phoneNumber, String adress
     ) {
         //Update customer on database.
     }
 
-    public static void delete(String id) {
+    public static void delete(UUID id) {
         //Delete customer on database.
     }
 }
