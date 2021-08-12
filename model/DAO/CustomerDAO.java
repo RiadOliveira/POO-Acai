@@ -7,7 +7,7 @@ public class CustomerDAO {
         String name, String cpf, 
         String adress, String phoneNumber
     ) {
-        //Insert customer on database.
+        //Inserts customer on database.
 
         return "customerId";
     }

@@ -1,5 +1,6 @@
 package model.BO;
 
+import model.DAO.UserDAO;
 import model.VO.UserVO;
 import utils.UserType;
 
@@ -9,13 +10,13 @@ public class UserBO {
         String phoneNumber, UserType type
     ) {
         try {
-            //Uses database's find method to verify if exists a user with this cpf.
+            if(UserDAO.findByCpf(cpf) != null) {
+                throw new Exception("A user with this cpf already exists.");
+            }
 
-            //If exists, throw Exception.
+            String userId = UserDAO.insert(name, cpf, password, phoneNumber, type);
 
-            //Else, insert a new user into database.
-
-            //Needs to insert id of User.
+            user.setId(userId);
             user.setName(name);
             user.setCpf(cpf);
             user.setPassword(password);
@@ -31,20 +32,19 @@ public class UserBO {
         }
     }
 
-    public static boolean signIn(UserVO user) {
+    public static boolean signIn(UserVO user, String cpf, String password) {
         try {
-            //Uses database's find method to verify if an user with this cpf exists.
+            UserVO findedUser = UserDAO.findByCpf(cpf);
 
-            //If not exists or the user, throw an Exception.
+            if(findedUser == null) {
+                throw new Exception("User not found.");
+            }
 
-            //Else:
-            String findedPassword = "passwordTest"; //To simulate database's password.
-
-            if(!user.getPassword().equals(findedPassword)) {
+            if(!findedUser.getPassword().equals(password)) {
                 throw new Exception("Invalid cpf or password.");
             }
 
-            //If password is equal, sets all attributes to user's data from DB.
+            user = findedUser;
 
             user.setIsLogged(true);
 
@@ -60,37 +60,15 @@ public class UserBO {
         user.setIsLogged(false);
     }
 
-    public static UserVO[] findAllEmployees() {
-        //Database's find method to get all employees (where type == 0);
-
-        //To simulate database's return:
-        UserVO user1 = new UserVO();
-        UserVO user2 = new UserVO();
-
-        UserBO.signUp(user1, "name1", "cpf1", "password1", "phoneNumber1", UserType.admin);
-        UserBO.signUp(user2, "name2", "cpf2", "password2", "phoneNumber2", UserType.employee);
-
-        UserVO users[] = {user1, user2};
-
-        return users;
-    }
-
-    public static UserVO findById(String id) {
-        //Database's find method to get requested user;
-
-        //To simulate database's return:
-        UserVO findedUser = new UserVO();
-
-        UserBO.signUp(findedUser, "name1", "cpf1", "password1", "phoneNumber1", UserType.admin);
-
-        return findedUser;
-    }
-
     public static boolean update(
         UserVO user, String name, String password, String phoneNumber
     ) {
         try {
-            //Update user on database.
+            if(UserDAO.findById(user.getId()) == null)  {
+                throw new Exception("User not found.");
+            }
+            
+            UserDAO.update(user.getId(), name, password, phoneNumber);
 
             user.setName(name);
             user.setPassword(password);
@@ -104,15 +82,18 @@ public class UserBO {
         }
     }
 
-    public static boolean delete(UserVO user) { //Verify if can pass only employee's id.
+    public static boolean delete(UserVO user) {
         try {
             if(user.getType() == UserType.admin) {
                 throw new Exception("That user can't be deleted.");
             }
 
-            //Delete employee on database.
+            if(UserDAO.findById(user.getId()) == null)  {
+                throw new Exception("User not found.");
+            }
 
-            //After that, on main class, needs to delete this object on employee's array.
+            UserDAO.delete(user.getId());
+            user = null;
 
             return true;
         } catch(Exception err) {

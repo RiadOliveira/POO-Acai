@@ -5,7 +5,7 @@ import utils.Category;
 
 public class ProductDAO {
     public static String insert(String name, Category category, double price) {
-        //Insert product on database.
+        //Inserts product on database.
         
         return "productId";
     }

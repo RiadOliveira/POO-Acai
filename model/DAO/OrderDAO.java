@@ -12,7 +12,7 @@ public class OrderDAO {
         String customerId, OrderProduct[] orderProducts, PaymentMethod paymentMethod, 
         OrderStatus status, LocalDate date, double totalPrice
     ) {
-        //Insert order on database.
+        //Inserts order on database.
 
         return "orderId";
     }

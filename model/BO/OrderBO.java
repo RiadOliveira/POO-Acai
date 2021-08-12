@@ -3,6 +3,7 @@ package model.BO;
 import java.time.LocalDate;
 
 import model.DAO.OrderDAO;
+import model.DAO.UserDAO;
 import model.VO.OrderVO;
 import utils.OrderStatus;
 import utils.PaymentMethod;
@@ -15,7 +16,7 @@ public class OrderBO {
         PaymentMethod paymentMethod, LocalDate date, double totalPrice
     ) {
         try {
-            if(UserBO.findById(customerId) == null) {
+            if(UserDAO.findById(customerId) == null) {
                 throw new Exception("Requested customer does not exist.");
             }
 
@@ -133,7 +134,7 @@ public class OrderBO {
                 throw new Exception("Order not found.");
             }
 
-            if(UserBO.findById(customerId) == null) {
+            if(UserDAO.findById(customerId) == null) {
                 throw new Exception("Customer not found.");
             }
 
