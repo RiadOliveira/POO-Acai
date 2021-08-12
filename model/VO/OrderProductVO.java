@@ -37,4 +37,15 @@ public class OrderProductVO {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public String toString() {
+        String obj = "";
+
+        obj = "id: " + this.id + '\n';
+        obj += "orderId: " + this.orderId + '\n';
+        obj += "productId: " + this.productId + '\n';
+        obj += "quantity: " + this.quantity;
+
+        return obj;
+    }
 }

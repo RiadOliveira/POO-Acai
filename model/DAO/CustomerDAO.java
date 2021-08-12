@@ -5,7 +5,7 @@ import model.VO.CustomerVO;
 public class CustomerDAO {
     public static String insert(
         String name, String cpf, 
-        String adress, String phoneNumber
+        String phoneNumber, String adress
     ) {
         //Inserts customer on database.
 
@@ -43,7 +43,7 @@ public class CustomerDAO {
     }
 
     public static void update(
-        String id, String name, String adress, String phoneNumber
+        String id, String name, String phoneNumber, String adress
     ) {
         //Update customer on database.
     }

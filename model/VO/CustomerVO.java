@@ -10,4 +10,8 @@ public class CustomerVO extends PersonVO {
     public void setAdress(String adress) {
         this.adress = adress;
     }
+
+    public String toString() {
+        return super.toString() + "adress: " + this.adress;
+    }
 }

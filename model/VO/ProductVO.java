@@ -39,4 +39,15 @@ public class ProductVO {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public String toString() {
+        String obj = "";
+
+        obj = "id: " + this.id + '\n';
+        obj += "name: " + this.name + '\n';
+        obj += "category: " + this.category + '\n';
+        obj += "price: " + this.price;
+
+        return obj;
+    }
 }

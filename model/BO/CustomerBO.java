@@ -6,20 +6,20 @@ import model.VO.CustomerVO;
 public class CustomerBO {    
     public static boolean create(
         CustomerVO customer, String name, String cpf, 
-        String adress, String phoneNumber
+        String phoneNumber, String adress
     ) {
         try {
             if(CustomerDAO.findByCpf(cpf) != null) {
                 throw new Exception("A customer with this cpf already exists.");
             }
 
-            String customerId = CustomerDAO.insert(name, cpf, adress, phoneNumber);
+            String customerId = CustomerDAO.insert(name, cpf, phoneNumber, adress);
 
             customer.setId(customerId);
             customer.setName(name);
             customer.setCpf(cpf);
-            customer.setAdress(adress);
             customer.setPhoneNumber(phoneNumber);
+            customer.setAdress(adress);
 
             return true;
         } catch(Exception err) {
@@ -50,18 +50,18 @@ public class CustomerBO {
     }
 
     public static boolean update(
-        CustomerVO customer, String name, String adress, String phoneNumber
+        CustomerVO customer, String name, String phoneNumber, String adress
     ) {
         try {    
             if(CustomerDAO.findById(customer.getId()) == null) {
                 throw new Exception("Customer not found.");
             }
 
-            CustomerDAO.update(customer.getId(), name, adress, phoneNumber);
+            CustomerDAO.update(customer.getId(), name, phoneNumber, adress);
 
             customer.setName(name);
-            customer.setAdress(adress);
             customer.setPhoneNumber(phoneNumber);
+            customer.setAdress(adress);
     
             return true;
         } catch (Exception err) {

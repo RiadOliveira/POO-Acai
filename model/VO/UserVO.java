@@ -30,4 +30,13 @@ public class UserVO extends PersonVO {
     public void setIsLogged(boolean isLogged) {
         this.isLogged = isLogged;
     }
+
+    public String toString() {
+        String obj = super.toString();
+        obj += "password: " + this.password + '\n';
+        obj += "type: " + this.type + '\n';
+        obj += "isLogged: " + this.isLogged;
+
+        return obj;
+    }
 }

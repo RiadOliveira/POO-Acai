@@ -37,4 +37,15 @@ class PersonVO {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public String toString() {
+        String obj = "";
+
+        obj = "id: " + this.id + '\n';
+        obj += "name: " + this.name + '\n';
+        obj += "cpf: " + this.cpf + '\n';
+        obj += "phoneNumber: " + this.phoneNumber + '\n';
+
+        return obj;
+    }
 }

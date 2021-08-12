@@ -69,4 +69,18 @@ public class OrderVO {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public String toString() {
+        String obj = "";
+
+        obj = "id: " + this.id + '\n';
+        obj += "orderProducts: " + this.orderProducts + '\n';
+        obj += "customerId: " + this.customerId + '\n';
+        obj += "paymentMethod: " + this.paymentMethod + '\n';
+        obj += "status: " + this.status + '\n';
+        obj += "date: " + this.date + '\n';
+        obj += "totalPrice: " + this.totalPrice;
+
+        return obj;
+    }
 }
