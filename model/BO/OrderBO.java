@@ -21,7 +21,7 @@ public class OrderBO {
 
             String orderId = OrderDAO.insert(
                 customerId, orderProducts, paymentMethod, 
-                date, totalPrice
+                OrderStatus.analyzing, date, totalPrice
             );
 
             order.setId(orderId);

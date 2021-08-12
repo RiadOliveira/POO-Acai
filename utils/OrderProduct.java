@@ -1,6 +1,6 @@
 package utils;
 
-import model.BO.ProductBO;
+import model.DAO.ProductDAO;
 
 public class OrderProduct {
     private String orderId;
@@ -9,7 +9,7 @@ public class OrderProduct {
 
     public OrderProduct(String orderId, String productId, int quantity) {
         try {
-            if(ProductBO.findById(productId) == null) {
+            if(ProductDAO.findById(productId) == null) {
                 throw new Exception("Requested product does not exist.");
             }
 

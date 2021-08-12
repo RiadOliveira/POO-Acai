@@ -9,8 +9,8 @@ import utils.PaymentMethod;
 
 public class OrderDAO {
     public static String insert(
-        String customerId, OrderProduct[] orderProducts, 
-        PaymentMethod paymentMethod, LocalDate date, double totalPrice
+        String customerId, OrderProduct[] orderProducts, PaymentMethod paymentMethod, 
+        OrderStatus status, LocalDate date, double totalPrice
     ) {
         //Insert order on database.
 
