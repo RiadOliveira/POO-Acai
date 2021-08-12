@@ -8,6 +8,15 @@ import utils.OrderStatus;
 import utils.PaymentMethod;
 
 public class OrderDAO {
+    public static String insert(
+        String customerId, OrderProduct[] orderProducts, 
+        PaymentMethod paymentMethod, LocalDate date, double totalPrice
+    ) {
+        //Insert order on database.
+
+        return "orderId";
+    }
+
     public static OrderVO findById(String id) {
         //Database's find method to get requested order.
 
@@ -41,27 +50,14 @@ public class OrderDAO {
         return orders;
     }
 
-    public static boolean update(
+    public static void update(
         String id, String customerId, OrderProduct[] orderProducts, 
         PaymentMethod paymentMethod, OrderStatus status, LocalDate date, double totalPrice
     ) {
-        try {
-            OrderDAO.findById(id);
+        //Updates Order on database.
+    }
 
-            //Update order on database.
-
-            order.setCustomerId(customerId);
-            order.setOrderProducts(orderProducts);
-            order.setPaymentMethod(paymentMethod);
-            order.setOrderStatus(status);
-            order.setDate(date);
-            order.setTotalPrice(totalPrice);
-
-            return true;
-        } catch(Exception err) {
-            //Handle the exception.
-
-            return false;
-        }
+    public static void delete(String id) {
+        //Deletes Order on database.
     }
 }

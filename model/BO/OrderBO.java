@@ -2,6 +2,7 @@ package model.BO;
 
 import java.time.LocalDate;
 
+import model.DAO.OrderDAO;
 import model.VO.OrderVO;
 import utils.OrderStatus;
 import utils.PaymentMethod;
@@ -18,9 +19,12 @@ public class OrderBO {
                 throw new Exception("Requested customer does not exist.");
             }
 
-            //Insert order's data into database.
+            String orderId = OrderDAO.insert(
+                customerId, orderProducts, paymentMethod, 
+                date, totalPrice
+            );
 
-            //Needs to insert id of Order.
+            order.setId(orderId);
             order.setCustomerId(customerId);
             order.setOrderProducts(orderProducts);
             order.setPaymentMethod(paymentMethod);
@@ -125,11 +129,18 @@ public class OrderBO {
         PaymentMethod paymentMethod, OrderStatus status, LocalDate date, double totalPrice
     ) {
         try {
-            if(UserBO.findById(customerId) == null) {
-                throw new Exception("Requested customer does not exist.");
+            if(OrderDAO.findById(order.getId()) == null) {
+                throw new Exception("Order not found.");
             }
 
-            //Update order on database.
+            if(UserBO.findById(customerId) == null) {
+                throw new Exception("Customer not found.");
+            }
+
+            OrderDAO.update(
+                order.getId(), customerId, orderProducts, paymentMethod,
+                status, date, totalPrice
+            );
 
             order.setCustomerId(customerId);
             order.setOrderProducts(orderProducts);
@@ -146,11 +157,14 @@ public class OrderBO {
         }
     }
 
-    public static boolean delete(OrderVO order) { //Verify if can pass only order's id.
+    public static boolean delete(OrderVO order) {
         try {
-            //Delete order on database.
+            if(OrderDAO.findById(order.getId()) == null) {
+                throw new Exception("Order not found.");
+            }
 
-            //After that, on main class, needs to delete this object on order's array.
+            OrderDAO.delete(order.getId());
+            order = null;
 
             return true;
         } catch(Exception err) {

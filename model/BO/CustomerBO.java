@@ -78,6 +78,7 @@ public class CustomerBO {
             }
 
             CustomerDAO.delete(customer.getId());
+            customer = null;
     
             return true;             
         } catch (Exception err) {
