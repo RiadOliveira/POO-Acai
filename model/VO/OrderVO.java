@@ -4,11 +4,10 @@ import java.time.LocalDate;
 
 import utils.OrderStatus;
 import utils.PaymentMethod;
-import utils.OrderProduct;
 
 public class OrderVO {
     private String id;
-    private OrderProduct[] orderProducts;
+    private OrderProductVO[] orderProducts;
     private String customerId;
     private PaymentMethod paymentMethod;
     private OrderStatus status;
@@ -23,11 +22,11 @@ public class OrderVO {
         this.id = id;
     }
 
-    public OrderProduct[] getOrderProducts() {
+    public OrderProductVO[] getOrderProducts() {
         return this.orderProducts;
     }
 
-    public void setOrderProducts(OrderProduct[] orderProducts) {
+    public void setOrderProducts(OrderProductVO[] orderProducts) {
         this.orderProducts = orderProducts;
     }
 

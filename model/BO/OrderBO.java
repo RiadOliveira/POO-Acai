@@ -4,15 +4,15 @@ import java.time.LocalDate;
 
 import model.DAO.OrderDAO;
 import model.DAO.UserDAO;
+import model.VO.OrderProductVO;
 import model.VO.OrderVO;
 import utils.OrderStatus;
 import utils.PaymentMethod;
 import utils.ReportType;
-import utils.OrderProduct;
 
 public class OrderBO {
     public static boolean create(
-        OrderVO order, String customerId, OrderProduct[] orderProducts, 
+        OrderVO order, String customerId, OrderProductVO[] orderProducts, 
         PaymentMethod paymentMethod, LocalDate date, double totalPrice
     ) {
         try {
@@ -126,7 +126,7 @@ public class OrderBO {
     }
 
     public static boolean update(
-        OrderVO order, String customerId, OrderProduct[] orderProducts, 
+        OrderVO order, String customerId, OrderProductVO[] orderProducts, 
         PaymentMethod paymentMethod, OrderStatus status, LocalDate date, double totalPrice
     ) {
         try {

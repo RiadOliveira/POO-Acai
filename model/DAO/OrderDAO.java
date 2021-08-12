@@ -2,17 +2,17 @@ package model.DAO;
 
 import java.time.LocalDate;
 
+import model.VO.OrderProductVO;
 import model.VO.OrderVO;
-import utils.OrderProduct;
 import utils.OrderStatus;
 import utils.PaymentMethod;
 
 public class OrderDAO {
     public static String insert(
-        String customerId, OrderProduct[] orderProducts, PaymentMethod paymentMethod, 
+        String customerId, OrderProductVO[] orderProducts, PaymentMethod paymentMethod, 
         OrderStatus status, LocalDate date, double totalPrice
     ) {
-        //Inserts order on database.
+        //Inserts Order on database.
 
         return "orderId";
     }
@@ -51,7 +51,7 @@ public class OrderDAO {
     }
 
     public static void update(
-        String id, String customerId, OrderProduct[] orderProducts, 
+        String id, String customerId, OrderProductVO[] orderProducts, 
         PaymentMethod paymentMethod, OrderStatus status, LocalDate date, double totalPrice
     ) {
         //Updates Order on database.
