@@ -3,18 +3,13 @@ package model.DAO;
 import model.VO.CustomerVO;
 
 public class CustomerDAO {
-    public static CustomerVO insert(
+    public static String insert(
         String name, String cpf, 
         String adress, String phoneNumber
     ) {
-        try {
-            //Insert customer on database.
-            CustomerVO customer1 = new CustomerVO();
+        //Insert customer on database.
 
-            return customer1;
-        } catch (Exception err) {
-            return null;
-        }
+        return "customerId";
     }
 
     public static CustomerVO[] findAll() {
@@ -47,41 +42,13 @@ public class CustomerDAO {
         return findedCustomer;
     }
 
-    public static CustomerVO update(
+    public static void update(
         String id, String name, String adress, String phoneNumber
     ) {
-        try {
-            CustomerVO databaseCustomer = CustomerDAO.findById(id);
-
-            if(databaseCustomer == null) {
-                throw new Exception("Customer not found.");
-            }
-
-            databaseCustomer.setName(name);
-            databaseCustomer.setAdress(adress);
-            databaseCustomer.setPhoneNumber(phoneNumber);
-
-            //Update customer on database.
-
-            return databaseCustomer;
-        } catch(Exception err) {
-            return null;
-        }
+        //Update customer on database.
     }
 
-    public static boolean delete(String id) { //Verify if can pass only customer's id.
-        try {
-            CustomerVO databaseCustomer = CustomerDAO.findById(id);
-
-            if(databaseCustomer == null) {
-                throw new Exception("Customer not found.");
-            }
-
-            //Delete customer on database.
-
-            return true;
-        } catch(Exception err) {
-            return false;
-        }
+    public static void delete(String id) {
+        //Delete customer on database.
     }
 }

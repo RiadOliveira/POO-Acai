@@ -4,8 +4,8 @@ import model.DAO.CustomerDAO;
 import model.VO.CustomerVO;
 
 public class CustomerBO {    
-    public static CustomerVO create(
-        String name, String cpf, 
+    public static boolean create(
+        CustomerVO customer, String name, String cpf, 
         String adress, String phoneNumber
     ) {
         try {
@@ -13,17 +13,19 @@ public class CustomerBO {
                 throw new Exception("A customer with this cpf already exists.");
             }
 
-            CustomerVO customer = CustomerDAO.insert(name, cpf, adress, phoneNumber);
+            String customerId = CustomerDAO.insert(name, cpf, adress, phoneNumber);
 
-            if(customer == null) {
-                throw new Exception("Internal server error.");
-            }
+            customer.setId(customerId);
+            customer.setName(name);
+            customer.setCpf(cpf);
+            customer.setAdress(adress);
+            customer.setPhoneNumber(phoneNumber);
 
-            return customer;
+            return true;
         } catch(Exception err) {
             //Handle the exception.
 
-            return null;
+            return false;
         }
     }
 
@@ -47,14 +49,41 @@ public class CustomerBO {
         return findedCustomers;
     }
 
-    public static CustomerVO update(
+    public static boolean update(
         CustomerVO customer, String name, String adress, String phoneNumber
     ) {
-        return CustomerDAO.update(customer.getId(), name, adress, phoneNumber);
+        try {    
+            if(CustomerDAO.findById(customer.getId()) == null) {
+                throw new Exception("Customer not found.");
+            }
+
+            CustomerDAO.update(customer.getId(), name, adress, phoneNumber);
+
+            customer.setName(name);
+            customer.setAdress(adress);
+            customer.setPhoneNumber(phoneNumber);
+    
+            return true;
+        } catch (Exception err) {
+            //Handle exception.
+
+            return false;
+        }
     }
 
     public static boolean delete(CustomerVO customer) {
-        //After that, on main class, needs to delete this object on customer's array.
-        return CustomerDAO.delete(customer.getId()); 
+        try {
+            if(CustomerDAO.findById(customer.getId()) == null) {
+                throw new Exception("Customer not found.");
+            }
+
+            CustomerDAO.delete(customer.getId());
+    
+            return true;             
+        } catch (Exception err) {
+            //Handle exception.
+
+            return false;
+        }
     }
 }

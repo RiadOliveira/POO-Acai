@@ -35,63 +35,7 @@ public class OrderBO {
             return false;
         }
     }
-
-    public static OrderVO findById(String id) {
-        //Database's find method to get requested order.
-
-        //To simulate database's return:
-        OrderProduct product1 = new OrderProduct("orderId","productId", 5);
-        LocalDate date = LocalDate.now();
-
-        OrderProduct products[] = {product1};
-
-        OrderVO order = new OrderVO();
-
-        OrderBO.create(order, "customerId", products, PaymentMethod.Card, date, 10.6);
-
-        return order;
-    }
-
-    public static OrderVO[] findByCustomer(String customerId) {
-        //Uses database's find method to get all orders of that customer.
-
-        //To simulate database's return:
-        OrderProduct product1 = new OrderProduct("orderId","productId", 5);
-        LocalDate date = LocalDate.now();
-
-        OrderProduct products[] = {product1};
-
-        OrderVO order1 = new OrderVO();
-        OrderVO order2 = new OrderVO();
-
-        OrderBO.create(order1, customerId, products, PaymentMethod.Card, date, 10.2);
-        OrderBO.create(order2, customerId, products, PaymentMethod.Money, date, 5.4);
-
-        OrderVO orders[] = {order1, order2};
-
-        return orders;
-    }
-
-    public static OrderVO[] findByProduct(String productId) {
-        //Uses database's find method to get all orders of that product.
-
-        //To simulate database's return:
-        OrderProduct product1 = new OrderProduct("orderId",productId, 5);
-        LocalDate date = LocalDate.now();
-
-        OrderProduct products[] = {product1};
-
-        OrderVO order1 = new OrderVO();
-        OrderVO order2 = new OrderVO();
-
-        OrderBO.create(order1, "customerId", products, PaymentMethod.Card, date, 10.2);
-        OrderBO.create(order2, "customerId", products, PaymentMethod.Money, date, 5.4);
-
-        OrderVO orders[] = {order1, order2};
-
-        return orders;
-    }
-
+    
     public static OrderVO[] findByDate(OrderVO[] allOrders, int day, int month, int year) {
         LocalDate date = LocalDate.of(year, month, day);
 
