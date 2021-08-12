@@ -29,7 +29,21 @@ class PersonVO {
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        try {
+            if(cpf.length() != 11) {
+                throw new Exception("Cpf needs to have 11 numbers.");
+            }
+
+            for (int ind = 0; ind < cpf.length(); ind++) {
+                if (cpf.charAt(ind) < '0' && cpf.charAt(ind) > '9') {
+                    throw new Exception("Cpf needs to have only numbers.");
+                }
+            }
+
+            this.cpf = cpf;
+        } catch (Exception err) {
+            //Handle exception.
+        }
     }
 
     public String getPhoneNumber() {
@@ -37,7 +51,21 @@ class PersonVO {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        try {
+            if(phoneNumber.length() < 10) {
+                throw new Exception("Phone number needs to have at least 10 numbers.");
+            }
+
+            for (int ind = 0; ind < phoneNumber.length(); ind++) {
+                if (phoneNumber.charAt(ind) < '0' && phoneNumber.charAt(ind) > '9') {
+                    throw new Exception("phoneNumber needs to have only numbers.");
+                }
+            }
+
+            this.phoneNumber = phoneNumber;
+        } catch (Exception err) {
+            //Handle exception.
+        }
     }
 
     public String toString() {

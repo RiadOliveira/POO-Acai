@@ -68,7 +68,15 @@ public class OrderVO {
     }
 
     public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+        try {
+            if(totalPrice <= 0) {
+                throw new Exception("Total price of an order needs to be higher than zero.");
+            }
+
+            this.totalPrice = totalPrice;
+        } catch (Exception err) {
+            //Handle exception.
+        }
     }
 
     public String toString() {

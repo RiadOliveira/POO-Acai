@@ -39,7 +39,7 @@ public class OrderProductVO {
     public void setQuantity(int quantity) {
         try {
             if(quantity <= 0) {
-                throw new Exception("Quantity of order needs to be higher than zero.");
+                throw new Exception("Quantity of an orderProduct needs to be higher than zero.");
             }
 
             this.quantity = quantity;

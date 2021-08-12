@@ -39,7 +39,15 @@ public class ProductVO {
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        try {
+            if(price <= 0) {
+                throw new Exception("Price of a product needs to be higher than zero.");
+            }
+
+            this.price = price;
+        } catch (Exception err) {
+            //Handle exception.
+        }
     }
 
     public String toString() {
