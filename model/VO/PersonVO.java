@@ -46,12 +46,12 @@ class PersonVO {
 
     public void setCpf(String cpf) {
         try {
-            if(cpf == null || cpf.equals(""))  {
-                throw new Exception("Person's cpf can't be null or empty.");
+            if(cpf == null)  {
+                throw new Exception("Person's cpf can't be null.");
             }
 
             if(cpf.length() != 11) {
-                throw new Exception("Person's cpf needs to have 11 numbers.");
+                throw new Exception("Person's cpf must be 11 in length.");
             }
 
             for (int ind=0 ; ind < cpf.length() ; ind++) {
