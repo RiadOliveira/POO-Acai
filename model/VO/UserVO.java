@@ -12,7 +12,19 @@ public class UserVO extends PersonVO {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        try {
+            if(password == null) {
+                throw new Exception("User's password can't be null.");
+            }
+
+            if(password.length() < 6) {
+                throw new Exception("User's password needs to have, at least, 6 characters.");
+            }
+    
+            this.password = password;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public UserType getType() {
@@ -20,7 +32,15 @@ public class UserVO extends PersonVO {
     }
 
     public void setType(UserType type) {
-        this.type = type;
+        try {
+            if(type == null) {
+                throw new Exception("User's type can't be null.");
+            }
+    
+            this.type = type;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public boolean getIsLogged() {

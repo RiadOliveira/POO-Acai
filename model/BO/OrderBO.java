@@ -36,7 +36,7 @@ public class OrderBO {
 
             return true;
         } catch(Exception err) {
-            //Handle the exception.
+            //Handle exception.
 
             return false;
         }
@@ -153,7 +153,7 @@ public class OrderBO {
 
             return true;
         } catch(Exception err) {
-            //Handle the exception.
+            //Handle exception.
 
             return false;
         }
@@ -170,7 +170,7 @@ public class OrderBO {
 
             return true;
         } catch(Exception err) {
-            //Handle the exception.
+            //Handle exception.
 
             return false;
         }

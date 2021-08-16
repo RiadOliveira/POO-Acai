@@ -20,7 +20,15 @@ public class OrderVO {
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        try {
+            if(id == null) { //UUID already can't be created from empty string.
+                throw new Exception("Order's id can't be null.");
+            }
+    
+            this.id = id;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public OrderProductVO[] getOrderProducts() {
@@ -28,7 +36,17 @@ public class OrderVO {
     }
 
     public void setOrderProducts(OrderProductVO[] orderProducts) {
-        this.orderProducts = orderProducts;
+        try {
+            for(int ind=0 ; ind<orderProducts.length ; ind++) {
+                if(orderProducts[ind] == null) {
+                    throw new Exception("None order's product can be null.");
+                }
+            }
+    
+            this.orderProducts = orderProducts;
+        } catch(Exception err) {
+            //Handle exception.
+        }
     }
 
     public UUID getCustomerId() {
@@ -36,7 +54,15 @@ public class OrderVO {
     }
 
     public void setCustomerId(UUID customerId) {
-        this.customerId = customerId;
+        try {
+            if(customerId == null) { //UUID already can't be created from empty string.
+                throw new Exception("Order's customer id can't be null.");
+            }
+    
+            this.customerId = customerId;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public PaymentMethod getPaymentMethod() {
@@ -44,15 +70,31 @@ public class OrderVO {
     }
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
+        try {
+            if(paymentMethod == null) {
+                throw new Exception("Order's payment method can't be null.");
+            }
+    
+            this.paymentMethod = paymentMethod;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public OrderStatus getOrderStatus() {
         return this.status;
     }
 
-    public void setOrderStatus(OrderStatus status) {
-        this.status = status;
+    public void setOrderStatus(OrderStatus status) {        
+        try {
+            if(status == null) {
+                throw new Exception("Order's status can't be null.");
+            }
+    
+            this.status = status;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public LocalDate getDate() {
@@ -60,7 +102,19 @@ public class OrderVO {
     }
 
     public void setDate(LocalDate date) {
-        this.date = date;
+        try {
+            if(date == null) {
+                throw new Exception("Order's date can't be null.");
+            }
+
+            if(date.compareTo(LocalDate.now()) < 0) {
+                throw new Exception("An order can't be registered in a past date.");
+            }
+    
+            this.date = date;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public double getTotalPrice() {

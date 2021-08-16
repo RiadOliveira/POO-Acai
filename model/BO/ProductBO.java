@@ -27,7 +27,7 @@ public class ProductBO {
 
             return true;
         } catch(Exception err) {
-            //Handle the exception.
+            //Handle exception.
 
             return false;
         }
@@ -49,7 +49,7 @@ public class ProductBO {
 
             return true;
         } catch(Exception err) {
-            //Handle the exception.
+            //Handle exception.
 
             return false;
         }
@@ -70,7 +70,7 @@ public class ProductBO {
 
             return true;
         } catch(Exception err) {
-            //Handle the exception.
+            //Handle exception.
 
             return false;
         }

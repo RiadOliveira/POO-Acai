@@ -8,7 +8,15 @@ public class CustomerVO extends PersonVO {
     }
 
     public void setAdress(String adress) {
-        this.adress = adress;
+        try {
+            if(adress == null || adress.equals("")) {
+                throw new Exception("Adress can't be null or empty.");
+            }
+
+            this.adress = adress;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public String toString() {

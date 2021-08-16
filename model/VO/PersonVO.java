@@ -13,7 +13,15 @@ class PersonVO {
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        try {
+            if(id == null) { //UUID already can't be created from empty string.
+                throw new Exception("Person's id can't be null.");
+            }
+    
+            this.id = id;
+        } catch (Exception err) {
+            //Handle exception
+        }  
     }
 
     public String getName() {
@@ -21,7 +29,15 @@ class PersonVO {
     }
 
     public void setName(String name) {
-        this.name = name;
+        try {
+            if(name == null || name.equals("")) {
+                throw new Exception("Person's name can't be null or empty.");
+            }
+    
+            this.name = name;
+        } catch (Exception err) {
+            //Handle exception
+        }  
     }
 
     public String getCpf() {
@@ -30,13 +46,17 @@ class PersonVO {
 
     public void setCpf(String cpf) {
         try {
+            if(cpf == null || cpf.equals(""))  {
+                throw new Exception("Person's cpf can't be null or empty.");
+            }
+
             if(cpf.length() != 11) {
-                throw new Exception("Cpf needs to have 11 numbers.");
+                throw new Exception("Person's cpf needs to have 11 numbers.");
             }
 
             for (int ind=0 ; ind < cpf.length() ; ind++) {
                 if (cpf.charAt(ind) < '0' || cpf.charAt(ind) > '9') {
-                    throw new Exception("Cpf needs to have only numbers.");
+                    throw new Exception("Person's cpf needs to have only numbers.");
                 }
             }
 
@@ -52,13 +72,17 @@ class PersonVO {
 
     public void setPhoneNumber(String phoneNumber) {
         try {
-            if(phoneNumber.length() < 10) {
-                throw new Exception("Phone number needs to have at least 10 numbers.");
+            if(phoneNumber == null)  {
+                throw new Exception("Person's phone number can't be null.");
             }
 
-            for (int ind=0 ; ind < phoneNumber.length() ; ind++) {
+            if(phoneNumber.length() < 10) { //Including DDD.
+                throw new Exception("Person's phone number needs to have at least 10 numbers.");
+            }
+
+            for (int ind=0 ; ind < phoneNumber.length() ; ind++) { //Verify if has only numbers.
                 if (phoneNumber.charAt(ind) < '0' || phoneNumber.charAt(ind) > '9') {
-                    throw new Exception("phoneNumber needs to have only numbers.");
+                    throw new Exception("Person's phone number needs to have only numbers.");
                 }
             }
 

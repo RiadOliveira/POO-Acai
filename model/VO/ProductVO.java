@@ -15,7 +15,15 @@ public class ProductVO {
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        try {
+            if(id == null) { //UUID already can't be created from empty string.
+                throw new Exception("Product's id can't be null.");
+            }
+    
+            this.id = id;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public String getName() {
@@ -23,7 +31,15 @@ public class ProductVO {
     }
 
     public void setName(String name) {
-        this.name = name;
+        try {
+            if(name == null || name.equals("")) {
+                throw new Exception("Product's name can't be null or empty.");
+            }
+    
+            this.name = name;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public Category getCategory() {
@@ -31,7 +47,15 @@ public class ProductVO {
     }
 
     public void setCategory(Category category) {
-        this.category = category;
+        try {
+            if(category == null) {
+                throw new Exception("Product's category can't be null.");
+            }
+    
+            this.category = category;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public double getPrice() {

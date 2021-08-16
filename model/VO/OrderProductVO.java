@@ -13,7 +13,15 @@ public class OrderProductVO {
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        try {
+            if(id == null) { //UUID already can't be created from empty string.
+                throw new Exception("Order's product id can't be null.");
+            }
+    
+            this.id = id;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public UUID getOrderId() {
@@ -21,7 +29,15 @@ public class OrderProductVO {
     }
 
     public void setOrderId(UUID orderId) {
-        this.orderId = orderId;
+        try {
+            if(orderId == null) { //UUID already can't be created from empty string.
+                throw new Exception("Order's id can't be null (Order's product).");
+            }
+    
+            this.orderId = orderId;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public UUID getProductId() {
@@ -29,7 +45,15 @@ public class OrderProductVO {
     }
 
     public void setProductId(UUID productId) {
-        this.productId = productId;
+        try {
+            if(productId == null) { //UUID already can't be created from empty string.
+                throw new Exception("Product's id can't be null (Order's product).");
+            }
+    
+            this.productId = productId;
+        } catch (Exception err) {
+            //Handle exception.
+        } 
     }
 
     public int getQuantity() {
@@ -44,7 +68,7 @@ public class OrderProductVO {
 
             this.quantity = quantity;
         } catch (Exception err) {
-            //Handle the exception.
+            //Handle exception.
         }
     }
 
