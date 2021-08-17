@@ -26,13 +26,11 @@ public class CustomerDAO {
         return customers;
     }
 
-    public static CustomerVO findById(UUID id) {
+    public static CustomerVO findById(CustomerVO customer) {
         //Database's find method to get requested customer;
 
         //To simulate database's return:
-        CustomerVO findedCustomer = new CustomerVO();
-
-        return findedCustomer;
+        return customer;
     }
 
     public static CustomerVO findByCpf(String cpf) {

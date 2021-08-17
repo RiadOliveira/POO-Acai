@@ -1,18 +1,13 @@
 package model.DAO;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
-import model.VO.OrderProductVO;
+import model.VO.CustomerVO;
 import model.VO.OrderVO;
-import utils.OrderStatus;
-import utils.PaymentMethod;
+import model.VO.ProductVO;
 
 public class OrderDAO {
-    public static UUID insert(
-        UUID customerId, OrderProductVO[] orderProducts, PaymentMethod paymentMethod, 
-        OrderStatus status, LocalDate date, double totalPrice
-    ) {
+    public static UUID insert(OrderVO order) {
         //Inserts Order on database.
 
         return UUID.randomUUID(); //To simulates order's id from database.
@@ -25,7 +20,7 @@ public class OrderDAO {
         return order;
     }
 
-    public static OrderVO[] findByCustomerId(UUID customerId) {
+    public static OrderVO[] findByCustomerId(CustomerVO customer) {
         //Uses database's find method to get all orders of that customer.
 
         //To simulate database's return:
@@ -37,7 +32,7 @@ public class OrderDAO {
         return orders;
     }
 
-    public static OrderVO[] findByProductId(UUID productId) {
+    public static OrderVO[] findByProductId(ProductVO product) {
         //Uses database's find method to get all orders of that product.
 
         //To simulate database's return:
@@ -49,14 +44,11 @@ public class OrderDAO {
         return orders;
     }
 
-    public static void update(
-        UUID id, UUID customerId, OrderProductVO[] orderProducts, 
-        PaymentMethod paymentMethod, OrderStatus status, LocalDate date, double totalPrice
-    ) {
-        //Updates Order on database.
+    public static void update(OrderVO order) {
+        //Updates Order on database using its id.
     }
 
-    public static void delete(UUID id) {
-        //Deletes Order on database.
+    public static void delete(OrderVO order) {
+        //Deletes Order on database using its id.
     }
 }

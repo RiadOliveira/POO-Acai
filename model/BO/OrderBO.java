@@ -3,36 +3,21 @@ package model.BO;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import model.DAO.CustomerDAO;
 import model.DAO.OrderDAO;
-import model.DAO.UserDAO;
-import model.VO.OrderProductVO;
 import model.VO.OrderVO;
-import utils.OrderStatus;
-import utils.PaymentMethod;
 import utils.ReportType;
 
 public class OrderBO {
-    public static boolean create(
-        OrderVO order, UUID customerId, OrderProductVO[] orderProducts, 
-        PaymentMethod paymentMethod, LocalDate date, double totalPrice
-    ) {
+    public static boolean create(OrderVO order) {
         try {
-            if(UserDAO.findById(customerId) == null) {
+            if(CustomerDAO.findById(order.getCustomer()) == null) {
                 throw new Exception("Requested customer does not exist.");
             }
 
-            UUID orderId = OrderDAO.insert(
-                customerId, orderProducts, paymentMethod, 
-                OrderStatus.analyzing, date, totalPrice
-            );
+            UUID orderId = OrderDAO.insert(order);
 
             order.setId(orderId);
-            order.setCustomerId(customerId);
-            order.setOrderProducts(orderProducts);
-            order.setPaymentMethod(paymentMethod);
-            order.setOrderStatus(OrderStatus.analyzing);
-            order.setDate(date);
-            order.setTotalPrice(totalPrice);
 
             return true;
         } catch(Exception err) {
@@ -42,9 +27,7 @@ public class OrderBO {
         }
     }
     
-    public static OrderVO[] findByDate(OrderVO[] allOrders, int day, int month, int year) {
-        LocalDate date = LocalDate.of(year, month, day);
-
+    public static OrderVO[] findByDate(OrderVO[] allOrders, LocalDate date) {
         int searchedOrdersLength = 0;
         int searchedPositions[] = new int[allOrders.length];
 
@@ -65,17 +48,16 @@ public class OrderBO {
     }
 
     public static OrderVO[] generateReport(
-        OrderVO[] allOrders, ReportType type, 
-        int day, int month, int year
+        OrderVO[] allOrders, ReportType type, LocalDate date
     ) {
         switch(type) { 
-            case day: return OrderBO.findByDate(allOrders, day, month, year);
+            case day: return OrderBO.findByDate(allOrders, date);
             
             case week: {
-                int startOfWeek = day - LocalDate.of(year, month, day).getDayOfWeek().getValue();
+                int startOfWeek = date.getDayOfMonth() - date.getDayOfWeek().getValue();
 
-                LocalDate initialDate = LocalDate.of(year, month, startOfWeek);
-                LocalDate finalDate = LocalDate.of(year, month, startOfWeek).plusDays(7);
+                LocalDate initialDate = LocalDate.of(date.getYear(), date.getMonthValue(), startOfWeek);
+                LocalDate finalDate = initialDate.plusDays(7);
 
                 int searchedOrdersLength = 0;
                 int searchedPositions[] = new int[allOrders.length];
@@ -105,8 +87,8 @@ public class OrderBO {
 
                 for(int ind=0, i=0 ; ind<allOrders.length ; ind++) {
                     if(
-                        allOrders[ind].getDate().getYear() == year &&
-                        allOrders[ind].getDate().getMonthValue() == month
+                        allOrders[ind].getDate().getYear() == date.getYear() &&
+                        allOrders[ind].getDate().getMonthValue() == date.getMonthValue()
                     ) {
                         searchedOrdersLength++;
                         searchedPositions[i++] = ind;
@@ -126,30 +108,17 @@ public class OrderBO {
         }
     }
 
-    public static boolean update(
-        OrderVO order, UUID customerId, OrderProductVO[] orderProducts, 
-        PaymentMethod paymentMethod, OrderStatus status, LocalDate date, double totalPrice
-    ) {
+    public static boolean update(OrderVO order) {
         try {
             if(OrderDAO.findById(order) == null) {
                 throw new Exception("Order not found.");
             }
 
-            if(UserDAO.findById(customerId) == null) {
+            if(CustomerDAO.findById(order.getCustomer()) == null) {
                 throw new Exception("Customer not found.");
             }
 
-            OrderDAO.update(
-                order.getId(), customerId, orderProducts, paymentMethod,
-                status, date, totalPrice
-            );
-
-            order.setCustomerId(customerId);
-            order.setOrderProducts(orderProducts);
-            order.setPaymentMethod(paymentMethod);
-            order.setOrderStatus(status);
-            order.setDate(date);
-            order.setTotalPrice(totalPrice);
+            OrderDAO.update(order);
 
             return true;
         } catch(Exception err) {
@@ -165,7 +134,7 @@ public class OrderBO {
                 throw new Exception("Order not found.");
             }
 
-            OrderDAO.delete(order.getId());
+            OrderDAO.delete(order);
             order = null;
 
             return true;

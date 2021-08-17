@@ -55,7 +55,7 @@ public class CustomerBO {
         CustomerVO customer, String name, String phoneNumber, String adress
     ) {
         try {    
-            if(CustomerDAO.findById(customer.getId()) == null) {
+            if(CustomerDAO.findById(customer) == null) {
                 throw new Exception("Customer not found.");
             }
 
@@ -75,7 +75,7 @@ public class CustomerBO {
 
     public static boolean delete(CustomerVO customer) {
         try {
-            if(CustomerDAO.findById(customer.getId()) == null) {
+            if(CustomerDAO.findById(customer) == null) {
                 throw new Exception("Customer not found.");
             }
 

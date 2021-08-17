@@ -9,7 +9,7 @@ import utils.PaymentMethod;
 public class OrderVO {
     private UUID id;
     private OrderProductVO[] orderProducts;
-    private UUID customerId;
+    private CustomerVO customer;
     private PaymentMethod paymentMethod;
     private OrderStatus status;
     private LocalDate date;
@@ -49,17 +49,17 @@ public class OrderVO {
         }
     }
 
-    public UUID getCustomerId() {
-        return this.customerId;
+    public CustomerVO getCustomer() {
+        return this.customer;
     }
 
-    public void setCustomerId(UUID customerId) {
+    public void setCustomer(CustomerVO customer) {
         try {
-            if(customerId == null) { //UUID already can't be created from empty string.
-                throw new Exception("Order's customer id can't be null.");
+            if(customer == null) {
+                throw new Exception("Order's customer can't be null.");
             }
     
-            this.customerId = customerId;
+            this.customer = customer;
         } catch (Exception err) {
             //Handle exception.
         } 
@@ -138,7 +138,7 @@ public class OrderVO {
 
         obj = "id: " + this.id + '\n';
         obj += "orderProducts: " + this.orderProducts + '\n';
-        obj += "customerId: " + this.customerId + '\n';
+        obj += "customer: " + this.customer.toString() + '\n';
         obj += "paymentMethod: " + this.paymentMethod + '\n';
         obj += "status: " + this.status + '\n';
         obj += "date: " + this.date + '\n';
