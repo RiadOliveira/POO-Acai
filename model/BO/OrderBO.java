@@ -131,7 +131,7 @@ public class OrderBO {
         PaymentMethod paymentMethod, OrderStatus status, LocalDate date, double totalPrice
     ) {
         try {
-            if(OrderDAO.findById(order.getId()) == null) {
+            if(OrderDAO.findById(order) == null) {
                 throw new Exception("Order not found.");
             }
 
@@ -161,7 +161,7 @@ public class OrderBO {
 
     public static boolean delete(OrderVO order) {
         try {
-            if(OrderDAO.findById(order.getId()) == null) {
+            if(OrderDAO.findById(order) == null) {
                 throw new Exception("Order not found.");
             }
 

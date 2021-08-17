@@ -44,10 +44,10 @@ public class OrderProductDAO {
     }
 
     public static void update(OrderProductVO orderProduct) {
-        //Updates OrderProduct quantity on database.
+        //Updates OrderProduct quantity on database using its id.
     }
 
     public static void delete(OrderProductVO orderProduct) {
-        //Deletes OrderProduct on database.
+        //Deletes OrderProduct on database using its id.
     }
 }
