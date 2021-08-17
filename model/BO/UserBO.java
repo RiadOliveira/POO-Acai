@@ -7,23 +7,15 @@ import model.VO.UserVO;
 import utils.UserType;
 
 public class UserBO {
-    public static boolean signUp(
-        UserVO user, String name, String cpf, String password, 
-        String phoneNumber, UserType type
-    ) {
+    public static boolean signUp(UserVO user) {
         try {
-            if(UserDAO.findByCpf(cpf) != null) {
+            if(UserDAO.findByCpf(user) != null) {
                 throw new Exception("A user with this cpf already exists.");
             }
 
-            UUID userId = UserDAO.insert(name, cpf, password, phoneNumber, type);
+            UUID userId = UserDAO.insert(user);
 
             user.setId(userId);
-            user.setName(name);
-            user.setCpf(cpf);
-            user.setPassword(password);
-            user.setPhoneNumber(phoneNumber);
-            user.setType(type);
             user.setIsLogged(true);
 
             return true;
@@ -34,15 +26,15 @@ public class UserBO {
         }
     }
 
-    public static boolean signIn(UserVO user, String cpf, String password) {
+    public static boolean signIn(UserVO user) {
         try {
-            UserVO findedUser = UserDAO.findByCpf(cpf);
+            UserVO findedUser = UserDAO.findByCpf(user);
 
             if(findedUser == null) {
                 throw new Exception("User not found.");
             }
 
-            if(!findedUser.getPassword().equals(password)) {
+            if(!findedUser.getPassword().equals(user.getPassword())) {
                 throw new Exception("Invalid cpf or password.");
             }
 
@@ -62,19 +54,13 @@ public class UserBO {
         user.setIsLogged(false);
     }
 
-    public static boolean update(
-        UserVO user, String name, String password, String phoneNumber
-    ) {
+    public static boolean update(UserVO user) {
         try {
-            if(UserDAO.findById(user.getId()) == null)  {
+            if(UserDAO.findById(user) == null)  {
                 throw new Exception("User not found.");
             }
             
-            UserDAO.update(user.getId(), name, password, phoneNumber);
-
-            user.setName(name);
-            user.setPassword(password);
-            user.setPhoneNumber(phoneNumber);
+            UserDAO.update(user);
 
             return true;
         } catch(Exception err) {
@@ -90,11 +76,11 @@ public class UserBO {
                 throw new Exception("That user can't be deleted.");
             }
 
-            if(UserDAO.findById(user.getId()) == null)  {
+            if(UserDAO.findById(user) == null)  {
                 throw new Exception("User not found.");
             }
 
-            UserDAO.delete(user.getId());
+            UserDAO.delete(user);
             user = null;
 
             return true;
