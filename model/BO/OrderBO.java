@@ -65,7 +65,7 @@ public class OrderBO {
     }
 
     public static OrderVO[] generateReport(
-        OrderVO allOrders[], ReportType type, 
+        OrderVO[] allOrders, ReportType type, 
         int day, int month, int year
     ) {
         switch(type) { 

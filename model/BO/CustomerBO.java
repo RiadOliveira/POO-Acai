@@ -31,7 +31,7 @@ public class CustomerBO {
         }
     }
 
-    public static CustomerVO[] findByName(CustomerVO allCustomers[], String searchedName) {
+    public static CustomerVO[] findByName(CustomerVO[] allCustomers, String searchedName) {
         int findedCustomersLength = 0;
         int findedCustomersPositions[] = new int[allCustomers.length];
 
