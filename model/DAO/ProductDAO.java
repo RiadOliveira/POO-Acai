@@ -12,13 +12,11 @@ public class ProductDAO {
         return UUID.randomUUID(); //To simulates product's id from database.
     }
 
-    public static ProductVO findById(UUID id) {
+    public static ProductVO findById(ProductVO product) {
         //Database's find method to get requested product;
 
         //To simulate database's return:
-        ProductVO findedProduct = new ProductVO();
-
-        return findedProduct;
+        return product;
     }
 
     public static ProductVO[] findAll() {

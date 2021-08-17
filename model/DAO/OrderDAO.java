@@ -18,12 +18,10 @@ public class OrderDAO {
         return UUID.randomUUID(); //To simulates order's id from database.
     }
 
-    public static OrderVO findById(UUID id) {
+    public static OrderVO findById(OrderVO order) {
         //Database's find method to get requested order.
 
         //To simulate database's return:
-        OrderVO order = new OrderVO();
-
         return order;
     }
 
