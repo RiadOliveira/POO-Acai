@@ -2,7 +2,6 @@ package model.DAO;
 
 import java.util.UUID;
 
-import model.VO.CustomerVO;
 import model.VO.OrderProductVO;
 import model.VO.OrderVO;
 import model.VO.ProductVO;

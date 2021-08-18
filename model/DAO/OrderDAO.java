@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import model.VO.CustomerVO;
 import model.VO.OrderVO;
-import model.VO.ProductVO;
 
 public class OrderDAO {
     public static UUID insert(OrderVO order) {
