@@ -4,8 +4,8 @@ import java.util.UUID;
 
 public class OrderProductVO {
     private UUID id;
-    private UUID orderId;
-    private UUID productId;
+    private OrderVO order;
+    private ProductVO product;
     private int quantity;
 
     public UUID getId() {
@@ -24,33 +24,33 @@ public class OrderProductVO {
         } 
     }
 
-    public UUID getOrderId() {
-        return this.orderId;
+    public OrderVO getOrder() {
+        return this.order;
     }
 
-    public void setOrderId(UUID orderId) {
+    public void setOrder(OrderVO order) {
         try {
-            if(orderId == null) { //UUID already can't be created from empty string.
-                throw new Exception("Order's id can't be null (Order's product).");
+            if(order == null) {
+                throw new Exception("Order can't be null (Order's product).");
             }
     
-            this.orderId = orderId;
+            this.order = order;
         } catch (Exception err) {
             //Handle exception.
         } 
     }
 
-    public UUID getProductId() {
-        return this.productId;
+    public ProductVO getProduct() {
+        return this.product;
     }
 
-    public void setProductId(UUID productId) {
+    public void setProductId(ProductVO product) {
         try {
-            if(productId == null) { //UUID already can't be created from empty string.
-                throw new Exception("Product's id can't be null (Order's product).");
+            if(product == null) {
+                throw new Exception("Product can't be null (Order's product).");
             }
     
-            this.productId = productId;
+            this.product = product;
         } catch (Exception err) {
             //Handle exception.
         } 
@@ -76,8 +76,8 @@ public class OrderProductVO {
         String obj = "";
 
         obj = "id: " + this.id + '\n';
-        obj += "orderId: " + this.orderId + '\n';
-        obj += "productId: " + this.productId + '\n';
+        obj += "order: " + this.order.toString() + '\n';
+        obj += "product: " + this.product.toString() + '\n';
         obj += "quantity: " + this.quantity;
 
         return obj;

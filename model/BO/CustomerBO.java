@@ -6,22 +6,15 @@ import model.DAO.CustomerDAO;
 import model.VO.CustomerVO;
 
 public class CustomerBO {    
-    public static boolean create(
-        CustomerVO customer, String name, String cpf, 
-        String phoneNumber, String adress
-    ) {
+    public static boolean create(CustomerVO customer) {
         try {
-            if(CustomerDAO.findByCpf(cpf) != null) {
+            if(CustomerDAO.findByCpf(customer) != null) {
                 throw new Exception("A customer with this cpf already exists.");
             }
 
-            UUID customerId = CustomerDAO.insert(name, cpf, phoneNumber, adress);
+            UUID customerId = CustomerDAO.insert(customer);
 
             customer.setId(customerId);
-            customer.setName(name);
-            customer.setCpf(cpf);
-            customer.setPhoneNumber(phoneNumber);
-            customer.setAdress(adress);
 
             return true;
         } catch(Exception err) {
@@ -51,19 +44,13 @@ public class CustomerBO {
         return findedCustomers;
     }
 
-    public static boolean update(
-        CustomerVO customer, String name, String phoneNumber, String adress
-    ) {
+    public static boolean update(CustomerVO customer) {
         try {    
-            if(CustomerDAO.findById(customer.getId()) == null) {
+            if(CustomerDAO.findById(customer) == null) {
                 throw new Exception("Customer not found.");
             }
 
-            CustomerDAO.update(customer.getId(), name, phoneNumber, adress);
-
-            customer.setName(name);
-            customer.setPhoneNumber(phoneNumber);
-            customer.setAdress(adress);
+            CustomerDAO.update(customer);
     
             return true;
         } catch (Exception err) {
@@ -75,11 +62,11 @@ public class CustomerBO {
 
     public static boolean delete(CustomerVO customer) {
         try {
-            if(CustomerDAO.findById(customer.getId()) == null) {
+            if(CustomerDAO.findById(customer) == null) {
                 throw new Exception("Customer not found.");
             }
 
-            CustomerDAO.delete(customer.getId());
+            CustomerDAO.delete(customer);
             customer = null;
     
             return true;             

@@ -3,13 +3,9 @@ package model.DAO;
 import java.util.UUID;
 
 import model.VO.UserVO;
-import utils.UserType;
 
 public class UserDAO {
-    public static UUID insert(
-        String name, String cpf, String password, 
-        String phoneNumber, UserType type
-    ) {
+    public static UUID insert(UserVO user) {
         //Inserts user on database.
         
         return UUID.randomUUID(); //To simulates user's id from database.
@@ -27,31 +23,25 @@ public class UserDAO {
         return users;
     }
 
-    public static UserVO findById(UUID id) {
+    public static UserVO findById(UserVO user) {
         //Database's find method to get requested user;
 
         //To simulate database's return:
-        UserVO findedUser = new UserVO();
-
-        return findedUser;
+        return user;
     }
 
-    public static UserVO findByCpf(String cpf) {
-        //Database's find method to get requested customer;
+    public static UserVO findByCpf(UserVO user) {
+        //Database's find method (where cpf == user.cpf) to get requested customer;
 
         //To simulate database's return:
-        UserVO findedUser = new UserVO();
-
-        return findedUser;
+        return user;
     }
 
-    public static void update(
-        UUID id, String name, String password, String phoneNumber
-    ) {
-        //Updates User on database.
+    public static void update(UserVO user) {
+        //Updates User on database using its id.
     }
 
-    public static void delete(UUID id) {
-        //Deletes User on database.
+    public static void delete(UserVO user) {
+        //Deletes User on database using its id.
     }
 }

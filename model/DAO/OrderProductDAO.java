@@ -3,36 +3,23 @@ package model.DAO;
 import java.util.UUID;
 
 import model.VO.OrderProductVO;
+import model.VO.OrderVO;
+import model.VO.ProductVO;
 
 public class OrderProductDAO {
-    public static UUID insert(UUID orderId, UUID productId, int quantity) {
+    public static UUID insert(OrderProductVO orderProduct) { //Maybe return orderProduct with id.
         //Inserts OrderProduct on database.
 
         return UUID.randomUUID(); //To simulates orderProduct's id from database.
     }
 
-    public static OrderProductVO findById(UUID id) {
+    public static OrderProductVO findById(OrderProductVO orderProduct) {
         //Database's find method to get requested orderProduct.
-
-        //To simulate database's return:
-        OrderProductVO orderProduct = new OrderProductVO();
-
+        
         return orderProduct;
     }
 
-    public static OrderProductVO[] findByCustomerId(UUID customerId) {
-        //Uses database's find method to get all orderProducts of that customer.
-
-        //To simulate database's return:
-        OrderProductVO orderProduct1 = new OrderProductVO();
-        OrderProductVO orderProduct2 = new OrderProductVO();
-
-        OrderProductVO orders[] = {orderProduct1, orderProduct2};
-
-        return orders;
-    }
-
-    public static OrderProductVO[] findByProductId(UUID productId) {
+    public static OrderProductVO[] findByProduct(ProductVO product) {
         //Uses database's find method to get all orderProducts of that product.
 
         //To simulate database's return:
@@ -43,12 +30,24 @@ public class OrderProductDAO {
 
         return orders;
     }
+    
+    public static OrderProductVO[] findByOrder(OrderVO order) {
+    	//Uses database's find method to get all orderProducts of that order.
 
-    public static void updateQuantity(UUID id, int quantity) {
-        //Updates OrderProduct quantity on database.
+        //To simulate database's return:
+        OrderProductVO orderProduct1 = new OrderProductVO();
+        OrderProductVO orderProduct2 = new OrderProductVO();
+
+        OrderProductVO orders[] = {orderProduct1, orderProduct2};
+
+        return orders;
     }
 
-    public static void delete(UUID id) {
-        //Deletes OrderProduct on database.
+    public static void update(OrderProductVO orderProduct) {
+        //Updates OrderProduct quantity on database using its id.
+    }
+
+    public static void delete(OrderProductVO orderProduct) {
+        //Deletes OrderProduct on database using its id.
     }
 }

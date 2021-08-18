@@ -6,24 +6,18 @@ import java.util.UUID;
 
 import model.DAO.ProductDAO;
 import model.VO.ProductVO;
-import utils.Category;
+import model.VO.UserVO;
 
 public class ProductBO {
-    public static boolean create(
-        UserType loggedUserType, ProductVO product, String name, 
-        Category category, double price
-    ) {
+    public static boolean create(UserVO user, ProductVO product) {
         try {
-            if(loggedUserType != UserType.admin) {
+            if(user.getType() != UserType.admin) {
                 throw new Exception("The user does not have permission to execute this action.");
             }
 
-            UUID productId = ProductDAO.insert(name, category, price);
+            UUID productId = ProductDAO.insert(product);
 
             product.setId(productId);
-            product.setName(name);
-            product.setCategory(category);
-            product.setPrice(price);
 
             return true;
         } catch(Exception err) {
@@ -33,19 +27,13 @@ public class ProductBO {
         }
     }
 
-    public static boolean update(
-        ProductVO product, String name, Category category, double price
-    ) {
+    public static boolean update(ProductVO product) {
         try {
-            if(ProductDAO.findById(product.getId()) == null) {
+            if(ProductDAO.findById(product) == null) {
                 throw new Exception("Product not found.");
             }
             
-            ProductDAO.update(product.getId(), name, category, price);
-
-            product.setName(name);
-            product.setCategory(category);
-            product.setPrice(price);
+            ProductDAO.update(product);
 
             return true;
         } catch(Exception err) {
@@ -55,17 +43,17 @@ public class ProductBO {
         }
     }
 
-    public static boolean delete(UserType loggedUserType, ProductVO product) {
+    public static boolean delete(UserVO user, ProductVO product) {
         try {
-            if(loggedUserType != UserType.admin) {
+            if(user.getType() != UserType.admin) {
                 throw new Exception("The user does not have permission to execute this action.");
             }
 
-            if(ProductDAO.findById(product.getId()) == null) {
+            if(ProductDAO.findById(product) == null) {
                 throw new Exception("Product not found.");
             }
             
-            ProductDAO.delete(product.getId());
+            ProductDAO.delete(product);
             product = null;
 
             return true;

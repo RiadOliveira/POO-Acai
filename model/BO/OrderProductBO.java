@@ -8,25 +8,19 @@ import model.DAO.ProductDAO;
 import model.VO.OrderProductVO;
 
 public class OrderProductBO {
-    public static boolean create(
-        OrderProductVO orderProduct, UUID orderId, 
-        UUID productId, int quantity
-    ) {
+    public static boolean create(OrderProductVO orderProduct) {
         try {
-            if(OrderDAO.findById(orderId) == null) {
+            if(OrderDAO.findById(orderProduct.getOrder()) == null) {
                 throw new Exception("Order not found.");
             }
 
-            if(ProductDAO.findById(productId) == null) {
+            if(ProductDAO.findById(orderProduct.getProduct()) == null) {
                 throw new Exception("Product not found.");
             }
 
-            UUID orderProductId = OrderProductDAO.insert(orderId, productId, quantity);
+            UUID orderProductId = OrderProductDAO.insert(orderProduct);
 
             orderProduct.setId(orderProductId);
-            orderProduct.setOrderId(orderId);
-            orderProduct.setProductId(productId);
-            orderProduct.setQuantity(quantity);
 
             return true;
         } catch(Exception err) {
@@ -36,15 +30,13 @@ public class OrderProductBO {
         }
     }
 
-    public static boolean updateQuantity(OrderProductVO orderProduct, int quantity) {
+    public static boolean update(OrderProductVO orderProduct) {
         try {
-            if(OrderProductDAO.findById(orderProduct.getId()) == null) {
+            if(OrderProductDAO.findById(orderProduct) == null) {
                 throw new Exception("OrderProduct not found.");
             }
 
-            OrderProductDAO.updateQuantity(orderProduct.getId(), quantity);
-
-            orderProduct.setQuantity(quantity);
+            OrderProductDAO.update(orderProduct);
 
             return true;
         } catch (Exception err) {
@@ -56,11 +48,11 @@ public class OrderProductBO {
 
     public static boolean delete(OrderProductVO orderProduct) {
         try {
-            if(OrderProductDAO.findById(orderProduct.getId()) == null) {
+            if(OrderProductDAO.findById(orderProduct) == null) {
                 throw new Exception("OrderProduct not found.");
             }
 
-            OrderProductDAO.delete(orderProduct.getId());
+            OrderProductDAO.delete(orderProduct);
             orderProduct = null;
 
             return true;

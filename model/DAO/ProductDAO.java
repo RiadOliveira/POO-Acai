@@ -3,22 +3,19 @@ package model.DAO;
 import java.util.UUID;
 
 import model.VO.ProductVO;
-import utils.Category;
 
 public class ProductDAO {
-    public static UUID insert(String name, Category category, double price) {
+    public static UUID insert(ProductVO product) {
         //Inserts product on database.
         
         return UUID.randomUUID(); //To simulates product's id from database.
     }
 
-    public static ProductVO findById(UUID id) {
+    public static ProductVO findById(ProductVO product) {
         //Database's find method to get requested product;
 
         //To simulate database's return:
-        ProductVO findedProduct = new ProductVO();
-
-        return findedProduct;
+        return product;
     }
 
     public static ProductVO[] findAll() {
@@ -33,13 +30,11 @@ public class ProductDAO {
         return products;
     }
 
-    public static void update(
-        UUID id, String name, Category category, double price
-    ) {
-        //Updates product on database.
+    public static void update(ProductVO product) {
+        //Updates product on database using its id.
     }
 
-    public static void delete(UUID id) {
-        //Deletes product on database.
+    public static void delete(ProductVO product) {
+        //Deletes product on database using its id.
     }
 }

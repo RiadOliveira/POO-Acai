@@ -5,10 +5,7 @@ import java.util.UUID;
 import model.VO.CustomerVO;
 
 public class CustomerDAO {
-    public static UUID insert(
-        String name, String cpf, 
-        String phoneNumber, String adress
-    ) {
+    public static UUID insert(CustomerVO customer) {
         //Inserts customer on database.
 
         return UUID.randomUUID(); //To simulates customer's id from database.
@@ -26,31 +23,25 @@ public class CustomerDAO {
         return customers;
     }
 
-    public static CustomerVO findById(UUID id) {
+    public static CustomerVO findById(CustomerVO customer) {
         //Database's find method to get requested customer;
 
         //To simulate database's return:
-        CustomerVO findedCustomer = new CustomerVO();
-
-        return findedCustomer;
+        return customer;
     }
 
-    public static CustomerVO findByCpf(String cpf) {
+    public static CustomerVO findByCpf(CustomerVO customer) {
         //Database's find method to get requested customer;
 
         //To simulate database's return:
-        CustomerVO findedCustomer = new CustomerVO();
-
-        return findedCustomer;
+        return customer;
     }
 
-    public static void update(
-        UUID id, String name, String phoneNumber, String adress
-    ) {
-        //Update customer on database.
+    public static void update(CustomerVO customer) {
+        //Update customer on database using its id.
     }
 
-    public static void delete(UUID id) {
-        //Delete customer on database.
+    public static void delete(CustomerVO customer) {
+        //Delete customer on database using its id.
     }
 }
