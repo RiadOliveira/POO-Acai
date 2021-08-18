@@ -20,20 +20,8 @@ public class OrderDAO {
         return order;
     }
 
-    public static OrderVO[] findByCustomerId(CustomerVO customer) {
+    public static OrderVO[] findByCustomer(CustomerVO customer) {
         //Uses database's find method to get all orders of that customer.
-
-        //To simulate database's return:
-        OrderVO order1 = new OrderVO();
-        OrderVO order2 = new OrderVO();
-
-        OrderVO orders[] = {order1, order2};
-
-        return orders;
-    }
-
-    public static OrderVO[] findByProductId(ProductVO product) {
-        //Uses database's find method to get all orders of that product.
 
         //To simulate database's return:
         OrderVO order1 = new OrderVO();

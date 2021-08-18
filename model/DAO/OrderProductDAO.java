@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import model.VO.CustomerVO;
 import model.VO.OrderProductVO;
+import model.VO.OrderVO;
 import model.VO.ProductVO;
 
 public class OrderProductDAO {
@@ -19,8 +20,8 @@ public class OrderProductDAO {
         return orderProduct;
     }
 
-    public static OrderProductVO[] findByCustomerId(CustomerVO customer) {
-        //Uses database's find method to get all orderProducts of that customer.
+    public static OrderProductVO[] findByProduct(ProductVO product) {
+        //Uses database's find method to get all orderProducts of that product.
 
         //To simulate database's return:
         OrderProductVO orderProduct1 = new OrderProductVO();
@@ -30,9 +31,9 @@ public class OrderProductDAO {
 
         return orders;
     }
-
-    public static OrderProductVO[] findByProductId(ProductVO product) {
-        //Uses database's find method to get all orderProducts of that product.
+    
+    public static OrderProductVO[] findByOrder(OrderVO order) {
+    	//Uses database's find method to get all orderProducts of that order.
 
         //To simulate database's return:
         OrderProductVO orderProduct1 = new OrderProductVO();
