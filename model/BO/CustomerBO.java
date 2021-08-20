@@ -19,6 +19,7 @@ public class CustomerBO {
             return true;
         } catch(Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
 
             return false;
         }
@@ -55,6 +56,7 @@ public class CustomerBO {
             return true;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
 
             return false;
         }
@@ -67,11 +69,11 @@ public class CustomerBO {
             }
 
             CustomerDAO.delete(customer);
-            customer = null;
     
             return true;             
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
 
             return false;
         }

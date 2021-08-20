@@ -16,13 +16,14 @@ public class ProductVO {
 
     public void setId(UUID id) {
         try {
-            if(id == null) { //UUID already can't be created from empty string.
+            if(id == null) { //UUID can't be created from empty string.
                 throw new Exception("Product's id can't be null.");
             }
     
             this.id = id;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
@@ -39,6 +40,7 @@ public class ProductVO {
             this.name = name;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
@@ -55,6 +57,7 @@ public class ProductVO {
             this.category = category;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
@@ -65,12 +68,13 @@ public class ProductVO {
     public void setPrice(double price) {
         try {
             if(price <= 0) {
-                throw new Exception("Price of a product needs to be higher than zero.");
+                throw new Exception("Price of a product must be greater than zero.");
             }
 
             this.price = price;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         }
     }
 

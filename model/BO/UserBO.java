@@ -21,6 +21,7 @@ public class UserBO {
             return true;
         } catch(Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
 
             return false;
         }
@@ -45,6 +46,7 @@ public class UserBO {
             return true;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
 
             return false;
         }
@@ -65,6 +67,7 @@ public class UserBO {
             return true;
         } catch(Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
 
             return false;
         }
@@ -81,11 +84,11 @@ public class UserBO {
             }
 
             UserDAO.delete(user);
-            user = null;
 
             return true;
         } catch(Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
 
             return false;
         }

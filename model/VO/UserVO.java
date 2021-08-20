@@ -18,12 +18,13 @@ public class UserVO extends PersonVO {
             }
 
             if(password.length() < 6) {
-                throw new Exception("User's password needs to have, at least, 6 characters.");
+                throw new Exception("User's password must have at least 6 characters.");
             }
     
             this.password = password;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
@@ -40,6 +41,7 @@ public class UserVO extends PersonVO {
             this.type = type;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
