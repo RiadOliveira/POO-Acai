@@ -14,13 +14,14 @@ public class OrderProductVO {
 
     public void setId(UUID id) {
         try {
-            if(id == null) { //UUID already can't be created from empty string.
+            if(id == null) { //UUID can't be created from empty string.
                 throw new Exception("Order's product id can't be null.");
             }
     
             this.id = id;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
@@ -37,6 +38,7 @@ public class OrderProductVO {
             this.order = order;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
@@ -53,6 +55,7 @@ public class OrderProductVO {
             this.product = product;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
@@ -63,12 +66,13 @@ public class OrderProductVO {
     public void setQuantity(int quantity) {
         try {
             if(quantity <= 0) {
-                throw new Exception("Quantity of an orderProduct needs to be higher than zero.");
+                throw new Exception("Quantity of an orderProduct must be greater than zero.");
             }
 
             this.quantity = quantity;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         }
     }
 

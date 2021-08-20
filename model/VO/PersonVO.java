@@ -14,13 +14,14 @@ class PersonVO {
 
     public void setId(UUID id) {
         try {
-            if(id == null) { //UUID already can't be created from empty string.
+            if(id == null) { //UUID can't be created from empty string.
                 throw new Exception("Person's id can't be null.");
             }
     
             this.id = id;
         } catch (Exception err) {
             //Handle exception
+        	System.out.println(err.getMessage());
         }  
     }
 
@@ -37,6 +38,7 @@ class PersonVO {
             this.name = name;
         } catch (Exception err) {
             //Handle exception
+        	System.out.println(err.getMessage());
         }  
     }
 
@@ -56,13 +58,14 @@ class PersonVO {
 
             for (int ind=0 ; ind < cpf.length() ; ind++) {
                 if (cpf.charAt(ind) < '0' || cpf.charAt(ind) > '9') {
-                    throw new Exception("Person's cpf needs to have only numbers.");
+                    throw new Exception("Person's cpf must have only numbers.");
                 }
             }
 
             this.cpf = cpf;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         }
     }
 
@@ -77,18 +80,19 @@ class PersonVO {
             }
 
             if(phoneNumber.length() < 10) { //Including DDD.
-                throw new Exception("Person's phone number needs to have at least 10 numbers.");
+                throw new Exception("Person's phone number must have at least 10 numbers.");
             }
 
             for (int ind=0 ; ind < phoneNumber.length() ; ind++) { //Verify if has only numbers.
                 if (phoneNumber.charAt(ind) < '0' || phoneNumber.charAt(ind) > '9') {
-                    throw new Exception("Person's phone number needs to have only numbers.");
+                    throw new Exception("Person's phone number must have only numbers.");
                 }
             }
 
             this.phoneNumber = phoneNumber;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         }
     }
 

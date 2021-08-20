@@ -21,13 +21,14 @@ public class OrderVO {
 
     public void setId(UUID id) {
         try {
-            if(id == null) { //UUID already can't be created from empty string.
+            if(id == null) { //UUID can't be created from empty string.
                 throw new Exception("Order's id can't be null.");
             }
     
             this.id = id;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
@@ -46,6 +47,7 @@ public class OrderVO {
             this.orderProducts = orderProducts;
         } catch(Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         }
     }
 
@@ -62,6 +64,7 @@ public class OrderVO {
             this.customer = customer;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
@@ -78,6 +81,7 @@ public class OrderVO {
             this.paymentMethod = paymentMethod;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
@@ -94,6 +98,7 @@ public class OrderVO {
             this.status = status;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
@@ -114,6 +119,7 @@ public class OrderVO {
             this.date = date;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
@@ -124,12 +130,13 @@ public class OrderVO {
     public void setTotalPrice(double totalPrice) {
         try {
             if(totalPrice <= 0) {
-                throw new Exception("Total price of an order needs to be higher than zero.");
+                throw new Exception("Total price of an order must be greater than zero.");
             }
 
             this.totalPrice = totalPrice;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         }
     }
 

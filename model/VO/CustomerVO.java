@@ -16,6 +16,7 @@ public class CustomerVO extends PersonVO {
             this.adress = adress;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
         } 
     }
 
