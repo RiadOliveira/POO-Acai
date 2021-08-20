@@ -7,10 +7,10 @@ import model.VO.OrderVO;
 import model.VO.ProductVO;
 
 public class OrderProductDAO {
-    public static UUID insert(OrderProductVO orderProduct) { //Maybe return orderProduct with id.
-        //Inserts OrderProduct on database.
+    public static UUID insert(OrderProductVO orderProduct) { //May return orderProduct with id.
+        //Insert OrderProduct into database.
 
-        return UUID.randomUUID(); //To simulates orderProduct's id from database.
+        return UUID.randomUUID(); //To simulate orderProduct's id from database.
     }
 
     public static OrderProductVO findById(OrderProductVO orderProduct) {
@@ -44,10 +44,10 @@ public class OrderProductDAO {
     }
 
     public static void update(OrderProductVO orderProduct) {
-        //Updates OrderProduct quantity on database using its id.
+        //Update OrderProduct quantity on database using its id.
     }
 
     public static void delete(OrderProductVO orderProduct) {
-        //Deletes OrderProduct on database using its id.
+        //Delete OrderProduct on database using its id.
     }
 }

@@ -5,10 +5,10 @@ import java.util.UUID;
 import model.VO.ProductVO;
 
 public class ProductDAO {
-    public static UUID insert(ProductVO product) {
-        //Inserts product on database.
+    public static UUID insert(ProductVO product) { //May return Product with id.
+        //Insert product into database.
         
-        return UUID.randomUUID(); //To simulates product's id from database.
+        return UUID.randomUUID(); //To simulate product's id from database.
     }
 
     public static ProductVO findById(ProductVO product) {
@@ -31,10 +31,10 @@ public class ProductDAO {
     }
 
     public static void update(ProductVO product) {
-        //Updates product on database using its id.
+        //Update product on database using its id.
     }
 
     public static void delete(ProductVO product) {
-        //Deletes product on database using its id.
+        //Delete product on database using its id.
     }
 }

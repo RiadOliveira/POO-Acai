@@ -25,6 +25,7 @@ public class OrderProductBO {
             return true;
         } catch(Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
 
             return false;
         }
@@ -41,6 +42,7 @@ public class OrderProductBO {
             return true;
         } catch (Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
             
             return false;
         }
@@ -53,11 +55,11 @@ public class OrderProductBO {
             }
 
             OrderProductDAO.delete(orderProduct);
-            orderProduct = null;
 
             return true;
         } catch(Exception err) {
             //Handle exception.
+        	System.out.println(err.getMessage());
 
             return false;
         }
