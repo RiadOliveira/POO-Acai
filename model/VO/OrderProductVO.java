@@ -46,7 +46,7 @@ public class OrderProductVO {
         return this.product;
     }
 
-    public void setProductId(ProductVO product) {
+    public void setProduct(ProductVO product) {
         try {
             if(product == null) {
                 throw new Exception("Product can't be null (Order's product).");
