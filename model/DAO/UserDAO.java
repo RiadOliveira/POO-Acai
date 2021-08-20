@@ -5,10 +5,10 @@ import java.util.UUID;
 import model.VO.UserVO;
 
 public class UserDAO {
-    public static UUID insert(UserVO user) {
-        //Inserts user on database.
+    public static UUID insert(UserVO user) { //May return User with id.
+        //Insert user into database.
         
-        return UUID.randomUUID(); //To simulates user's id from database.
+        return UUID.randomUUID(); //To simulate user's id from database.
     }
 
     public static UserVO[] findAllEmployees() {
@@ -38,10 +38,10 @@ public class UserDAO {
     }
 
     public static void update(UserVO user) {
-        //Updates User on database using its id.
+        //Update User on database using its id.
     }
 
     public static void delete(UserVO user) {
-        //Deletes User on database using its id.
+        //Delete User on database using its id.
     }
 }

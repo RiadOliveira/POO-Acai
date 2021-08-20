@@ -7,8 +7,8 @@ import model.VO.OrderVO;
 import model.VO.ProductVO;
 
 public class OrderDAO {
-    public static UUID insert(OrderVO order) {
-        //Inserts Order on database.
+    public static UUID insert(OrderVO order) { //May return Order with id.
+        //Insert Order into database.
 
         return UUID.randomUUID(); //To simulates order's id from database.
     }
@@ -33,10 +33,10 @@ public class OrderDAO {
     }
 
     public static void update(OrderVO order) {
-        //Updates Order on database using its id.
+        //Update Order on database using its id.
     }
 
     public static void delete(OrderVO order) {
-        //Deletes Order on database using its id.
+        //Delete Order on database using its id.
     }
 }

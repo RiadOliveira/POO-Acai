@@ -5,10 +5,10 @@ import java.util.UUID;
 import model.VO.CustomerVO;
 
 public class CustomerDAO {
-    public static UUID insert(CustomerVO customer) {
-        //Inserts customer on database.
+    public static UUID insert(CustomerVO customer) { //May return Customer with id.
+        //Insert customer into database.
 
-        return UUID.randomUUID(); //To simulates customer's id from database.
+        return UUID.randomUUID(); //To simulate customer's id from database.
     }
 
     public static CustomerVO[] findAll() {
