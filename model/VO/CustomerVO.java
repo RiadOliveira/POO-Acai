@@ -1,19 +1,19 @@
 package model.VO;
 
 public class CustomerVO extends PersonVO {
-    private String adress;
+    private String address;
 
-    public String getAdress() {
-        return this.adress;
+    public String getAddress() {
+        return this.address;
     }
 
-    public void setAdress(String adress) {
+    public void setAddress(String address) {
         try {
-            if(adress == null || adress.equals("")) {
-                throw new Exception("Adress can't be null or empty.");
+            if(address == null || address.equals("")) {
+                throw new Exception("Address can't be null or empty.");
             }
 
-            this.adress = adress;
+            this.address = address;
         } catch (Exception err) {
             //Handle exception.
         	System.out.println(err.getMessage());
@@ -21,6 +21,6 @@ public class CustomerVO extends PersonVO {
     }
 
     public String toString() {
-        return super.toString() + "adress: " + this.adress;
+        return super.toString() + "address: " + this.address;
     }
 }
