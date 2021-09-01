@@ -1,6 +1,6 @@
-package model.VO;
+package src.model.VO;
 
-import utils.UserType;
+import src.utils.UserType;
 
 public class UserVO extends PersonVO {
     private String password;
