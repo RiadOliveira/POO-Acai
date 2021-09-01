@@ -1,10 +1,10 @@
-package model.BO;
+package src.model.BO;
 
 import java.util.UUID;
 
-import model.DAO.UserDAO;
-import model.VO.UserVO;
-import utils.UserType;
+import src.model.DAO.UserDAO;
+import src.model.VO.UserVO;
+import src.utils.UserType;
 
 public class UserBO {
     public static boolean signUp(UserVO user) {

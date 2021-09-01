@@ -1,8 +1,8 @@
-package model.DAO;
+package src.model.DAO;
 
 import java.util.UUID;
 
-import model.VO.UserVO;
+import src.model.VO.UserVO;
 
 public class UserDAO {
     public static UUID insert(UserVO user) { //May return User with id.

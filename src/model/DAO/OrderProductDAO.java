@@ -1,10 +1,10 @@
-package model.DAO;
+package src.model.DAO;
 
 import java.util.UUID;
 
-import model.VO.OrderProductVO;
-import model.VO.OrderVO;
-import model.VO.ProductVO;
+import src.model.VO.OrderProductVO;
+import src.model.VO.OrderVO;
+import src.model.VO.ProductVO;
 
 public class OrderProductDAO {
     public static UUID insert(OrderProductVO orderProduct) { //May return orderProduct with id.

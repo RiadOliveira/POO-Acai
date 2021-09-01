@@ -1,12 +1,12 @@
-package model.BO;
+package src.model.BO;
 
-import utils.UserType;
+import src.utils.UserType;
 
 import java.util.UUID;
 
-import model.DAO.ProductDAO;
-import model.VO.ProductVO;
-import model.VO.UserVO;
+import src.model.DAO.ProductDAO;
+import src.model.VO.ProductVO;
+import src.model.VO.UserVO;
 
 public class ProductBO {
     public static boolean create(UserVO user, ProductVO product) {

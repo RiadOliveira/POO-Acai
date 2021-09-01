@@ -1,8 +1,8 @@
-package model.DAO;
+package src.model.DAO;
 
 import java.util.UUID;
 
-import model.VO.CustomerVO;
+import src.model.VO.CustomerVO;
 
 public class CustomerDAO {
     public static UUID insert(CustomerVO customer) { //May return Customer with id.

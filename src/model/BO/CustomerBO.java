@@ -1,9 +1,9 @@
-package model.BO;
+package src.model.BO;
 
 import java.util.UUID;
 
-import model.DAO.CustomerDAO;
-import model.VO.CustomerVO;
+import src.model.DAO.CustomerDAO;
+import src.model.VO.CustomerVO;
 
 public class CustomerBO {    
     public static boolean create(CustomerVO customer) {
