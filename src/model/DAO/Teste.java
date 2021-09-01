@@ -5,11 +5,8 @@ import src.model.VO.UserVO;
 public class Teste {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		BaseDAO baseDao = new BaseDAO();
-		System.out.println(baseDao.getConnection());
+		System.out.println(BaseDAO.getConnection());
 		
-		UserDAO userDao = new UserDAO();
 		UserVO userVo = new UserVO();
 		
 		userVo.setName("Joao");
@@ -19,7 +16,6 @@ public class Teste {
 		userVo.setPassword("123456789");
 		userVo.setIsLogged(true);
 	
-		userDao.insert(userVo);
+		UserDAO.insert(userVo);
 	}
-
 }

@@ -5,17 +5,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class BaseDAO {
-	Connection connection = null;
-	String url = "jdbc:postgresql://localhost:5432/poo_acai";
-	String user = "postgres";
-	String senha = "46194673@";
+	private static Connection connection = null;
 	
-	public Connection getConnection() {
+	public static Connection getConnection() {
+		String url = "jdbc:postgresql://localhost:5432/poo_acai";
+		String user = "postgres";
+		String senha = "46194673@";
+
 		if (connection == null) {
 			try {
 				connection = DriverManager.getConnection(url, user, senha);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return connection;

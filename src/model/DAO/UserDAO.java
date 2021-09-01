@@ -1,5 +1,6 @@
 package src.model.DAO;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 //import java.util.UUID;
@@ -8,11 +9,12 @@ import src.model.VO.UserVO;
 
 
 public class UserDAO extends BaseDAO {
-    public void insert(UserVO user) { //May return User with id.
+    public static void insert(UserVO user) { //May return User with id.
         //Insert user into database.
     	try {
-			connection = getConnection();
+			Connection connection = getConnection();
 			String sql = "insert into systemuser (name, cpf, email, phoneNumber, password, isLogged) values (?, ?, ?, ?, ?, ?)";
+
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, user.getName());
 			statement.setString(2, user.getCpf());
@@ -21,9 +23,8 @@ public class UserDAO extends BaseDAO {
 			statement.setString(5, user.getPassword());
 			statement.setBoolean(6, user.getIsLogged());
 			statement.execute();
-			
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
        

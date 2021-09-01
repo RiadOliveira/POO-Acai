@@ -1,6 +1,6 @@
 package src.model.BO;
 
-import java.util.UUID;
+//import java.util.UUID;
 
 import src.model.DAO.UserDAO;
 import src.model.VO.UserVO;
@@ -13,10 +13,11 @@ public class UserBO {
                 throw new Exception("A user with this cpf already exists.");
             }
 
-            UUID userId = UserDAO.insert(user);
+            //UUID userId = 
+            UserDAO.insert(user);
 
-            user.setId(userId);
-            user.setIsLogged(true);
+            //user.setId(userId);
+            //user.setIsLogged(true);
 
             return true;
         } catch(Exception err) {
