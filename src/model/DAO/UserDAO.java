@@ -1,14 +1,32 @@
 package src.model.DAO;
 
-import java.util.UUID;
+import java.sql.PreparedStatement;
+
+//import java.util.UUID;
 
 import src.model.VO.UserVO;
 
-public class UserDAO {
-    public static UUID insert(UserVO user) { //May return User with id.
+
+public class UserDAO extends BaseDAO {
+    public void insert(UserVO user) { //May return User with id.
         //Insert user into database.
-        
-        return UUID.randomUUID(); //To simulate user's id from database.
+    	try {
+			connection = getConnection();
+			String sql = "insert into systemuser (name, cpf, email, phoneNumber, password, isLogged) values (?, ?, ?, ?, ?, ?)";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, user.getName());
+			statement.setString(2, user.getCpf());
+			statement.setString(3,user.getEmail());
+			statement.setString(4, user.getPhoneNumber());
+			statement.setString(5, user.getPassword());
+			statement.setBoolean(6, user.getIsLogged());
+			statement.execute();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       
     }
 
     public static UserVO[] findAllEmployees() {
