@@ -10,11 +10,11 @@ public class BaseDAO {
 	public static Connection getConnection() {
 		String url = "jdbc:postgresql://localhost:5432/poo_acai";
 		String user = "postgres";
-		String senha = "46194673@";
+		String password = "46194673@";
 
 		if (connection == null) {
 			try {
-				connection = DriverManager.getConnection(url, user, senha);
+				connection = DriverManager.getConnection(url, user, password);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

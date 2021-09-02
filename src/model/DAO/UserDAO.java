@@ -10,18 +10,17 @@ import src.model.VO.UserVO;
 
 public class UserDAO extends BaseDAO {
     public static void insert(UserVO user) { //May return User with id.
-        //Insert user into database.
     	try {
 			Connection connection = getConnection();
-			String sql = "insert into systemuser (name, cpf, email, phoneNumber, password, isLogged) values (?, ?, ?, ?, ?, ?)";
+			String sql = "insert into users (name, cpf, phoneNumber, password, isLogged) values (?, ?, ?, ?, ?)";
 
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, user.getName());
 			statement.setString(2, user.getCpf());
-			statement.setString(3,user.getEmail());
-			statement.setString(4, user.getPhoneNumber());
-			statement.setString(5, user.getPassword());
-			statement.setBoolean(6, user.getIsLogged());
+			statement.setString(3, user.getPhoneNumber());
+			statement.setString(4, user.getPassword());
+			statement.setBoolean(5, user.getIsLogged());
+
 			statement.execute();
 
 		} catch (Exception e) {
