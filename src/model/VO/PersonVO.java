@@ -6,7 +6,6 @@ class PersonVO {
     private UUID id;
     private String name;
     private String cpf;
-    private String email;
     private String phoneNumber;
     
     public UUID getId() {
@@ -69,14 +68,6 @@ class PersonVO {
         	System.out.println(err.getMessage());
         }
     }
-    
-    public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
     public String getPhoneNumber() {
         return this.phoneNumber;

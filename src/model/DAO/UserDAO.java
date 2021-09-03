@@ -2,31 +2,26 @@ package src.model.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-//import java.util.UUID;
+import java.util.UUID;
 
 import src.model.VO.UserVO;
 
-
 public class UserDAO extends BaseDAO {
-    public static void insert(UserVO user) { //May return User with id.
-    	try {
+    public static void insert(UserVO user) throws SQLException { 
 			Connection connection = getConnection();
-			String sql = "insert into users (name, cpf, phoneNumber, password, isLogged) values (?, ?, ?, ?, ?)";
+			String query = "insert into users (name, cpf, phone_number, password, is_admin) values (?, ?, ?, ?, ?)";
 
-			PreparedStatement statement = connection.prepareStatement(sql);
+			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, user.getName());
 			statement.setString(2, user.getCpf());
 			statement.setString(3, user.getPhoneNumber());
 			statement.setString(4, user.getPassword());
-			statement.setBoolean(5, user.getIsLogged());
+			statement.setBoolean(5, user.getIsAdmin());
 
 			statement.execute();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-       
     }
 
     public static UserVO[] findAllEmployees() {
@@ -48,11 +43,32 @@ public class UserDAO extends BaseDAO {
         return user;
     }
 
-    public static UserVO findByCpf(UserVO user) {
-        //Database's find method (where cpf == user.cpf) to get requested customer;
+    public static boolean findByCpf(UserVO user) throws SQLException {
+        Connection connection = getConnection();
 
-        //To simulate database's return:
-        return user;
+        String query = "SELECT * FROM users WHERE cpf=?";
+
+        PreparedStatement statement;
+
+        ResultSet findedUser;
+
+        statement = connection.prepareStatement(query);
+        statement.setString(1, user.getCpf());
+
+        findedUser = statement.executeQuery();
+
+        if(!findedUser.next()) {
+            return false;
+        }
+
+        user.setId(UUID.fromString(findedUser.getString("id")));
+        user.setName(findedUser.getString("name"));
+        user.setCpf(findedUser.getString("cpf"));
+        user.setPhoneNumber(findedUser.getString("phone_number"));
+        user.setPassword(findedUser.getString("password"));
+        user.setIsAdmin(findedUser.getBoolean("is_admin"));
+
+        return true;
     }
 
     public static void update(UserVO user) {

@@ -10,7 +10,7 @@ public class BaseDAO {
 	public static Connection getConnection() {
 		String url = "jdbc:postgresql://localhost:5432/poo_acai";
 		String user = "postgres";
-		String password = "46194673@";
+		String password = "tradelous";
 
 		if (connection == null) {
 			try {

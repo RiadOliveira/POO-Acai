@@ -1,23 +1,19 @@
 package src.model.BO;
 
-//import java.util.UUID;
-
 import src.model.DAO.UserDAO;
 import src.model.VO.UserVO;
-import src.utils.UserType;
 
 public class UserBO {
     public static boolean signUp(UserVO user) {
         try {
-            if(UserDAO.findByCpf(user) != null) {
+            if(UserDAO.findByCpf(user)) {
                 throw new Exception("A user with this cpf already exists.");
             }
 
-            //UUID userId = 
             UserDAO.insert(user);
 
-            //user.setId(userId);
-            //user.setIsLogged(true);
+            UserDAO.findByCpf(user); //In order to get user's id.
+            user.setIsLogged(true);
 
             return true;
         } catch(Exception err) {
@@ -30,17 +26,15 @@ public class UserBO {
 
     public static boolean signIn(UserVO user) {
         try {
-            UserVO findedUser = UserDAO.findByCpf(user);
+            UserDAO.findByCpf(user);
 
-            if(findedUser == null) {
+            if(user.getId() == null) {
                 throw new Exception("User not found.");
             }
 
-            if(!findedUser.getPassword().equals(user.getPassword())) {
+            if(!user.getPassword().equals(user.getPassword())) {
                 throw new Exception("Invalid cpf or password.");
             }
-
-            user = findedUser;
 
             user.setIsLogged(true);
 
@@ -76,7 +70,7 @@ public class UserBO {
 
     public static boolean delete(UserVO user) {
         try {
-            if(user.getType() == UserType.admin) {
+            if(user.getIsAdmin()) {
                 throw new Exception("That user can't be deleted.");
             }
 

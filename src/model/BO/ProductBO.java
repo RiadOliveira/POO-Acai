@@ -1,7 +1,5 @@
 package src.model.BO;
 
-import src.utils.UserType;
-
 import java.util.UUID;
 
 import src.model.DAO.ProductDAO;
@@ -11,7 +9,7 @@ import src.model.VO.UserVO;
 public class ProductBO {
     public static boolean create(UserVO user, ProductVO product) {
         try {
-            if(user.getType() != UserType.admin) {
+            if(!user.getIsAdmin()) {
                 throw new Exception("The user does not have permission to execute this action.");
             }
 
@@ -47,7 +45,7 @@ public class ProductBO {
 
     public static boolean delete(UserVO user, ProductVO product) {
         try {
-            if(user.getType() != UserType.admin) {
+            if(!user.getIsAdmin()) {
                 throw new Exception("The user does not have permission to execute this action.");
             }
 
