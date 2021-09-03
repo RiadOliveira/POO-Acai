@@ -7,20 +7,15 @@ import java.sql.SQLException;
 public class BaseDAO {
 	private static Connection connection = null;
 	
-	public static Connection getConnection() {
-		String url = "jdbc:postgresql://localhost:5432/poo_acai";
-		String user = "postgres";
-		String password = "tradelous";
-
+	public static Connection getConnection() throws SQLException {
 		if (connection == null) {
-			try {
-				connection = DriverManager.getConnection(url, user, password);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return connection;
-		} else {
-			return connection;
+			String url = "jdbc:postgresql://localhost:5432/poo_acai";
+			String user = "postgres";
+			String password = "";
+
+			connection = DriverManager.getConnection(url, user, password);
 		}
+
+		return connection;
 	}
 }
