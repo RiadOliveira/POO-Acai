@@ -12,7 +12,9 @@ public class UserBO {
 
             UserDAO.insert(user);
 
-            user = UserDAO.findByCpf(user); //In order to get user's id.
+            UserVO findeduser = UserDAO.findByCpf(user); //In order to get user's id.
+            
+            user.setId(findeduser.getId());
             user.setIsLogged(true);
 
             return true;
@@ -26,16 +28,20 @@ public class UserBO {
 
     public static boolean signIn(UserVO user) {
         try {
-            user = UserDAO.findByCpf(user);
+            UserVO findedUser = UserDAO.findByCpf(user);
 
-            if(user.getId() == null) {
+            if(findedUser == null) {
                 throw new Exception("User not found.");
             }
 
-            if(!user.getPassword().equals(user.getPassword())) {
+            if(!user.getPassword().equals(findedUser.getPassword())) {
                 throw new Exception("Invalid cpf or password.");
             }
 
+            user.setId(findedUser.getId());
+            user.setName(findedUser.getName());
+            user.setPhoneNumber(findedUser.getPhoneNumber());
+            user.setIsAdmin(findedUser.getIsAdmin());
             user.setIsLogged(true);
 
             return true;
