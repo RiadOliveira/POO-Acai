@@ -11,7 +11,7 @@ public class BaseDAO {
 		if (connection == null) {
 			String url = "jdbc:postgresql://localhost:5432/poo_acai";
 			String user = "postgres";
-			String password = "tradelous";
+			String password = "";
 
 			connection = DriverManager.getConnection(url, user, password);
 		}
