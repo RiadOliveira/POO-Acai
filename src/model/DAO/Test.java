@@ -11,7 +11,7 @@ public class Test {
 		user.setCpf("70232845440");
 		user.setPhoneNumber("84912613011");
 		user.setPassword("123456789");
-		user.setIsAdmin(true);
+		user.setIsAdmin(false);
 
 		UserBO.signUp(user);	
 	}

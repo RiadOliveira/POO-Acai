@@ -6,13 +6,13 @@ import src.model.VO.UserVO;
 public class UserBO {
     public static boolean signUp(UserVO user) {
         try {
-            if(UserDAO.findByCpf(user)) {
+            if(UserDAO.findByCpf(user) != null) {
                 throw new Exception("A user with this cpf already exists.");
             }
 
             UserDAO.insert(user);
 
-            UserDAO.findByCpf(user); //In order to get user's id.
+            user = UserDAO.findByCpf(user); //In order to get user's id.
             user.setIsLogged(true);
 
             return true;
@@ -26,7 +26,7 @@ public class UserBO {
 
     public static boolean signIn(UserVO user) {
         try {
-            UserDAO.findByCpf(user);
+            user = UserDAO.findByCpf(user);
 
             if(user.getId() == null) {
                 throw new Exception("User not found.");
