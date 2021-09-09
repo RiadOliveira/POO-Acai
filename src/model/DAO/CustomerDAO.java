@@ -1,4 +1,4 @@
-package src.model.DAO;
+package model.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import src.model.VO.CustomerVO;
+import model.VO.CustomerVO;
 
 public class CustomerDAO extends BaseDAO {
     public static void insert(CustomerVO customer) throws SQLException {

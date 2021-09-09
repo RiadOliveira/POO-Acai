@@ -1,4 +1,4 @@
-package src.model.VO;
+package model.VO;
 
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package src.utils;
+package utils;
 
 public enum ReportType {
     day, week, month

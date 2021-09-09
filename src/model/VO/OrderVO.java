@@ -1,10 +1,10 @@
-package src.model.VO;
+package model.VO;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-import src.utils.OrderStatus;
-import src.utils.PaymentMethod;
+import utils.OrderStatus;
+import utils.PaymentMethod;
 
 public class OrderVO {
     private UUID id;

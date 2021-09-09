@@ -1,12 +1,12 @@
-package src.model.BO;
+package model.BO;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-import src.model.DAO.CustomerDAO;
-import src.model.DAO.OrderDAO;
-import src.model.VO.OrderVO;
-import src.utils.ReportType;
+import model.DAO.CustomerDAO;
+import model.DAO.OrderDAO;
+import model.VO.OrderVO;
+import utils.ReportType;
 
 public class OrderBO {
     public static boolean create(OrderVO order) {

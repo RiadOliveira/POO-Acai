@@ -1,11 +1,11 @@
-package src.model.BO;
+package model.BO;
 
 import java.util.UUID;
 
-import src.model.DAO.OrderDAO;
-import src.model.DAO.OrderProductDAO;
-import src.model.DAO.ProductDAO;
-import src.model.VO.OrderProductVO;
+import model.DAO.OrderDAO;
+import model.DAO.OrderProductDAO;
+import model.DAO.ProductDAO;
+import model.VO.OrderProductVO;
 
 public class OrderProductBO {
     public static boolean create(OrderProductVO orderProduct) {

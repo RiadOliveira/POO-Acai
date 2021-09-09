@@ -1,8 +1,8 @@
-package src.model.BO;
+package model.BO;
 
 
-import src.model.DAO.CustomerDAO;
-import src.model.VO.CustomerVO;
+import model.DAO.CustomerDAO;
+import model.VO.CustomerVO;
 
 public class CustomerBO {    
     public static boolean create(CustomerVO customer) {

@@ -1,4 +1,4 @@
-package src.model.VO;
+package model.VO;
 
 public class CustomerVO extends PersonVO {
     private String address;

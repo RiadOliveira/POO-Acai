@@ -1,4 +1,4 @@
-package src.utils;
+package utils;
 
 public enum Category {
     acai, brazilian, pizza, hamburger, candy, 

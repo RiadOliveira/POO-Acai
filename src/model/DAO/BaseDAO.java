@@ -1,4 +1,4 @@
-package src.model.DAO;
+package model.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +11,7 @@ public class BaseDAO {
 		if (connection == null) {
 			String url = "jdbc:postgresql://localhost:5432/poo_acai";
 			String user = "postgres";
-			String password = "";
+			String password = "46194673";
 
 			connection = DriverManager.getConnection(url, user, password);
 		}

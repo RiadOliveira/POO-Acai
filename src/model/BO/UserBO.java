@@ -1,7 +1,7 @@
-package src.model.BO;
+package model.BO;
 
-import src.model.DAO.UserDAO;
-import src.model.VO.UserVO;
+import model.DAO.UserDAO;
+import model.VO.UserVO;
 
 public class UserBO {
     public static boolean signUp(UserVO user) {

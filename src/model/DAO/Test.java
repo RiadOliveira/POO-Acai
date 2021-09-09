@@ -1,18 +1,27 @@
-package src.model.DAO;
+package model.DAO;
 
-import src.model.BO.UserBO;
-import src.model.VO.UserVO;
+import model.BO.ProductBO;
+import model.VO.ProductVO;
+import model.VO.UserVO;
+import utils.Category;
 
 public class Test {
 	public static void main(String[] args) {		
 		UserVO user = new UserVO();
 		
-		user.setName("Ríad Oliveira");
-		user.setCpf("70232845440");
-		user.setPhoneNumber("84912613011");
-		user.setPassword("123456789");
-		user.setIsAdmin(false);
+		user.setName("Valdir Aires");
+		user.setCpf("70228845440");
+		user.setPhoneNumber("84987913011");
+		user.setPassword("987654321");
+		user.setIsAdmin(true);
+		
 
-		UserBO.signUp(user);	
+		ProductVO productVO = new ProductVO();
+		
+		productVO.setName("Pizza Calabresa");
+		productVO.setCategory(Category.pizza);
+		productVO.setPrice(25);
+		
+		ProductBO.update(productVO);
 	}
 }

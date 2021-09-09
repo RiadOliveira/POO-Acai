@@ -1,8 +1,8 @@
-package src.model.VO;
+package model.VO;
 
 import java.util.UUID;
 
-import src.utils.Category;
+import utils.Category;
 
 public class ProductVO {
     private UUID id;
