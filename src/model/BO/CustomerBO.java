@@ -1,5 +1,8 @@
 package model.BO;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import java.util.UUID;
 
 import model.DAO.CustomerDAO;
@@ -25,21 +28,21 @@ public class CustomerBO {
         }
     }
 
-    public static CustomerVO[] findByName(CustomerVO[] allCustomers, String searchedName) {
+    public static List<CustomerVO> findByName(List<CustomerVO> allCustomers, String searchedName) {
         int findedCustomersLength = 0;
-        int findedCustomersPositions[] = new int[allCustomers.length];
+        int findedCustomersPositions[] = new int[allCustomers.size()];
 
-        for(int ind=0, i=0 ; ind<allCustomers.length ; ind++) {
-            if(allCustomers[ind].getName().contains(searchedName)) {
+        for(int ind=0, i=0 ; ind < allCustomers.size() ; ind++) {
+            if(allCustomers.get(ind).getName().contains(searchedName)) {
                 findedCustomersLength++;
                 findedCustomersPositions[i++] = ind;
             }
         }
 
-        CustomerVO findedCustomers[] = new CustomerVO[findedCustomersLength];
+        List<CustomerVO> findedCustomers = new ArrayList<CustomerVO>();
 
         for(int ind=0 ; ind<findedCustomersLength ; ind++) {
-            findedCustomers[ind] = allCustomers[findedCustomersPositions[ind]];
+            findedCustomers.add(allCustomers.get(findedCustomersPositions[ind]));
         }
 
         return findedCustomers;
