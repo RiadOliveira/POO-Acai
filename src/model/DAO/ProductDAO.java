@@ -15,7 +15,7 @@ import utils.Category;
 public class ProductDAO extends BaseDAO {
     public static void insert(ProductVO product) throws SQLException {
     	Connection connection = getConnection();
-		String query = "INSERT INTO PRODUCTS (name, category, price) values (?, ?, ?)";
+		String query = "INSERT INTO products (name, category, price) values (?, ?, ?)";
 
 		PreparedStatement statement = connection.prepareStatement(query);
 		statement.setString(1, product.getName());
@@ -25,7 +25,7 @@ public class ProductDAO extends BaseDAO {
 		statement.execute();
     }
     
-    public static List<ProductVO> findAllProducts() throws SQLException {
+    public static List<ProductVO> findAll() throws SQLException {
         Connection connection = getConnection();
 
         String query = "SELECT * FROM products";
