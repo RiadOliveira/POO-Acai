@@ -1,6 +1,9 @@
 package model.BO;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
+
 import java.util.UUID;
 
 import model.DAO.CustomerDAO;
@@ -28,28 +31,28 @@ public class OrderBO {
         }
     }
     
-    public static OrderVO[] findByDate(OrderVO[] allOrders, LocalDate date) {
+    public static List<OrderVO> findByDate(List<OrderVO> allOrders, LocalDate date) {
         int searchedOrdersLength = 0;
-        int searchedPositions[] = new int[allOrders.length];
+        int searchedPositions[] = new int[allOrders.size()];
 
-        for(int ind=0, i=0 ; ind<allOrders.length ; ind++) {
-            if(allOrders[ind].getDate().compareTo(date) == 0) {
+        for(int ind=0, i=0 ; ind<allOrders.size() ; ind++) {
+            if(allOrders.get(ind).getDate().compareTo(date) == 0) {
                 searchedOrdersLength++;
                 searchedPositions[i++] = ind;
             }
         }
 
-        OrderVO searchedOrders[] = new OrderVO[searchedOrdersLength];
+        List<OrderVO> searchedOrders = new ArrayList<OrderVO>();
 
         for(int ind=0 ; ind<searchedOrdersLength ; ind++) {
-            searchedOrders[ind] = allOrders[searchedPositions[ind]];
+            searchedOrders.add(allOrders.get(searchedPositions[ind]));
         }
 
         return searchedOrders;
     }
 
-    public static OrderVO[] generateReport(
-        OrderVO[] allOrders, ReportType type, LocalDate date
+    public static List<OrderVO> generateReport(
+        List<OrderVO> allOrders, ReportType type, LocalDate date
     ) {
         switch(type) { 
             case day: return OrderBO.findByDate(allOrders, date);
@@ -61,22 +64,22 @@ public class OrderBO {
                 LocalDate finalDate = initialDate.plusDays(7);
 
                 int searchedOrdersLength = 0;
-                int searchedPositions[] = new int[allOrders.length];
+                int searchedPositions[] = new int[allOrders.size()];
 
-                for(int ind=0, i=0 ; ind<allOrders.length ; ind++) {
+                for(int ind=0, i=0 ; ind<allOrders.size() ; ind++) {
                     if(
-                        allOrders[ind].getDate().compareTo(initialDate) >= 0 &&
-                        allOrders[ind].getDate().compareTo(finalDate) < 0
+                        allOrders.get(ind).getDate().compareTo(initialDate) >= 0 &&
+                        allOrders.get(ind).getDate().compareTo(finalDate) < 0
                     ) {
                         searchedOrdersLength++;
                         searchedPositions[i++] = ind;
                     }
                 }
 
-                OrderVO searchedOrders[] = new OrderVO[searchedOrdersLength];
+                List<OrderVO> searchedOrders = new ArrayList<OrderVO>();
 
                 for(int ind=0 ; ind<searchedOrdersLength ; ind++) {
-                    searchedOrders[ind] = allOrders[searchedPositions[ind]];
+                    searchedOrders.add(allOrders.get(searchedPositions[ind]));
                 }
 
                 return searchedOrders;
@@ -84,22 +87,22 @@ public class OrderBO {
             
             case month: {
                 int searchedOrdersLength = 0;
-                int searchedPositions[] = new int[allOrders.length];
+                int searchedPositions[] = new int[allOrders.size()];
 
-                for(int ind=0, i=0 ; ind<allOrders.length ; ind++) {
+                for(int ind=0, i=0 ; ind < allOrders.size() ; ind++) {
                     if(
-                        allOrders[ind].getDate().getYear() == date.getYear() &&
-                        allOrders[ind].getDate().getMonthValue() == date.getMonthValue()
+                        allOrders.get(ind).getDate().getYear() == date.getYear() &&
+                        allOrders.get(ind).getDate().getMonthValue() == date.getMonthValue()
                     ) {
                         searchedOrdersLength++;
                         searchedPositions[i++] = ind;
                     }
                 }
 
-                OrderVO searchedOrders[] = new OrderVO[searchedOrdersLength];
+                List<OrderVO> searchedOrders = new ArrayList<OrderVO>();
 
                 for(int ind=0 ; ind<searchedOrdersLength ; ind++) {
-                    searchedOrders[ind] = allOrders[searchedPositions[ind]];
+                    searchedOrders.add(allOrders.get(searchedPositions[ind]));
                 }
 
                 return searchedOrders;
