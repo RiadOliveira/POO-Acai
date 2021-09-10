@@ -1,6 +1,7 @@
 package model.VO;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import utils.OrderStatus;
@@ -8,7 +9,7 @@ import utils.PaymentMethod;
 
 public class OrderVO {
     private UUID id;
-    private OrderProductVO[] orderProducts;
+    private List<OrderProductVO> orderProducts;
     private CustomerVO customer;
     private PaymentMethod paymentMethod;
     private OrderStatus status;
@@ -32,14 +33,14 @@ public class OrderVO {
         } 
     }
 
-    public OrderProductVO[] getOrderProducts() {
+    public List<OrderProductVO> getOrderProducts() {
         return this.orderProducts;
     }
 
-    public void setOrderProducts(OrderProductVO[] orderProducts) {
+    public void setOrderProducts(List<OrderProductVO> orderProducts) {
         try {
-            for(int ind=0 ; ind<orderProducts.length ; ind++) {
-                if(orderProducts[ind] == null) {
+            for(int ind=0 ; ind<orderProducts.size() ; ind++) {
+                if(orderProducts.get(ind) == null) {
                     throw new Exception("None order's product can be null.");
                 }
             }
