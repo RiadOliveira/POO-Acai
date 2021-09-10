@@ -34,8 +34,6 @@ public class OrderDAO extends BaseDAO {
     	Connection connection = getConnection();
 		String query = "SELECT * FROM orders";
 		
-//		 LEFT JOIN customers ON orders.customer_id = customers.id
-		
 		Statement statement;
         ResultSet findedOrders;
         List<OrderVO> orders = new ArrayList<OrderVO>();
@@ -163,7 +161,7 @@ public class OrderDAO extends BaseDAO {
     public static void delete(OrderVO order) throws SQLException {
     	Connection connection = getConnection();
 
-        String query = "DELETE FROM orders where id=?::uuid";
+        String query = "DELETE FROM orders WHERE id=?::uuid";
 
         PreparedStatement statement;
 

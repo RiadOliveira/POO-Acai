@@ -1,7 +1,5 @@
 package model.BO;
 
-import java.util.UUID;
-
 import model.DAO.OrderDAO;
 import model.DAO.OrderProductDAO;
 import model.DAO.ProductDAO;
@@ -18,9 +16,7 @@ public class OrderProductBO {
                 throw new Exception("Product not found.");
             }
 
-            UUID orderProductId = OrderProductDAO.insert(orderProduct);
-
-            orderProduct.setId(orderProductId);
+            OrderProductDAO.insert(orderProduct);
 
             return true;
         } catch(Exception err) {

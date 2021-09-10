@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import model.BO.OrderBO;
+import model.BO.OrderProductBO;
 import model.VO.CustomerVO;
 import model.VO.OrderProductVO;
 import model.VO.OrderVO;
@@ -18,34 +18,27 @@ public class Test {
 	public static void main(String[] args) throws SQLException {		
 		
 		OrderVO order = new OrderVO();
-		OrderProductVO orderProduct = new OrderProductVO();
-		
 		List<OrderProductVO> orderProducts = new ArrayList<OrderProductVO>();
-		orderProducts.add(orderProduct);
+		CustomerVO customer = new CustomerVO();
+		ProductVO product = new ProductVO();
 		
-		List<CustomerVO> customer = CustomerDAO.findAll();
-		
-		List<ProductVO> products = ProductDAO.findAll();
-		
-		List<OrderVO> orders = OrderDAO.findAll();
-		
-//		order.setId(UUID.randomUUID());
-//		order.setOrderProducts(orderProducts);
-//		order.setCustomer(customer.get(0));
-//		order.setPaymentMethod(PaymentMethod.card);
-//		order.setOrderStatus(OrderStatus.analyzing);
-//		order.setDate(LocalDate.now());
-//		
-//		orderProduct.setId(UUID.randomUUID());
-//		orderProduct.setOrder(order);
-//		orderProduct.setProduct(products.get(0));
-//		orderProduct.setQuantity(1);
-		
-		order = orders.get(0);
-		
+		order.setId(UUID.fromString("9f831441-ac43-47b7-8c22-7b88118fa3a2"));
+		order.setOrderProducts(orderProducts);
+		order.setCustomer(customer);
 		order.setPaymentMethod(PaymentMethod.card);
-		order.setOrderStatus(OrderStatus.ready);
+		order.setOrderStatus(OrderStatus.analyzing);
+		order.setDate(LocalDate.now());
 		
-		OrderBO.delete(order);
+		product.setId(UUID.fromString("6007b548-e0d1-42e7-8c37-a18358eb8668"));
+
+		OrderProductVO orderProductVO = new OrderProductVO();
+		orderProductVO.setId(UUID.fromString("43284288-8a21-4a84-84cc-f2d79cc2311b"));
+		orderProductVO.setOrder(order);
+		orderProductVO.setProduct(product);
+		orderProductVO.setQuantity(4);
+
+		
+		
+		OrderProductBO.update(orderProductVO);
 	}
 }
