@@ -57,12 +57,6 @@ public class OrderDAO extends BaseDAO {
             customer.setId(UUID.fromString(findedOrders.getString("customer_id")));
             customer = CustomerDAO.findById(customer);
             
-//            customer.setId(UUID.fromString(findedOrders.getString("id")));
-//            customer.setCpf(findedOrders.getString("cpf"));
-//            customer.setName(findedOrders.getString("name"));
-//            customer.setPhoneNumber(findedOrders.getString("phone_number"));
-//            customer.setAddress(findedOrders.getString("address"));
-            
             order.setCustomer(customer);
 
             orders.add(order);

@@ -12,13 +12,6 @@ public class ProductBO {
             }
 
             ProductDAO.insert(product);
-//            
-//            UUID productId = ProductDAO.insert(product);
-//
-//            product.setId(productId);
-            
-//            ProductVO findedProduct = ProductDAO.findByName(product);
-//            product.setId(findedProduct.getId());
 
             return true;
         } catch(Exception err) {
@@ -31,9 +24,9 @@ public class ProductBO {
 
     public static boolean update(ProductVO product) {
         try {
-//            if(ProductDAO.findById(product) == null) {
-//                throw new Exception("Product not found.");
-//            }
+            if(ProductDAO.findById(product) == null) {
+                throw new Exception("Product not found.");
+            }
             
             ProductDAO.update(product);
 
