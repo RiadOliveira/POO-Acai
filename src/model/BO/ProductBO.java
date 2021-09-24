@@ -1,9 +1,5 @@
 package model.BO;
 
-import utils.UserType;
-
-import java.util.UUID;
-
 import model.DAO.ProductDAO;
 import model.VO.ProductVO;
 import model.VO.UserVO;
@@ -11,13 +7,18 @@ import model.VO.UserVO;
 public class ProductBO {
     public static boolean create(UserVO user, ProductVO product) {
         try {
-            if(user.getType() != UserType.admin) {
+            if(!user.getIsAdmin()) {
                 throw new Exception("The user does not have permission to execute this action.");
             }
 
-            UUID productId = ProductDAO.insert(product);
-
-            product.setId(productId);
+            ProductDAO.insert(product);
+//            
+//            UUID productId = ProductDAO.insert(product);
+//
+//            product.setId(productId);
+            
+//            ProductVO findedProduct = ProductDAO.findByName(product);
+//            product.setId(findedProduct.getId());
 
             return true;
         } catch(Exception err) {
@@ -30,9 +31,9 @@ public class ProductBO {
 
     public static boolean update(ProductVO product) {
         try {
-            if(ProductDAO.findById(product) == null) {
-                throw new Exception("Product not found.");
-            }
+//            if(ProductDAO.findById(product) == null) {
+//                throw new Exception("Product not found.");
+//            }
             
             ProductDAO.update(product);
 
@@ -44,15 +45,11 @@ public class ProductBO {
             return false;
         }
     }
-
+    
     public static boolean delete(UserVO user, ProductVO product) {
         try {
-            if(user.getType() != UserType.admin) {
+            if(!user.getIsAdmin()) {
                 throw new Exception("The user does not have permission to execute this action.");
-            }
-
-            if(ProductDAO.findById(product) == null) {
-                throw new Exception("Product not found.");
             }
             
             ProductDAO.delete(product);

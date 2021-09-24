@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import model.DAO.CustomerDAO;
 import model.DAO.OrderDAO;
+import model.VO.OrderProductVO;
 import model.VO.OrderVO;
 import utils.ReportType;
 
@@ -17,11 +18,13 @@ public class OrderBO {
             if(CustomerDAO.findById(order.getCustomer()) == null) {
                 throw new Exception("Requested customer does not exist.");
             }
-
-            UUID orderId = OrderDAO.insert(order);
-
-            order.setId(orderId);
-
+                        
+            for (OrderProductVO orderProduct : order.getOrderProducts()) {
+            	order.setTotalPrice(orderProduct.getQuantity() * orderProduct.getProduct().getPrice());
+            }
+            
+            OrderDAO.insert(order);
+            
             return true;
         } catch(Exception err) {
             //Handle exception.

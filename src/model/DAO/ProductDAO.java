@@ -1,40 +1,133 @@
 package model.DAO;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import model.VO.ProductVO;
+import utils.Category;
 
-public class ProductDAO {
-    public static UUID insert(ProductVO product) { //May return Product with id.
-        //Insert product into database.
-        
-        return UUID.randomUUID(); //To simulate product's id from database.
+public class ProductDAO extends BaseDAO {
+    public static void insert(ProductVO product) throws SQLException {
+    	Connection connection = getConnection();
+		String query = "INSERT INTO products (name, category, price) values (?, ?, ?)";
+
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setString(1, product.getName());
+		statement.setInt(2, product.getCategory().ordinal());
+		statement.setDouble(3, product.getPrice());
+
+		statement.execute();
     }
+    
+    public static List<ProductVO> findAll() throws SQLException {
+        Connection connection = getConnection();
 
-    public static ProductVO findById(ProductVO product) {
-        //Database's find method to get requested product;
+        String query = "SELECT * FROM products";
 
-        //To simulate database's return:
-        return product;
-    }
+        Statement statement;
+        ResultSet findedProducts;
+        List<ProductVO> products = new ArrayList<ProductVO>();
 
-    public static ProductVO[] findAll() {
-        //Database's find method to get all products;
+        statement = connection.createStatement();
 
-        //To simulate database's return:
-        ProductVO product1 = new ProductVO();
-        ProductVO product2 = new ProductVO();
+        findedProducts = statement.executeQuery(query);
+        Category[] category = Category.values();
 
-        ProductVO products[] = {product1, product2};
+        while(findedProducts.next()) {
+            ProductVO product = new ProductVO();
+            
+            product.setId(UUID.fromString(findedProducts.getString("id")));
+            product.setName(findedProducts.getString("name"));
+            product.setCategory(category[findedProducts.getInt("category")]);
+            product.setPrice(findedProducts.getDouble("price"));
+
+            products.add(product);
+        }
 
         return products;
     }
 
-    public static void update(ProductVO product) {
-        //Update product on database using its id.
+    public static ProductVO findById(ProductVO product) throws SQLException {
+    	Connection connection = getConnection();
+    	
+    	 String query = "SELECT * FROM products WHERE id=?::uuid";
+    	 
+         PreparedStatement statement = connection.prepareStatement(query);
+         statement.setObject(1, product.getId());
+
+         ResultSet findedProduct = statement.executeQuery();
+
+         if(!findedProduct.next()) {
+             return null;
+         }
+
+         ProductVO findedProductVO = new ProductVO();
+         Category[] category = Category.values();
+
+         findedProductVO.setId(UUID.fromString(findedProduct.getString("id")));
+         findedProductVO.setName(findedProduct.getString("name"));
+         findedProductVO.setCategory(category[findedProduct.getInt("category")]);
+         findedProductVO.setPrice(findedProduct.getDouble("price"));
+        
+         return findedProductVO;
+    }
+    
+    public static ProductVO findByName(ProductVO product) throws SQLException {
+    	Connection connection = getConnection();
+    	
+    	String query = "SELECT * FROM products WHERE name=?";
+    	
+    	PreparedStatement statement = connection.prepareStatement(query);
+    	statement.setString(1, product.getName());
+    	
+    	ResultSet findedProduct = statement.executeQuery();
+    	
+    	if(!findedProduct.next()) {
+    		return null;
+    	}
+    	
+    	ProductVO findedProductVO = new ProductVO();
+    	Category[] category = Category.values();
+    	
+    	findedProductVO.setId(UUID.fromString(findedProduct.getString("id")));
+        findedProductVO.setName(findedProduct.getString("name"));
+        findedProductVO.setCategory(category[findedProduct.getInt("category")]);
+        findedProductVO.setPrice(findedProduct.getDouble("price"));
+    
+        return findedProductVO;
     }
 
-    public static void delete(ProductVO product) {
-        //Delete product on database using its id.
+    public static void update(ProductVO product) throws SQLException {
+    	Connection connection = getConnection();
+    	
+    	String query = "UPDATE products SET name=?, category=?, price=? WHERE id=?::uuid";
+
+        PreparedStatement statement;
+
+        statement = connection.prepareStatement(query);
+        statement.setString(1, product.getName());
+        statement.setInt(2, product.getCategory().ordinal());
+        statement.setDouble(3, product.getPrice());
+        statement.setString(4, product.getId().toString());
+
+        statement.execute();
+    }
+
+    public static void delete(ProductVO product) throws SQLException {
+    	Connection connection = getConnection();
+    	
+    	String query = "DELETE FROM products WHERE id=?::uuid";
+
+        PreparedStatement statement;
+
+        statement = connection.prepareStatement(query);
+        statement.setString(1, product.getId().toString());
+        statement.execute();
     }
 }

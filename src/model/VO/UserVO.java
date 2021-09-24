@@ -1,10 +1,9 @@
 package model.VO;
 
-import utils.UserType;
 
 public class UserVO extends PersonVO {
     private String password;
-    private UserType type;
+    private boolean isAdmin;
     private boolean isLogged = false;
 
     public String getPassword() {
@@ -28,21 +27,12 @@ public class UserVO extends PersonVO {
         } 
     }
 
-    public UserType getType() {
-        return this.type;
+    public boolean getIsAdmin() {
+        return this.isAdmin;
     }
 
-    public void setType(UserType type) {
-        try {
-            if(type == null) {
-                throw new Exception("User's type can't be null.");
-            }
-    
-            this.type = type;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-        } 
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public boolean getIsLogged() {
@@ -56,7 +46,7 @@ public class UserVO extends PersonVO {
     public String toString() {
         String obj = super.toString();
         obj += "password: " + this.password + '\n';
-        obj += "type: " + this.type + '\n';
+        obj += "isAdmin: " + this.isAdmin + '\n';
         obj += "isLogged: " + this.isLogged;
 
         return obj;

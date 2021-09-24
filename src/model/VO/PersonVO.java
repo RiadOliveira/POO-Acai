@@ -7,7 +7,7 @@ class PersonVO {
     private String name;
     private String cpf;
     private String phoneNumber;
-
+    
     public UUID getId() {
         return this.id;
     }
