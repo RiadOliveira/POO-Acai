@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
-import java.util.UUID;
-
 import model.DAO.CustomerDAO;
 import model.DAO.OrderDAO;
 import model.VO.OrderProductVO;

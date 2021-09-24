@@ -1,12 +1,7 @@
 package model.BO;
 
-<<<<<<< HEAD
 import java.util.List;
 import java.util.ArrayList;
-
-import java.util.UUID;
-=======
->>>>>>> feature/dao-implementation
 
 import model.DAO.CustomerDAO;
 import model.VO.CustomerVO;
