@@ -11,12 +11,12 @@ import java.util.UUID;
 
 import model.VO.UserVO;
 
-public class UserDAO extends BaseDAO {
-    public static void insert(UserVO user) throws SQLException { 
+public class UserDAO<User extends UserVO> extends BaseDAO<User> {
+    public void insert(User user) throws SQLException { 
 			Connection connection = getConnection();
 			String query = "insert into users (name, cpf, phone_number, password, is_admin) values (?, ?, ?, ?, ?)";
 
-			PreparedStatement statement = connection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, user.getName());
 			statement.setString(2, user.getCpf());
 			statement.setString(3, user.getPhoneNumber());
@@ -26,7 +26,7 @@ public class UserDAO extends BaseDAO {
 			statement.execute();
     }
 
-    public static List<UserVO> findAllEmployees() throws SQLException {
+    public List<UserVO> findAllEmployees() throws SQLException {
         Connection connection = getConnection();
 
         String query = "SELECT * FROM users WHERE is_admin=false";
@@ -55,7 +55,7 @@ public class UserDAO extends BaseDAO {
         return employees;
     }
 
-    public static UserVO findById(UserVO user) throws SQLException {
+    public ResultSet findById(User user) throws SQLException {
         Connection connection = getConnection();
 
         String query = "SELECT * FROM users WHERE id=?::uuid";
@@ -73,19 +73,17 @@ public class UserDAO extends BaseDAO {
             return null;
         }
 
-        UserVO findedUserVO = new UserVO();
+        // findedUserVO.setId(UUID.fromString(findedUser.getString("id")));
+        // findedUserVO.setName(findedUser.getString("name"));
+        // findedUserVO.setCpf(findedUser.getString("cpf"));
+        // findedUserVO.setPhoneNumber(findedUser.getString("phone_number"));
+        // findedUserVO.setPassword(findedUser.getString("password"));
+        // findedUserVO.setIsAdmin(findedUser.getBoolean("is_admin"));
 
-        findedUserVO.setId(UUID.fromString(findedUser.getString("id")));
-        findedUserVO.setName(findedUser.getString("name"));
-        findedUserVO.setCpf(findedUser.getString("cpf"));
-        findedUserVO.setPhoneNumber(findedUser.getString("phone_number"));
-        findedUserVO.setPassword(findedUser.getString("password"));
-        findedUserVO.setIsAdmin(findedUser.getBoolean("is_admin"));
-
-        return findedUserVO;
+        return findedUser;
     }
 
-    public static UserVO findByCpf(UserVO user) throws SQLException {
+    public ResultSet findByCpf(UserVO user) throws SQLException {
         Connection connection = getConnection();
 
         String query = "SELECT * FROM users WHERE cpf=?";
@@ -103,19 +101,19 @@ public class UserDAO extends BaseDAO {
             return null;
         }
 
-        UserVO findedUserVO = new UserVO();
+        // UserVO findedUserVO = new UserVO();
 
-        findedUserVO.setId(UUID.fromString(findedUser.getString("id")));
-        findedUserVO.setName(findedUser.getString("name"));
-        findedUserVO.setCpf(findedUser.getString("cpf"));
-        findedUserVO.setPhoneNumber(findedUser.getString("phone_number"));
-        findedUserVO.setPassword(findedUser.getString("password"));
-        findedUserVO.setIsAdmin(findedUser.getBoolean("is_admin"));
+        // findedUserVO.setId(UUID.fromString(findedUser.getString("id")));
+        // findedUserVO.setName(findedUser.getString("name"));
+        // findedUserVO.setCpf(findedUser.getString("cpf"));
+        // findedUserVO.setPhoneNumber(findedUser.getString("phone_number"));
+        // findedUserVO.setPassword(findedUser.getString("password"));
+        // findedUserVO.setIsAdmin(findedUser.getBoolean("is_admin"));
 
-        return findedUserVO;
+        return findedUser;
     }
 
-    public static void update(UserVO user) throws SQLException {
+    public void update(User user) throws SQLException {
         Connection connection = getConnection();
 
         String query = "UPDATE users SET name=?, phone_number=?, password=? WHERE id=?::uuid";
@@ -131,7 +129,7 @@ public class UserDAO extends BaseDAO {
         statement.execute();
     }
 
-    public static void delete(UserVO user) throws SQLException {
+    public void delete(User user) throws SQLException {
         Connection connection = getConnection();
 
         String query = "DELETE FROM users where id=?::uuid";
