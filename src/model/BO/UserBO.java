@@ -1,20 +1,21 @@
 package model.BO;
 
+import java.sql.ResultSet;
+import java.util.UUID;
+
 import model.DAO.UserDAO;
 import model.VO.UserVO;
 
 public class UserBO {
+    private static UserDAO<UserVO> userDAO = new UserDAO<UserVO>();
+
     public static boolean signUp(UserVO user) {
         try {
-            if(UserDAO.findByCpf(user) != null) {
+            if(userDAO.findByCpf(user) != null) {
                 throw new Exception("A user with this cpf already exists.");
             }
 
-            UserDAO.insert(user);
-
-            UserVO findeduser = UserDAO.findByCpf(user); //In order to get user's id.
-            
-            user.setId(findeduser.getId());
+            userDAO.insert(user);            
             user.setIsLogged(true);
 
             return true;
@@ -28,20 +29,20 @@ public class UserBO {
 
     public static boolean signIn(UserVO user) {
         try {
-            UserVO findedUser = UserDAO.findByCpf(user);
+            ResultSet findedUser = userDAO.findByCpf(user);
 
             if(findedUser == null) {
                 throw new Exception("User not found.");
             }
 
-            if(!user.getPassword().equals(findedUser.getPassword())) {
+            if(!user.getPassword().equals(findedUser.getString("password"))) {
                 throw new Exception("Invalid cpf or password.");
             }
 
-            user.setId(findedUser.getId());
-            user.setName(findedUser.getName());
-            user.setPhoneNumber(findedUser.getPhoneNumber());
-            user.setIsAdmin(findedUser.getIsAdmin());
+            user.setId(UUID.fromString(findedUser.getString("id")));
+            user.setName(findedUser.getString("name"));
+            user.setPhoneNumber(findedUser.getString("phone_number"));
+            user.setIsAdmin(findedUser.getBoolean("is_admin"));
             user.setIsLogged(true);
 
             return true;
@@ -59,11 +60,11 @@ public class UserBO {
 
     public static boolean update(UserVO user) {
         try {
-            if(UserDAO.findById(user) == null)  {
+            if(userDAO.findById(user) == null)  {
                 throw new Exception("User not found.");
             }
             
-            UserDAO.update(user);
+            userDAO.update(user);
 
             return true;
         } catch(Exception err) {
@@ -76,15 +77,17 @@ public class UserBO {
 
     public static boolean delete(UserVO user) {
         try {
-            if(user.getIsAdmin()) {
-                throw new Exception("That user can't be deleted.");
-            }
+            ResultSet findedUser = userDAO.findById(user);
 
-            if(UserDAO.findById(user) == null)  {
+            if(findedUser == null)  {
                 throw new Exception("User not found.");
             }
 
-            UserDAO.delete(user);
+            if(findedUser.getBoolean("is_admin")) {
+                throw new Exception("That user can't be deleted.");
+            }
+
+            userDAO.delete(user);
 
             return true;
         } catch(Exception err) {

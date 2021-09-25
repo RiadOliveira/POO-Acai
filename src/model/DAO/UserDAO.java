@@ -16,7 +16,7 @@ public class UserDAO<User extends UserVO> extends BaseDAO<User> {
 			Connection connection = getConnection();
 			String query = "insert into users (name, cpf, phone_number, password, is_admin) values (?, ?, ?, ?, ?)";
 
-            PreparedStatement statement = connection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, user.getName());
 			statement.setString(2, user.getCpf());
 			statement.setString(3, user.getPhoneNumber());
@@ -24,6 +24,14 @@ public class UserDAO<User extends UserVO> extends BaseDAO<User> {
 			statement.setBoolean(5, user.getIsAdmin());
 
 			statement.execute();
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+
+            if(generatedKeys.next()) {
+                user.setId(UUID.fromString(generatedKeys.getString(1)));
+            } else {
+                throw new SQLException("User's ID not found on database");
+            }
     }
 
     public List<UserVO> findAllEmployees() throws SQLException {
@@ -73,13 +81,6 @@ public class UserDAO<User extends UserVO> extends BaseDAO<User> {
             return null;
         }
 
-        // findedUserVO.setId(UUID.fromString(findedUser.getString("id")));
-        // findedUserVO.setName(findedUser.getString("name"));
-        // findedUserVO.setCpf(findedUser.getString("cpf"));
-        // findedUserVO.setPhoneNumber(findedUser.getString("phone_number"));
-        // findedUserVO.setPassword(findedUser.getString("password"));
-        // findedUserVO.setIsAdmin(findedUser.getBoolean("is_admin"));
-
         return findedUser;
     }
 
@@ -100,15 +101,6 @@ public class UserDAO<User extends UserVO> extends BaseDAO<User> {
         if(!findedUser.next()) {
             return null;
         }
-
-        // UserVO findedUserVO = new UserVO();
-
-        // findedUserVO.setId(UUID.fromString(findedUser.getString("id")));
-        // findedUserVO.setName(findedUser.getString("name"));
-        // findedUserVO.setCpf(findedUser.getString("cpf"));
-        // findedUserVO.setPhoneNumber(findedUser.getString("phone_number"));
-        // findedUserVO.setPassword(findedUser.getString("password"));
-        // findedUserVO.setIsAdmin(findedUser.getBoolean("is_admin"));
 
         return findedUser;
     }
