@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class BaseDAO {
+public abstract class BaseDAO<Entity> implements IBaseDAO<Entity> {
 	private static Connection connection = null;
 	
 	public static Connection getConnection() throws SQLException {
@@ -18,4 +18,15 @@ public class BaseDAO {
 
 		return connection;
 	}
+
+	public static void closeConnection() throws SQLException {
+		if(connection != null) {
+			connection.close();
+		}
+	}
+
+	public abstract void insert(Entity entity) throws SQLException;
+    public abstract Entity findById(Entity entity) throws SQLException;
+    public abstract void update(Entity entity) throws SQLException;
+    public abstract void delete(Entity entity) throws SQLException;
 }
