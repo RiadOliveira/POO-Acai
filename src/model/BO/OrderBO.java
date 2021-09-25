@@ -6,14 +6,19 @@ import java.util.ArrayList;
 
 import model.DAO.CustomerDAO;
 import model.DAO.OrderDAO;
+
 import model.VO.OrderProductVO;
 import model.VO.OrderVO;
+import model.VO.CustomerVO;
+
 import utils.ReportType;
 
 public class OrderBO {
+    private static CustomerDAO<CustomerVO> customerDAO = new CustomerDAO<CustomerVO>();
+
     public static boolean create(OrderVO order) {
         try {
-            if(CustomerDAO.findById(order.getCustomer()) == null) {
+            if(customerDAO.findById(order.getCustomer()) == null) {
                 throw new Exception("Requested customer does not exist.");
             }
                         
@@ -119,7 +124,7 @@ public class OrderBO {
                 throw new Exception("Order not found.");
             }
 
-            if(CustomerDAO.findById(order.getCustomer()) == null) {
+            if(customerDAO.findById(order.getCustomer()) == null) {
                 throw new Exception("Customer not found.");
             }
 
