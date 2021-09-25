@@ -11,8 +11,8 @@ import java.util.UUID;
 
 import model.VO.CustomerVO;
 
-public class CustomerDAO extends BaseDAO {
-    public static void insert(CustomerVO customer) throws SQLException {
+public class CustomerDAO<Customer extends CustomerVO> extends BaseDAO<Customer> {
+    public void insert(Customer customer) throws SQLException {
         Connection connection = getConnection();
         String query = "insert into customers (name, cpf, phone_number, address) values (?, ?, ?, ?)";
 
@@ -25,7 +25,7 @@ public class CustomerDAO extends BaseDAO {
         statement.execute();    
     }
 
-    public static List<CustomerVO> findAll() throws SQLException {
+    public List<CustomerVO> findAll() throws SQLException {
         Connection connection = getConnection();
 
         String query = "SELECT * FROM customers";
@@ -53,7 +53,7 @@ public class CustomerDAO extends BaseDAO {
         return customers;
     }
 
-    public static CustomerVO findById(CustomerVO customer) throws SQLException {
+    public ResultSet findById(Customer customer) throws SQLException {
         Connection connection = getConnection();
 
         String query = "SELECT * FROM customers WHERE id=?::uuid";
@@ -71,18 +71,10 @@ public class CustomerDAO extends BaseDAO {
             return null;
         }
 
-        CustomerVO findedCustomerVO = new CustomerVO();
-
-        findedCustomerVO.setId(UUID.fromString(findedCustomer.getString("id")));
-        findedCustomerVO.setName(findedCustomer.getString("name"));
-        findedCustomerVO.setCpf(findedCustomer.getString("cpf"));
-        findedCustomerVO.setPhoneNumber(findedCustomer.getString("phone_number"));
-        findedCustomerVO.setAddress(findedCustomer.getString("address"));
-
-        return findedCustomerVO;
+        return findedCustomer;
     }
 
-    public static CustomerVO findByCpf(CustomerVO customer) throws SQLException {
+    public CustomerVO findByCpf(CustomerVO customer) throws SQLException {
         Connection connection = getConnection();
 
         String query = "SELECT * FROM customers WHERE cpf=?";
@@ -111,7 +103,7 @@ public class CustomerDAO extends BaseDAO {
         return findedCustomerVO;
     }
 
-    public static void update(CustomerVO customer) throws SQLException {
+    public void update(Customer customer) throws SQLException {
         Connection connection = getConnection();
 
         String query = "UPDATE customers SET name=?, phone_number=?, address=? WHERE id=?::uuid";
@@ -127,7 +119,7 @@ public class CustomerDAO extends BaseDAO {
         statement.execute();
     }
 
-    public static void delete(CustomerVO customer) throws SQLException {
+    public void delete(Customer customer) throws SQLException {
         Connection connection = getConnection();
 
         String query = "DELETE FROM customers where id=?::uuid";
