@@ -22,7 +22,15 @@ public class CustomerDAO<Customer extends CustomerVO> extends BaseDAO<Customer> 
         statement.setString(3, customer.getPhoneNumber());
         statement.setString(4, customer.getAddress());
 
-        statement.execute();    
+        statement.execute();
+
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+
+        if(generatedKeys.next()) {
+            customer.setId(UUID.fromString(generatedKeys.getString(1)));
+        } else {
+            throw new SQLException("User's ID not found on database");
+        }
     }
 
     public List<CustomerVO> findAll() throws SQLException {
