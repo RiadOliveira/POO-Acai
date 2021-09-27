@@ -15,8 +15,8 @@ import model.VO.OrderVO;
 import utils.OrderStatus;
 import utils.PaymentMethod;
 
-public class OrderDAO extends BaseDAO {
-    public static void insert(OrderVO order) throws SQLException {
+public class OrderDAO<Order extends OrderVO> extends BaseDAO<Order> {
+    public void insert(Order order) throws SQLException {
     	Connection connection = getConnection();
 		String query = "INSERT INTO orders (customer_id, payment_method, status, total_price, order_date) values (?, ?, ?, ?, ?)";
 
