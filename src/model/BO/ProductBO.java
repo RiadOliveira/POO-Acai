@@ -5,20 +5,15 @@ import model.VO.ProductVO;
 import model.VO.UserVO;
 
 public class ProductBO {
+	private static ProductDAO productDAO = new ProductDAO();
+	
     public static boolean create(UserVO user, ProductVO product) {
         try {
             if(!user.getIsAdmin()) {
                 throw new Exception("The user does not have permission to execute this action.");
             }
 
-            ProductDAO.insert(product);
-//            
-//            UUID productId = ProductDAO.insert(product);
-//
-//            product.setId(productId);
-            
-//            ProductVO findedProduct = ProductDAO.findByName(product);
-//            product.setId(findedProduct.getId());
+            productDAO.insert(product);
 
             return true;
         } catch(Exception err) {
@@ -31,11 +26,11 @@ public class ProductBO {
 
     public static boolean update(ProductVO product) {
         try {
-//            if(ProductDAO.findById(product) == null) {
-//                throw new Exception("Product not found.");
-//            }
+            if(productDAO.findById(product) == null) {
+                throw new Exception("Product not found.");
+            }
             
-            ProductDAO.update(product);
+            productDAO.update(product);
 
             return true;
         } catch(Exception err) {
@@ -52,7 +47,7 @@ public class ProductBO {
                 throw new Exception("The user does not have permission to execute this action.");
             }
             
-            ProductDAO.delete(product);
+            productDAO.delete(product);
 
             return true;
         } catch(Exception err) {

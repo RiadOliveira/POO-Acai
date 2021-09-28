@@ -6,17 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 import model.VO.CustomerVO;
 import model.VO.OrderVO;
-import utils.OrderStatus;
-import utils.PaymentMethod;
 
-public class OrderDAO<Order extends OrderVO> extends BaseDAO<Order> {
-    public void insert(Order order) throws SQLException {
+public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
+    public void insert(VO order) throws SQLException {
     	Connection connection = getConnection();
 		String query = "INSERT INTO orders (customer_id, payment_method, status, total_price, order_date) values (?, ?, ?, ?, ?)";
 
@@ -30,48 +25,21 @@ public class OrderDAO<Order extends OrderVO> extends BaseDAO<Order> {
 		statement.execute();
     }
 
-    public static List<OrderVO> findAll() throws SQLException {
+    public ResultSet findAll() throws SQLException {
     	Connection connection = getConnection();
 		String query = "SELECT * FROM orders";
 		
 		Statement statement;
         ResultSet findedOrders;
-        List<OrderVO> orders = new ArrayList<OrderVO>();
 
         statement = connection.createStatement();
 
         findedOrders = statement.executeQuery(query);
-        PaymentMethod[] paymentMethod = PaymentMethod.values();
-        OrderStatus[] orderStatus = OrderStatus.values();
 
-        while(findedOrders.next()) {
-            OrderVO order = new OrderVO();
-            
-            order.setId(UUID.fromString(findedOrders.getString("id")));
-            order.setPaymentMethod(paymentMethod[findedOrders.getInt("payment_method")]);
-            order.setOrderStatus(orderStatus[findedOrders.getInt("status")]);
-            order.setTotalPrice(findedOrders.getDouble("total_price"));
-            order.setDate(findedOrders.getDate("order_date").toLocalDate());
-            
-            CustomerVO customer = new CustomerVO();
-            customer.setId(UUID.fromString(findedOrders.getString("customer_id")));
-            customer = CustomerDAO.findById(customer);
-            
-//            customer.setId(UUID.fromString(findedOrders.getString("id")));
-//            customer.setCpf(findedOrders.getString("cpf"));
-//            customer.setName(findedOrders.getString("name"));
-//            customer.setPhoneNumber(findedOrders.getString("phone_number"));
-//            customer.setAddress(findedOrders.getString("address"));
-            
-            order.setCustomer(customer);
-
-            orders.add(order);
-        }
-
-        return orders;
+        return findedOrders;
     }
     
-    public static OrderVO findById(OrderVO order) throws SQLException {
+    public ResultSet findById(VO order) throws SQLException {
     	Connection connection = getConnection();
     	
     	String query = "SELECT * FROM orders WHERE id=?::uuid";
@@ -89,24 +57,10 @@ public class OrderDAO<Order extends OrderVO> extends BaseDAO<Order> {
     		return null;
     	}
     	
-    	CustomerVO customer = new CustomerVO();
-    	customer.setId(UUID.fromString(findedOrder.getString("customer_id")));
-        customer = CustomerDAO.findById(customer);
-    	
-    	PaymentMethod[] paymentMethod = PaymentMethod.values();
-        OrderStatus[] orderStatus = OrderStatus.values();
-    	
-        OrderVO findedOrderVO = new OrderVO();
-    	findedOrderVO.setId(UUID.fromString(findedOrder.getString("id")));
-    	findedOrderVO.setCustomer(customer);
-    	findedOrderVO.setPaymentMethod(paymentMethod[findedOrder.getInt("payment_method")]);
-        findedOrderVO.setOrderStatus(orderStatus[findedOrder.getInt("status")]);
-        findedOrderVO.setDate(findedOrder.getDate("order_date").toLocalDate());
-    	
-    	return findedOrderVO;
+    	return findedOrder;
     }
 
-    public static List<OrderVO> findByCustomer(CustomerVO customer) throws SQLException {
+    public ResultSet findByCustomer(CustomerVO customer) throws SQLException {
     	Connection connection = getConnection();
 		String query = "SELECT * FROM orders WHERE customer_id=?::uuid";
 		
@@ -120,27 +74,10 @@ public class OrderDAO<Order extends OrderVO> extends BaseDAO<Order> {
         	return null;
         }
 
-        List<OrderVO> orders = new ArrayList<OrderVO>();
-
-        PaymentMethod[] paymentMethod = PaymentMethod.values();
-        OrderStatus[] orderStatus = OrderStatus.values();
-
-        while(findedOrders.next()) {
-            OrderVO order = new OrderVO();
-            
-            order.setId(UUID.fromString(findedOrders.getString("id")));
-            order.setCustomer(customer);
-            order.setPaymentMethod(paymentMethod[findedOrders.getInt("payment_method")]);
-            order.setOrderStatus(orderStatus[findedOrders.getInt("status")]);
-            order.setDate(findedOrders.getDate("order_date").toLocalDate());
-
-            orders.add(order);
-        }
-
-        return orders;
+        return findedOrders;
     }
 
-    public static void update(OrderVO order) throws SQLException {
+    public void update(VO order) throws SQLException {
     	Connection connection = getConnection();
 
         String query = "UPDATE orders SET customer_id=?, payment_method=?, status=?, total_price=?, order_date=? WHERE id=?::uuid";
@@ -158,7 +95,7 @@ public class OrderDAO<Order extends OrderVO> extends BaseDAO<Order> {
         statement.execute();
     }
 
-    public static void delete(OrderVO order) throws SQLException {
+    public void delete(VO order) throws SQLException {
     	Connection connection = getConnection();
 
         String query = "DELETE FROM orders WHERE id=?::uuid";

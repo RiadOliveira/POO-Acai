@@ -4,28 +4,45 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Statement;
 import java.util.UUID;
 
 import model.VO.OrderProductVO;
 import model.VO.OrderVO;
 import model.VO.ProductVO;
 
-public class OrderProductDAO extends BaseDAO {
-    public static void insert(OrderProductVO orderProduct) throws SQLException {
+public class OrderProductDAO<VO extends OrderProductVO> extends BaseDAO<VO> {
+	public void insert(VO orderProduct) throws SQLException {
     	Connection connection= getConnection();
     	String query = "INSERT INTO order_products (order_id, product_id, quantity) VALUES (?, ?, ?)";
     	
-    	PreparedStatement statement = connection.prepareStatement(query);
+    	PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
     	statement.setObject(1, orderProduct.getOrder().getId());
     	statement.setObject(2, orderProduct.getProduct().getId());
     	statement.setInt(3, orderProduct.getQuantity());
     	
     	statement.execute();
+    	
+    	ResultSet generatedKeys = statement.getGeneratedKeys();
+    	
+    	if (generatedKeys.next()) {
+    		orderProduct.setId(UUID.fromString(generatedKeys.getString(1)));
+    	} else {
+    		throw new SQLException("OrderProduct's ID not found on database");
+    	}
     }
+	
+	public ResultSet findAll() throws SQLException {
+		Connection connection = getConnection();
+		String query = "SELECT * FROM order_products";
+		
+		Statement statement = connection.createStatement();
+        ResultSet findedOrders = statement.executeQuery(query);
+  
+        return findedOrders;
+	}
 
-    public static OrderProductVO findById(OrderProductVO orderProduct) throws SQLException {
+    public ResultSet findById(VO orderProduct) throws SQLException {
         Connection connection = getConnection();
         String query = "SELECT * FROM order_products WHERE id=?::uuid";
         
@@ -37,25 +54,11 @@ public class OrderProductDAO extends BaseDAO {
         if (!findedOrderProducts.next()) {
         	return null;
         }        
-        
-        OrderVO order = new OrderVO();
-        order.setId(UUID.fromString(findedOrderProducts.getString("order_id")));
-        order = OrderDAO.findById(order);
-        
-        ProductVO product = new ProductVO();
-        product.setId(UUID.fromString(findedOrderProducts.getString("product_id")));
-        product = ProductDAO.findById(product);
-        
-        OrderProductVO orderProductVO = new OrderProductVO();
-        orderProductVO.setId(UUID.fromString(findedOrderProducts.getString("id")));
-        orderProductVO.setOrder(order);
-        orderProductVO.setProduct(product);
-        orderProductVO.setQuantity(findedOrderProducts.getInt("quantity"));
-        
-        return orderProductVO;
+    
+        return findedOrderProducts;
     }
 
-    public static List<OrderProductVO> findByProduct(ProductVO product) throws SQLException {
+    public ResultSet findByProduct(ProductVO product) throws SQLException {
     	Connection connection = getConnection();
     	String query = "SELECT * FROM order_products WHERE product_id=?::uuid";
     	
@@ -63,30 +66,15 @@ public class OrderProductDAO extends BaseDAO {
     	statement.setString(1, product.getId().toString());
     	
     	ResultSet findedOrderProducts = statement.executeQuery();
-    	List<OrderProductVO> orderProducts = new ArrayList<OrderProductVO>();
     	
     	if (!findedOrderProducts.next()) {
     		return null;
     	}
-            	
-        while(findedOrderProducts.next()) {
-        	OrderVO order = new OrderVO();
-            order.setId(UUID.fromString(findedOrderProducts.getString("order_id")));
-            order = OrderDAO.findById(order);
-            
-            OrderProductVO orderProductVO = new OrderProductVO();
-            orderProductVO.setId(UUID.fromString(findedOrderProducts.getString("id")));
-            orderProductVO.setOrder(order);
-            orderProductVO.setProduct(product);
-            orderProductVO.setQuantity(findedOrderProducts.getInt("quantity"));
-            
-            orderProducts.add(orderProductVO);
-        }
         
-        return orderProducts;
+        return findedOrderProducts;
     }
     
-    public static List<OrderProductVO> findByOrder(OrderVO order) throws SQLException {
+    public ResultSet findByOrder(OrderVO order) throws SQLException {
     	Connection connection = getConnection();
     	String query = "SELECT * FROM order_products WHERE order_id=?::uuid";
     	
@@ -94,30 +82,15 @@ public class OrderProductDAO extends BaseDAO {
     	statement.setString(1, order.getId().toString());
     	
     	ResultSet findedOrderProducts = statement.executeQuery();
-    	List<OrderProductVO> orderProducts = new ArrayList<OrderProductVO>();
     	
     	if (!findedOrderProducts.next()) {
     		return null;
     	}
-            	
-        while(findedOrderProducts.next()) {
-        	ProductVO product = new ProductVO();
-            product.setId(UUID.fromString(findedOrderProducts.getString("product_id")));
-            product = ProductDAO.findById(product);
-            
-            OrderProductVO orderProductVO = new OrderProductVO();
-            orderProductVO.setId(UUID.fromString(findedOrderProducts.getString("id")));
-            orderProductVO.setOrder(order);
-            orderProductVO.setProduct(product);
-            orderProductVO.setQuantity(findedOrderProducts.getInt("quantity"));
-            
-            orderProducts.add(orderProductVO);
-        }
         
-        return orderProducts;
+        return findedOrderProducts;
     }
 
-    public static void update(OrderProductVO orderProduct) throws SQLException {
+    public void update(VO orderProduct) throws SQLException {
     	Connection connection = getConnection();
 
         String query = "UPDATE order_products SET order_id=?, product_id=?, quantity=? WHERE id=?::uuid";
@@ -133,7 +106,7 @@ public class OrderProductDAO extends BaseDAO {
         statement.execute();
     }
 
-    public static void delete(OrderProductVO orderProduct) throws SQLException {
+    public void delete(VO orderProduct) throws SQLException {
     	Connection connection = getConnection();
 
         String query = "DELETE FROM order_products WHERE id=?::uuid";

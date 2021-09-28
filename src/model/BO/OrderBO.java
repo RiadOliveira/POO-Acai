@@ -26,7 +26,8 @@ public class OrderBO {
             	order.setTotalPrice(orderProduct.getQuantity() * orderProduct.getProduct().getPrice());
             }
             
-            OrderDAO.insert(order);
+            OrderDAO<OrderVO> dao = new OrderDAO<OrderVO>();
+            dao.insert(order);
             
             return true;
         } catch(Exception err) {
@@ -119,8 +120,9 @@ public class OrderBO {
     }
 
     public static boolean update(OrderVO order) {
+    	OrderDAO<OrderVO> orderDAO = new OrderDAO<OrderVO>();
         try {
-            if(OrderDAO.findById(order) == null) {
+            if(orderDAO.findById(order) == null) {
                 throw new Exception("Order not found.");
             }
 
@@ -128,7 +130,7 @@ public class OrderBO {
                 throw new Exception("Customer not found.");
             }
 
-            OrderDAO.update(order);
+            orderDAO.update(order);
 
             return true;
         } catch(Exception err) {
@@ -140,12 +142,13 @@ public class OrderBO {
     }
 
     public static boolean delete(OrderVO order) {
+    	OrderDAO<OrderVO> orderDAO = new OrderDAO<OrderVO>();
         try {
-            if(OrderDAO.findById(order) == null) {
+            if(orderDAO.findById(order) == null) {
                 throw new Exception("Order not found.");
             }
 
-            OrderDAO.delete(order);
+            orderDAO.delete(order);
 
             return true;
         } catch(Exception err) {

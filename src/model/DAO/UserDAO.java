@@ -5,74 +5,54 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import model.VO.UserVO;
 
-public class UserDAO<User extends UserVO> extends BaseDAO<User> {
-    public void insert(User user) throws SQLException { 
-			Connection connection = getConnection();
-			String query = "insert into users (name, cpf, phone_number, password, is_admin) values (?, ?, ?, ?, ?)";
+public class UserDAO<VO extends UserVO> extends BaseDAO<VO> implements PersonInterDAO<VO> {
+    public void insert(VO user) throws SQLException { 
+    	Connection connection = getConnection();
+		String query = "insert into users (name, cpf, phone_number, password, is_admin) values (?, ?, ?, ?, ?)";
 
-            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-			statement.setString(1, user.getName());
-			statement.setString(2, user.getCpf());
-			statement.setString(3, user.getPhoneNumber());
-			statement.setString(4, user.getPassword());
-			statement.setBoolean(5, user.getIsAdmin());
+        PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            
+		statement.setString(1, user.getName());
+		statement.setString(2, user.getCpf());
+		statement.setString(3, user.getPhoneNumber());
+		statement.setString(4, user.getPassword());
+		statement.setBoolean(5, user.getIsAdmin());
 
-			statement.execute();
+		statement.execute();
 
-            ResultSet generatedKeys = statement.getGeneratedKeys();
+        ResultSet generatedKeys = statement.getGeneratedKeys();
 
-            if(generatedKeys.next()) {
-                user.setId(UUID.fromString(generatedKeys.getString(1)));
-            } else {
-                throw new SQLException("User's ID not found on database");
-            }
+        if(generatedKeys.next()) {
+        	user.setId(UUID.fromString(generatedKeys.getString(1)));
+        } else {
+        	throw new SQLException("User's ID not found on database");
+        }
     }
 
-    public List<UserVO> findAllEmployees() throws SQLException {
+    public ResultSet findAll() throws SQLException {
         Connection connection = getConnection();
 
         String query = "SELECT * FROM users WHERE is_admin=false";
 
-        Statement statement;
-        ResultSet findedEmployees;
-        List<UserVO> employees = new ArrayList<UserVO>();
+        Statement statement = connection.createStatement();;
+        ResultSet findedEmployees = statement.executeQuery(query);
 
-        statement = connection.createStatement();
-
-        findedEmployees = statement.executeQuery(query);
-
-        while(findedEmployees.next()) {
-            UserVO employee = new UserVO();
-            
-            employee.setId(UUID.fromString(findedEmployees.getString("id")));
-            employee.setName(findedEmployees.getString("name"));
-            employee.setCpf(findedEmployees.getString("cpf"));
-            employee.setPhoneNumber(findedEmployees.getString("phone_number"));
-            employee.setPassword(findedEmployees.getString("password"));
-            employee.setIsAdmin(findedEmployees.getBoolean("is_admin"));
-
-            employees.add(employee);
-        }
-
-        return employees;
+        return findedEmployees;
     }
 
-    public ResultSet findById(User user) throws SQLException {
+    public ResultSet findById(VO user) throws SQLException {
         Connection connection = getConnection();
 
         String query = "SELECT * FROM users WHERE id=?::uuid";
 
-        PreparedStatement statement;
+        PreparedStatement statement = connection.prepareStatement(query);
 
         ResultSet findedUser;
 
-        statement = connection.prepareStatement(query);
         statement.setString(1, user.getId().toString());
 
         findedUser = statement.executeQuery();
@@ -84,18 +64,15 @@ public class UserDAO<User extends UserVO> extends BaseDAO<User> {
         return findedUser;
     }
 
-    public ResultSet findByCpf(UserVO user) throws SQLException {
+    public ResultSet findByCpf(VO user) throws SQLException {
         Connection connection = getConnection();
 
         String query = "SELECT * FROM users WHERE cpf=?";
 
-        PreparedStatement statement;
-
+        PreparedStatement statement = connection.prepareStatement(query);
         ResultSet findedUser;
-
-        statement = connection.prepareStatement(query);
+        
         statement.setString(1, user.getCpf());
-
         findedUser = statement.executeQuery();
 
         if(!findedUser.next()) {
@@ -105,14 +82,13 @@ public class UserDAO<User extends UserVO> extends BaseDAO<User> {
         return findedUser;
     }
 
-    public void update(User user) throws SQLException {
+    public void update(VO user) throws SQLException {
         Connection connection = getConnection();
 
         String query = "UPDATE users SET name=?, phone_number=?, password=? WHERE id=?::uuid";
 
-        PreparedStatement statement;
+        PreparedStatement statement = connection.prepareStatement(query);
 
-        statement = connection.prepareStatement(query);
         statement.setString(1, user.getName());
         statement.setString(2, user.getPhoneNumber());
         statement.setString(3, user.getPassword());
@@ -121,14 +97,12 @@ public class UserDAO<User extends UserVO> extends BaseDAO<User> {
         statement.execute();
     }
 
-    public void delete(User user) throws SQLException {
+    public void delete(VO user) throws SQLException {
         Connection connection = getConnection();
 
         String query = "DELETE FROM users where id=?::uuid";
 
-        PreparedStatement statement;
-
-        statement = connection.prepareStatement(query);
+        PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, user.getId().toString());
 
         statement.execute();

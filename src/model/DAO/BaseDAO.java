@@ -1,20 +1,23 @@
 package model.DAO;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public abstract class BaseDAO<Entity> {
+public abstract class BaseDAO<VO> implements BaseInterDAO<VO> {
     private static Connection connection = null;
+    private static final String url = "jdbc:postgresql://localhost:5432/poo_acai";
+    private static final String user = "postgres";
+    private static final String password = "46194673";
 	
-	public static Connection getConnection() throws SQLException {
+	public static Connection getConnection() {
 		if (connection == null) {
-			String url = "jdbc:postgresql://localhost:5432/poo_acai";
-			String user = "postgres";
-			String password = "46194673";
-
-			connection = DriverManager.getConnection(url, user, password);
+			try {
+				connection = DriverManager.getConnection(url, user, password);				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return connection;
 		}
 
 		return connection;
@@ -25,9 +28,4 @@ public abstract class BaseDAO<Entity> {
 			connection.close();
 		}
 	}
-
-    public abstract void insert(Entity entity) throws SQLException;
-    public abstract ResultSet findById(Entity entity) throws SQLException;
-    public abstract void update(Entity entity) throws SQLException;
-    public abstract void delete(Entity entity) throws SQLException;
 }

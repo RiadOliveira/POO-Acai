@@ -2,7 +2,7 @@ package model.VO;
 
 import java.util.UUID;
 
-abstract class PersonVO {
+public abstract class PersonVO {
     private UUID id;
     private String name;
     private String cpf;
