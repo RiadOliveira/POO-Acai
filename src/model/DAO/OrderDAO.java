@@ -6,13 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.UUID;
 
 import model.VO.CustomerVO;
 import model.VO.OrderVO;
-
-import utils.OrderStatus;
-import utils.PaymentMethod;
 
 public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
     public void insert(VO order) throws SQLException {
@@ -39,26 +35,6 @@ public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
         statement = connection.createStatement();
 
         findedOrders = statement.executeQuery(query);
-        PaymentMethod[] paymentMethod = PaymentMethod.values();
-        OrderStatus[] orderStatus = OrderStatus.values();
-
-        while(findedOrders.next()) {
-            OrderVO order = new OrderVO();
-            
-            order.setId(UUID.fromString(findedOrders.getString("id")));
-            order.setPaymentMethod(paymentMethod[findedOrders.getInt("payment_method")]);
-            order.setOrderStatus(orderStatus[findedOrders.getInt("status")]);
-            order.setTotalPrice(findedOrders.getDouble("total_price"));
-            order.setDate(findedOrders.getDate("order_date").toLocalDate());
-            
-            CustomerVO customer = new CustomerVO();
-            customer.setId(UUID.fromString(findedOrders.getString("customer_id")));
-            customer = CustomerDAO.findById(customer);
-            
-            order.setCustomer(customer);
-
-            orders.add(order);
-        }
 
         return findedOrders;
     }

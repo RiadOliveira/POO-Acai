@@ -38,7 +38,7 @@ public class UserDAO<VO extends UserVO> extends BaseDAO<VO> implements PersonInt
 
         String query = "SELECT * FROM users WHERE is_admin=false";
 
-        Statement statement = connection.createStatement();;
+        Statement statement = connection.createStatement();
         ResultSet findedEmployees = statement.executeQuery(query);
 
         return findedEmployees;
