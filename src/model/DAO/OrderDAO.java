@@ -35,6 +35,26 @@ public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
         statement = connection.createStatement();
 
         findedOrders = statement.executeQuery(query);
+        PaymentMethod[] paymentMethod = PaymentMethod.values();
+        OrderStatus[] orderStatus = OrderStatus.values();
+
+        while(findedOrders.next()) {
+            OrderVO order = new OrderVO();
+            
+            order.setId(UUID.fromString(findedOrders.getString("id")));
+            order.setPaymentMethod(paymentMethod[findedOrders.getInt("payment_method")]);
+            order.setOrderStatus(orderStatus[findedOrders.getInt("status")]);
+            order.setTotalPrice(findedOrders.getDouble("total_price"));
+            order.setDate(findedOrders.getDate("order_date").toLocalDate());
+            
+            CustomerVO customer = new CustomerVO();
+            customer.setId(UUID.fromString(findedOrders.getString("customer_id")));
+            customer = CustomerDAO.findById(customer);
+            
+            order.setCustomer(customer);
+
+            orders.add(order);
+        }
 
         return findedOrders;
     }
