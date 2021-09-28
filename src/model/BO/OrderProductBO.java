@@ -5,11 +5,12 @@ import model.DAO.OrderProductDAO;
 import model.DAO.ProductDAO;
 import model.VO.OrderProductVO;
 import model.VO.OrderVO;
+import model.VO.ProductVO;
 
 public class OrderProductBO {
 	private static OrderDAO<OrderVO> orderDAO = new OrderDAO<OrderVO>();
-	private static ProductDAO productDAO = new ProductDAO();
-	private static OrderProductDAO orderProductDAO = new OrderProductDAO();
+	private static ProductDAO<ProductVO> productDAO = new ProductDAO<ProductVO>();
+	private static OrderProductDAO<OrderProductVO> orderProductDAO = new OrderProductDAO<OrderProductVO>();
 
 	public static boolean create(OrderProductVO orderProduct) {
 		

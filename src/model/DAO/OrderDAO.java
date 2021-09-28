@@ -6,9 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.UUID;
 
 import model.VO.CustomerVO;
 import model.VO.OrderVO;
+
+import utils.OrderStatus;
+import utils.PaymentMethod;
 
 public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
     public void insert(VO order) throws SQLException {

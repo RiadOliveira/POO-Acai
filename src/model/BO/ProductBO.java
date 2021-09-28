@@ -5,7 +5,7 @@ import model.VO.ProductVO;
 import model.VO.UserVO;
 
 public class ProductBO {
-	private static ProductDAO productDAO = new ProductDAO();
+	private static ProductDAO<ProductVO> productDAO = new ProductDAO<ProductVO>();
 	
     public static boolean create(UserVO user, ProductVO product) {
         try {
