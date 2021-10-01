@@ -1,6 +1,8 @@
 package model.BO;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import model.DAO.UserDAO;
@@ -56,6 +58,71 @@ public class UserBO {
 
     public static void signOut(UserVO user) {
         user.setIsLogged(false);
+    }
+
+    public static List<UserVO> findAll() {
+        try {
+            List<UserVO> employees = new ArrayList<UserVO>();
+            ResultSet findedEmployees = userDAO.findAll();
+
+            while(findedEmployees.next()) {
+                UserVO employee = new UserVO();
+                
+                employee.setId(UUID.fromString(findedEmployees.getString("id")));
+                employee.setName(findedEmployees.getString("name"));
+                employee.setCpf(findedEmployees.getString("cpf"));
+                employee.setPhoneNumber(findedEmployees.getString("phone_number"));
+                employee.setPassword(findedEmployees.getString("password"));
+                employee.setIsAdmin(findedEmployees.getBoolean("is_admin"));
+    
+                employees.add(employee);
+            }
+
+            return employees;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return null;
+        }
+    }
+
+    public static boolean findById(UserVO user) {
+        try{
+            ResultSet findedUser = userDAO.findById(user);
+                    
+            user.setName(findedUser.getString("name"));
+            user.setCpf(findedUser.getString("cpf"));
+            user.setPhoneNumber(findedUser.getString("phone_number"));
+            user.setPassword(findedUser.getString("password"));
+            user.setIsAdmin(findedUser.getBoolean("is_admin"));
+
+            return true;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return false;
+        }
+    }
+
+    public static boolean findByCpf(UserVO user) {
+        try{
+            ResultSet findedUser = userDAO.findByCpf(user);
+                    
+            user.setId(UUID.fromString(findedUser.getString("id")));
+            user.setName(findedUser.getString("name"));
+            user.setPhoneNumber(findedUser.getString("phone_number"));
+            user.setPassword(findedUser.getString("password"));
+            user.setIsAdmin(findedUser.getBoolean("is_admin"));
+
+            return true;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return false;
+        }
     }
 
     public static boolean update(UserVO user) {

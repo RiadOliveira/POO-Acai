@@ -9,7 +9,7 @@ import model.VO.CustomerVO;
 public class CustomerBO {   
     private static CustomerDAO<CustomerVO> customerDAO = new CustomerDAO<CustomerVO>();
     
-    public static boolean create(CustomerVO customer) {
+    public static boolean insert(CustomerVO customer) {
         try {
             if(customerDAO.findByCpf(customer) != null) {
                 throw new Exception("A customer with this cpf already exists.");
