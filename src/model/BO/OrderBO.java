@@ -6,14 +6,19 @@ import java.util.ArrayList;
 
 import model.DAO.CustomerDAO;
 import model.DAO.OrderDAO;
+
 import model.VO.OrderProductVO;
 import model.VO.OrderVO;
+import model.VO.CustomerVO;
+
 import utils.ReportType;
 
 public class OrderBO {
+    private static CustomerDAO<CustomerVO> customerDAO = new CustomerDAO<CustomerVO>();
+
     public static boolean create(OrderVO order) {
         try {
-            if(CustomerDAO.findById(order.getCustomer()) == null) {
+            if(customerDAO.findById(order.getCustomer()) == null) {
                 throw new Exception("Requested customer does not exist.");
             }
                         
@@ -21,7 +26,8 @@ public class OrderBO {
             	order.setTotalPrice(orderProduct.getQuantity() * orderProduct.getProduct().getPrice());
             }
             
-            OrderDAO.insert(order);
+            OrderDAO<OrderVO> dao = new OrderDAO<OrderVO>();
+            dao.insert(order);
             
             return true;
         } catch(Exception err) {
@@ -114,16 +120,17 @@ public class OrderBO {
     }
 
     public static boolean update(OrderVO order) {
+    	OrderDAO<OrderVO> orderDAO = new OrderDAO<OrderVO>();
         try {
-            if(OrderDAO.findById(order) == null) {
+            if(orderDAO.findById(order) == null) {
                 throw new Exception("Order not found.");
             }
 
-            if(CustomerDAO.findById(order.getCustomer()) == null) {
+            if(customerDAO.findById(order.getCustomer()) == null) {
                 throw new Exception("Customer not found.");
             }
 
-            OrderDAO.update(order);
+            orderDAO.update(order);
 
             return true;
         } catch(Exception err) {
@@ -135,12 +142,13 @@ public class OrderBO {
     }
 
     public static boolean delete(OrderVO order) {
+    	OrderDAO<OrderVO> orderDAO = new OrderDAO<OrderVO>();
         try {
-            if(OrderDAO.findById(order) == null) {
+            if(orderDAO.findById(order) == null) {
                 throw new Exception("Order not found.");
             }
 
-            OrderDAO.delete(order);
+            orderDAO.delete(order);
 
             return true;
         } catch(Exception err) {

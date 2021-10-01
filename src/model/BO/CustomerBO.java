@@ -6,17 +6,16 @@ import java.util.ArrayList;
 import model.DAO.CustomerDAO;
 import model.VO.CustomerVO;
 
-public class CustomerBO {    
+public class CustomerBO {   
+    private static CustomerDAO<CustomerVO> customerDAO = new CustomerDAO<CustomerVO>();
+    
     public static boolean create(CustomerVO customer) {
         try {
-            if(CustomerDAO.findByCpf(customer) != null) {
+            if(customerDAO.findByCpf(customer) != null) {
                 throw new Exception("A customer with this cpf already exists.");
             }
 
-            CustomerDAO.insert(customer);
-
-            CustomerVO findedCustomer = CustomerDAO.findByCpf(customer);
-            customer.setId(findedCustomer.getId());
+            customerDAO.insert(customer);
 
             return true;
         } catch(Exception err) {
@@ -49,11 +48,11 @@ public class CustomerBO {
 
     public static boolean update(CustomerVO customer) {
         try {    
-            if(CustomerDAO.findById(customer) == null) {
+            if(customerDAO.findById(customer) == null) {
                 throw new Exception("Customer not found.");
             }
 
-            CustomerDAO.update(customer);
+            customerDAO.update(customer);
     
             return true;
         } catch (Exception err) {
@@ -66,11 +65,11 @@ public class CustomerBO {
 
     public static boolean delete(CustomerVO customer) {
         try {
-            if(CustomerDAO.findById(customer) == null) {
+            if(customerDAO.findById(customer) == null) {
                 throw new Exception("Customer not found.");
             }
 
-            CustomerDAO.delete(customer);
+            customerDAO.delete(customer);
     
             return true;             
         } catch (Exception err) {
