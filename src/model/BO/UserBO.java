@@ -29,30 +29,26 @@ public class UserBO {
         }
     }
 
-    public static boolean signIn(UserVO user) {
+    public static UserVO signIn(UserVO user) {
         try {
-            ResultSet findedUser = userDAO.findByCpf(user);
+            UserVO findedUser = UserBO.findByCpf(user);
 
             if(findedUser == null) {
                 throw new Exception("User not found.");
             }
 
-            if(!user.getPassword().equals(findedUser.getString("password"))) {
+            if(!user.getPassword().equals(findedUser.getPassword())) {
                 throw new Exception("Invalid cpf or password.");
             }
 
-            user.setId(UUID.fromString(findedUser.getString("id")));
-            user.setName(findedUser.getString("name"));
-            user.setPhoneNumber(findedUser.getString("phone_number"));
-            user.setIsAdmin(findedUser.getBoolean("is_admin"));
-            user.setIsLogged(true);
+            findedUser.setIsLogged(true);
 
-            return true;
+            return findedUser;
         } catch (Exception err) {
             //Handle exception.
         	System.out.println(err.getMessage());
 
-            return false;
+            return null;
         }
     }
 
@@ -87,41 +83,45 @@ public class UserBO {
         }
     }
 
-    public static boolean findById(UserVO user) {
+    public static UserVO findById(UserVO user) {
         try{
-            ResultSet findedUser = userDAO.findById(user);
-                    
-            user.setName(findedUser.getString("name"));
-            user.setCpf(findedUser.getString("cpf"));
-            user.setPhoneNumber(findedUser.getString("phone_number"));
-            user.setPassword(findedUser.getString("password"));
-            user.setIsAdmin(findedUser.getBoolean("is_admin"));
+            UserVO findedUser = new UserVO();
+            ResultSet findedUserDB = userDAO.findById(user);
 
-            return true;
+            findedUser.setId(UUID.fromString(findedUserDB.getString("id")));
+            findedUser.setName(findedUserDB.getString("name"));
+            findedUser.setCpf(findedUserDB.getString("cpf"));
+            findedUser.setPhoneNumber(findedUserDB.getString("phone_number"));
+            findedUser.setPassword(findedUserDB.getString("password"));
+            findedUser.setIsAdmin(findedUserDB.getBoolean("is_admin"));
+
+            return findedUser;
         } catch (Exception err) {
             //Handle exception.
         	System.out.println(err.getMessage());
 
-            return false;
+            return null;
         }
     }
 
-    public static boolean findByCpf(UserVO user) {
+    public static UserVO findByCpf(UserVO user) {
         try{
-            ResultSet findedUser = userDAO.findByCpf(user);
-                    
-            user.setId(UUID.fromString(findedUser.getString("id")));
-            user.setName(findedUser.getString("name"));
-            user.setPhoneNumber(findedUser.getString("phone_number"));
-            user.setPassword(findedUser.getString("password"));
-            user.setIsAdmin(findedUser.getBoolean("is_admin"));
+            UserVO findedUser = new UserVO();
+            ResultSet findedUserDB = userDAO.findByCpf(user);
 
-            return true;
+            findedUser.setId(UUID.fromString(findedUserDB.getString("id")));
+            findedUser.setName(findedUserDB.getString("name"));
+            findedUser.setCpf(findedUserDB.getString("cpf"));
+            findedUser.setPhoneNumber(findedUserDB.getString("phone_number"));
+            findedUser.setPassword(findedUserDB.getString("password"));
+            findedUser.setIsAdmin(findedUserDB.getBoolean("is_admin"));
+
+            return findedUser;
         } catch (Exception err) {
             //Handle exception.
         	System.out.println(err.getMessage());
 
-            return false;
+            return null;
         }
     }
 
@@ -144,13 +144,13 @@ public class UserBO {
 
     public static boolean delete(UserVO user) {
         try {
-            ResultSet findedUser = userDAO.findById(user);
+            UserVO findedUser = UserBO.findById(user);
 
             if(findedUser == null)  {
                 throw new Exception("User not found.");
             }
 
-            if(findedUser.getBoolean("is_admin")) {
+            if(findedUser.getIsAdmin()) {
                 throw new Exception("That user can't be deleted.");
             }
 
