@@ -1,6 +1,8 @@
 package model.BO;
 
 import java.util.List;
+import java.util.UUID;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import model.DAO.CustomerDAO;
@@ -44,6 +46,72 @@ public class CustomerBO {
         }
 
         return findedCustomers;
+    }
+
+    public static List<CustomerVO> findAll() {
+        try {
+            List<CustomerVO> customers = new ArrayList<CustomerVO>();
+            ResultSet findedCustomers = customerDAO.findAll();
+
+            while(findedCustomers.next()) {
+                CustomerVO customer = new CustomerVO();
+                
+                customer.setId(UUID.fromString(findedCustomers.getString("id")));
+                customer.setName(findedCustomers.getString("name"));
+                customer.setCpf(findedCustomers.getString("cpf"));
+                customer.setPhoneNumber(findedCustomers.getString("phone_number"));
+                customer.setAddress(findedCustomers.getString("address"));
+    
+                customers.add(customer);
+            }
+
+            return customers;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return null;
+        }
+    }
+
+    public static CustomerVO findById(CustomerVO customer) {
+        try{
+            CustomerVO findedCustomer = new CustomerVO();
+            ResultSet findedCustomerDB = customerDAO.findById(customer);
+
+            findedCustomer.setId(UUID.fromString(findedCustomerDB.getString("id")));
+            findedCustomer.setName(findedCustomerDB.getString("name"));
+            findedCustomer.setCpf(findedCustomerDB.getString("cpf"));
+            findedCustomer.setPhoneNumber(findedCustomerDB.getString("phone_number"));
+            findedCustomer.setAddress(findedCustomerDB.getString("address"));
+
+            return findedCustomer;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return null;
+        }
+    }
+
+    public static CustomerVO findByCpf(CustomerVO customer) {
+        try{
+            CustomerVO findedCustomer = new CustomerVO();
+            ResultSet findedCustomerDB = customerDAO.findById(customer);
+
+            findedCustomer.setId(UUID.fromString(findedCustomerDB.getString("id")));
+            findedCustomer.setName(findedCustomerDB.getString("name"));
+            findedCustomer.setCpf(findedCustomerDB.getString("cpf"));
+            findedCustomer.setPhoneNumber(findedCustomerDB.getString("phone_number"));
+            findedCustomer.setAddress(findedCustomerDB.getString("address"));
+
+            return findedCustomer;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return null;
+        }
     }
 
     public static boolean update(CustomerVO customer) {
