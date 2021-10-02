@@ -120,6 +120,10 @@ public class ProductBO {
             if(!user.getIsAdmin()) {
                 throw new Exception("The user does not have permission to execute this action.");
             }
+
+            if(productDAO.findById(product) == null) {
+                throw new Exception("Product not found.");
+            }
             
             productDAO.delete(product);
 
