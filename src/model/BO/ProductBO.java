@@ -57,6 +57,26 @@ public class ProductBO {
         }
     }
 
+    public static List<ProductVO> findByName(List<ProductVO> allProducts, String searchedName) {
+        int findedProductsLength = 0;
+        int findedProductsPositions[] = new int[allProducts.size()];
+
+        for(int ind=0, i=0 ; ind < allProducts.size() ; ind++) {
+            if(allProducts.get(ind).getName().contains(searchedName)) {
+                findedProductsLength++;
+                findedProductsPositions[i++] = ind;
+            }
+        }
+
+        List<ProductVO> findedProducts = new ArrayList<ProductVO>();
+
+        for(int ind=0 ; ind<findedProductsLength ; ind++) {
+            findedProducts.add(allProducts.get(findedProductsPositions[ind]));
+        }
+
+        return findedProducts;
+    }
+
     public ProductVO findById(ProductVO product) {
     	try{
             ProductVO findedProduct = new ProductVO();

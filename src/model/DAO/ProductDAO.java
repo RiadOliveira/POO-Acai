@@ -58,23 +58,6 @@ public class ProductDAO<VO extends ProductVO> extends BaseDAO<VO> {
          return findedProduct;
     }
     
-    public ResultSet findByName(VO product) throws SQLException {
-    	Connection connection = getConnection();
-    	
-    	String query = "SELECT * FROM products WHERE name=?";
-    	
-    	PreparedStatement statement = connection.prepareStatement(query);
-    	statement.setString(1, product.getName());
-    	
-    	ResultSet findedProduct = statement.executeQuery();
-    	
-    	if(!findedProduct.next()) {
-    		return null;
-    	}
-
-        return findedProduct;
-    }
-
     public void update(VO product) throws SQLException {
     	Connection connection = getConnection();
     	
