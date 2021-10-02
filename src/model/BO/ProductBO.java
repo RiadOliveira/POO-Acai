@@ -30,7 +30,7 @@ public class ProductBO {
         }
     }
 
-    public List<ProductVO> findAll() {
+    public static List<ProductVO> findAll() {
         try {
             List<ProductVO> products = new ArrayList<ProductVO>();
             ResultSet findedProducts = productDAO.findAll();
@@ -62,7 +62,10 @@ public class ProductBO {
         int findedProductsPositions[] = new int[allProducts.size()];
 
         for(int ind=0, i=0 ; ind < allProducts.size() ; ind++) {
-            if(allProducts.get(ind).getName().contains(searchedName)) {
+            if(
+                allProducts.get(ind).getName().toLowerCase().
+                contains(searchedName.toLowerCase())
+            ) {
                 findedProductsLength++;
                 findedProductsPositions[i++] = ind;
             }
@@ -77,17 +80,17 @@ public class ProductBO {
         return findedProducts;
     }
 
-    public ProductVO findById(ProductVO product) {
+    public static ProductVO findById(ProductVO product) {
     	try{
             ProductVO findedProduct = new ProductVO();
             ResultSet findedProductDB = productDAO.findById(product);
 
             Category category[] = Category.values();
             
-            product.setId(UUID.fromString(findedProductDB.getString("id")));
-            product.setName(findedProductDB.getString("name"));
-            product.setCategory(category[findedProductDB.getInt("category")]);
-            product.setPrice(findedProductDB.getDouble("price"));
+            findedProduct.setId(UUID.fromString(findedProductDB.getString("id")));
+            findedProduct.setName(findedProductDB.getString("name"));
+            findedProduct.setCategory(category[findedProductDB.getInt("category")]);
+            findedProduct.setPrice(findedProductDB.getDouble("price"));
 
             return findedProduct;
         } catch (Exception err) {

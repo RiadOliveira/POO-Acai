@@ -33,7 +33,10 @@ public class CustomerBO {
         int findedCustomersPositions[] = new int[allCustomers.size()];
 
         for(int ind=0, i=0 ; ind < allCustomers.size() ; ind++) {
-            if(allCustomers.get(ind).getName().contains(searchedName)) {
+            if(
+                allCustomers.get(ind).getName().toLowerCase().
+                contains(searchedName.toLowerCase())
+            ) {
                 findedCustomersLength++;
                 findedCustomersPositions[i++] = ind;
             }

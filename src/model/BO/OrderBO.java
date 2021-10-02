@@ -16,7 +16,7 @@ import utils.ReportType;
 public class OrderBO {
     private static CustomerDAO<CustomerVO> customerDAO = new CustomerDAO<CustomerVO>();
 
-    public static boolean create(OrderVO order) {
+    public static boolean insert(OrderVO order) {
         try {
             if(customerDAO.findById(order.getCustomer()) == null) {
                 throw new Exception("Requested customer does not exist.");

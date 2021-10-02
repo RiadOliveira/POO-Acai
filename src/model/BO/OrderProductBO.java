@@ -12,7 +12,7 @@ public class OrderProductBO {
 	private static ProductDAO<ProductVO> productDAO = new ProductDAO<ProductVO>();
 	private static OrderProductDAO<OrderProductVO> orderProductDAO = new OrderProductDAO<OrderProductVO>();
 
-	public static boolean create(OrderProductVO orderProduct) {
+	public static boolean insert(OrderProductVO orderProduct) {
 		
         try {
             if(orderDAO.findById(orderProduct.getOrder()) == null) {
