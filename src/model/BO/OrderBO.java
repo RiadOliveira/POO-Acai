@@ -26,7 +26,7 @@ public class OrderBO {
             }
                         
             for (OrderProductVO orderProduct : order.getOrderProducts()) {
-            	order.setTotalPrice(orderProduct.getQuantity() * orderProduct.getProduct().getPrice());
+            	order.setTotalPrice(order.getTotalPrice() + orderProduct.getQuantity() * orderProduct.getProduct().getPrice());
             }
             
             orderDAO.insert(order);
