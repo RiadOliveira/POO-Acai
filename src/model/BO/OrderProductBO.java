@@ -1,8 +1,5 @@
 package model.BO;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import model.DAO.OrderDAO;
 import model.DAO.OrderProductDAO;
 import model.DAO.ProductDAO;
@@ -15,16 +12,13 @@ public class OrderProductBO {
 	private static ProductDAO<ProductVO> productDAO = new ProductDAO<ProductVO>();
 	private static OrderProductDAO<OrderProductVO> orderProductDAO = new OrderProductDAO<OrderProductVO>();
 
-	public static boolean insert(OrderProductVO orderProduct) throws SQLException {
-		ResultSet findedOrder = orderDAO.findById(orderProduct.getOrder());
-		ResultSet findedProduct = productDAO.findById(orderProduct.getProduct());
-		
+	public static boolean insert(OrderProductVO orderProduct) {
         try {
-            if(!findedOrder.next()) {
+            if(orderDAO.findById(orderProduct.getOrder()) == null) {
                 throw new Exception("Order not found.");
             }
 
-            if(!findedProduct.next()) {
+            if(productDAO.findById(orderProduct.getProduct()) == null) {
                 throw new Exception("Product not found.");
             }
 
@@ -39,11 +33,9 @@ public class OrderProductBO {
         }
     }
 
-    public static boolean update(OrderProductVO orderProduct) throws SQLException {
-    	ResultSet findedOrderProduct = orderProductDAO.findById(orderProduct);
-    	
+    public static boolean update(OrderProductVO orderProduct) {
         try {
-            if(!findedOrderProduct.next()) {
+            if(orderProductDAO.findById(orderProduct) == null) {
                 throw new Exception("OrderProduct not found.");
             }
 
@@ -58,10 +50,9 @@ public class OrderProductBO {
         }
     }
 
-    public static boolean delete(OrderProductVO orderProduct) throws SQLException {
-    	ResultSet findedOrderProduct = orderProductDAO.findById(orderProduct);
+    public static boolean delete(OrderProductVO orderProduct) {
         try {
-            if(!findedOrderProduct.next()) {
+            if(orderProductDAO.findById(orderProduct) == null) {
                 throw new Exception("OrderProduct not found.");
             }
 

@@ -60,14 +60,14 @@ public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
     	
     	ResultSet findedOrder = null;
     	
-    	try {
-    		statement = connection.prepareStatement(query);
-    		statement.setString(1, order.getId().toString());
-    		
-    		findedOrder = statement.executeQuery();    		
-    	} catch(SQLException e) {
-    		e.printStackTrace();
-    	}
+		statement = connection.prepareStatement(query);
+		statement.setString(1, order.getId().toString());
+		
+		findedOrder = statement.executeQuery();
+		
+		if(!findedOrder.next()) {
+			return null;
+		}
     		
     	return findedOrder;
     }

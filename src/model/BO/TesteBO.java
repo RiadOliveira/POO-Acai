@@ -51,12 +51,7 @@ public class TesteBO {
 		
 		order.setId(UUID.fromString("8e1cad1d-ed87-410c-a1a9-98f1f0ea8357"));
 		
-		try {
-			OrderBO.delete(order);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		OrderBO.delete(order);
 //		
 //		System.out.println(customer.toString());
 	}

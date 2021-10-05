@@ -5,9 +5,6 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
-import model.VO.CustomerVO;
-import model.VO.OrderProductVO;
-
 import utils.OrderStatus;
 import utils.PaymentMethod;
 
