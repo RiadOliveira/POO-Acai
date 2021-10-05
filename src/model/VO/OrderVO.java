@@ -1,8 +1,12 @@
 package model.VO;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
+
+import model.VO.CustomerVO;
+import model.VO.OrderProductVO;
 
 import utils.OrderStatus;
 import utils.PaymentMethod;
@@ -14,6 +18,7 @@ public class OrderVO {
     private PaymentMethod paymentMethod;
     private OrderStatus status;
     private LocalDate date;
+    private LocalTime time;
     private double totalPrice;
 
     public UUID getId() {
@@ -118,6 +123,27 @@ public class OrderVO {
             }
     
             this.date = date;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+        } 
+    }
+    
+    public LocalTime getTime() {
+        return this.time;
+    }
+
+    public void setTime(LocalTime time) {
+        try {
+            if(time == null) {
+                throw new Exception("Order's date can't be null.");
+            }
+
+            if(time.compareTo(LocalTime.now()) < 0) {
+                throw new Exception("An order can't be registered in a past date.");
+            }
+    
+            this.time = time;
         } catch (Exception err) {
             //Handle exception.
         	System.out.println(err.getMessage());

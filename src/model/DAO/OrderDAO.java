@@ -2,6 +2,8 @@ package model.DAO;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.Time;
+import java.util.UUID;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,16 +15,26 @@ import model.VO.OrderVO;
 public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
     public void insert(VO order) throws SQLException {
     	Connection connection = getConnection();
-		String query = "INSERT INTO orders (customer_id, payment_method, status, total_price, order_date) values (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO orders (customer_id, payment_method, status, total_price, order_date, order_time) values (?, ?, ?, ?, ?, ?)";
 
-		PreparedStatement statement = connection.prepareStatement(query);
+		PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+		
 		statement.setObject(1, order.getCustomer().getId());
 		statement.setInt(2, order.getPaymentMethod().ordinal());
 		statement.setInt(3, order.getOrderStatus().ordinal());
 		statement.setDouble(4, order.getTotalPrice());
 		statement.setDate(5, Date.valueOf(order.getDate()));
+		statement.setTime(6, Time.valueOf(order.getTime()));
 
 		statement.execute();
+		
+		ResultSet generatedKeys = statement.getGeneratedKeys();
+
+        if(generatedKeys.next()) {
+            order.setId(UUID.fromString(generatedKeys.getString(1)));
+        } else {
+            throw new SQLException("Order's ID not found on database");
+        }
     }
 
     public ResultSet findAll() throws SQLException {
@@ -46,17 +58,17 @@ public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
     	
     	PreparedStatement statement;
     	
-    	ResultSet findedOrder;
+    	ResultSet findedOrder = null;
     	
-    	statement = connection.prepareStatement(query);
-    	statement.setString(1, order.getId().toString());
-    	
-    	findedOrder = statement.executeQuery();
-    	
-    	if(!findedOrder.next()) {
-    		return null;
+    	try {
+    		statement = connection.prepareStatement(query);
+    		statement.setString(1, order.getId().toString());
+    		
+    		findedOrder = statement.executeQuery();    		
+    	} catch(SQLException e) {
+    		e.printStackTrace();
     	}
-    	
+    		
     	return findedOrder;
     }
 
