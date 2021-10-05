@@ -148,6 +148,37 @@ public class OrderBO {
         }
     }
 
+    public static List<OrderVO> findByCustomer(CustomerVO customer) {
+        try {
+            ResultSet findedOrdersDB = orderDAO.findByCustomer(customer);
+            List<OrderVO> findedOrders = new ArrayList<OrderVO>();
+    
+            PaymentMethod[] paymentMethod = PaymentMethod.values();
+            OrderStatus[] orderStatus = OrderStatus.values();
+    
+            while(findedOrdersDB.next()) {
+                OrderVO order = new OrderVO();
+                
+                order.setId(UUID.fromString(findedOrdersDB.getString("id")));
+                order.setPaymentMethod(paymentMethod[findedOrdersDB.getInt("payment_method")]);
+                order.setOrderStatus(orderStatus[findedOrdersDB.getInt("status")]);
+                order.setTotalPrice(findedOrdersDB.getDouble("total_price"));
+                order.setDate(findedOrdersDB.getDate("order_date").toLocalDate());
+                
+                order.setCustomer(customer);
+    
+                findedOrders.add(order);
+            }
+    
+            return findedOrders;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return null;
+        }
+    }
+
     public static List<OrderVO> findAll() {
         try {
             ResultSet findedOrdersDB = orderDAO.findAll();
