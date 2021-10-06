@@ -41,48 +41,23 @@ public class OrderBO {
     }
     
     public static List<OrderVO> findByDate(List<OrderVO> allOrders, LocalDate date) {
-        try {
-            ResultSet findedOrders = orderDAO.findAll();
-            
-            List<OrderVO> orders = new ArrayList<OrderVO>();
-            
-            PaymentMethod[] paymentMethod = PaymentMethod.values();
-            OrderStatus[] orderStatus = OrderStatus.values();
-        
-            while(findedOrders.next()) {
-                if (findedOrders.getDate("order_date").toLocalDate() == date) {
-                    OrderVO order = new OrderVO();
-                    
-                    order.setId(UUID.fromString(findedOrders.getString("id")));
-                    order.setPaymentMethod(paymentMethod[findedOrders.getInt("payment_method")]);
-                    order.setOrderStatus(orderStatus[findedOrders.getInt("status")]);
-                    order.setTotalPrice(findedOrders.getDouble("total_price"));
-                    order.setDate(findedOrders.getDate("order_date").toLocalDate());
-                    
-                    CustomerVO customer = new CustomerVO();
-                    customer.setId(UUID.fromString(findedOrders.getString("customer_id")));
-                    
-                    CustomerDAO<CustomerVO> customerDAO = new CustomerDAO<CustomerVO>();
-                    ResultSet findedCustomer = customerDAO.findById(customer);
-                    customer.setId(UUID.fromString(findedCustomer.getString("id")));
-                    customer.setName(findedCustomer.getString("name"));
-                    customer.setCpf(findedCustomer.getString("cpf"));
-                    customer.setPhoneNumber(findedCustomer.getString("phone_number"));
-                    customer.setAddress(findedCustomer.getString("address")); 
-                    
-                    order.setCustomer(customer);
-                    
-                    orders.add(order);
-                }
+        int searchedOrdersLength = 0;
+        int searchedPositions[] = new int[allOrders.size()];
+
+        for(int ind=0, i=0 ; ind<allOrders.size() ; ind++) {
+            if(allOrders.get(ind).getDate().compareTo(date) == 0) {
+                searchedOrdersLength++;
+                searchedPositions[i++] = ind;
             }
-            
-            return orders;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-            
-            return null;
         }
+
+        List<OrderVO> searchedOrders = new ArrayList<OrderVO>();
+
+        for(int ind=0 ; ind<searchedOrdersLength ; ind++) {
+            searchedOrders.add(allOrders.get(searchedPositions[ind]));
+        }
+
+        return searchedOrders;
     }
 
     public static List<OrderVO> generateReport(
@@ -146,13 +121,106 @@ public class OrderBO {
         }
     }
 
+    public static OrderVO findById(OrderVO order) {
+        try {
+            ResultSet findedOrderDB = orderDAO.findById(order);
+    
+            CustomerVO customer = new CustomerVO();
+            customer.setId(UUID.fromString(findedOrderDB.getString("customer_id")));
+            customer = CustomerBO.findById(customer);
+            
+            PaymentMethod[] paymentMethod = PaymentMethod.values();
+            OrderStatus[] orderStatus = OrderStatus.values();
+            
+            OrderVO findedOrder = new OrderVO();
+            findedOrder.setId(UUID.fromString(findedOrderDB.getString("id")));
+            findedOrder.setCustomer(customer);
+            findedOrder.setPaymentMethod(paymentMethod[findedOrderDB.getInt("payment_method")]);
+            findedOrder.setOrderStatus(orderStatus[findedOrderDB.getInt("status")]);
+            findedOrder.setDate(findedOrderDB.getDate("order_date").toLocalDate());
+    
+            return findedOrder;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return null;
+        }
+    }
+
+    public static List<OrderVO> findByCustomer(CustomerVO customer) {
+        try {
+            ResultSet findedOrdersDB = orderDAO.findByCustomer(customer);
+            List<OrderVO> findedOrders = new ArrayList<OrderVO>();
+    
+            PaymentMethod[] paymentMethod = PaymentMethod.values();
+            OrderStatus[] orderStatus = OrderStatus.values();
+    
+            while(findedOrdersDB.next()) {
+                OrderVO order = new OrderVO();
+                
+                order.setId(UUID.fromString(findedOrdersDB.getString("id")));
+                order.setPaymentMethod(paymentMethod[findedOrdersDB.getInt("payment_method")]);
+                order.setOrderStatus(orderStatus[findedOrdersDB.getInt("status")]);
+                order.setTotalPrice(findedOrdersDB.getDouble("total_price"));
+                order.setDate(findedOrdersDB.getDate("order_date").toLocalDate());
+                
+                order.setCustomer(customer);
+    
+                findedOrders.add(order);
+            }
+    
+            return findedOrders;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return null;
+        }
+    }
+
+    public static List<OrderVO> findAll() {
+        try {
+            ResultSet findedOrdersDB = orderDAO.findAll();
+            List<OrderVO> findedOrders = new ArrayList<OrderVO>();
+    
+            PaymentMethod[] paymentMethod = PaymentMethod.values();
+            OrderStatus[] orderStatus = OrderStatus.values();
+    
+            while(findedOrdersDB.next()) {
+                OrderVO order = new OrderVO();
+                
+                order.setId(UUID.fromString(findedOrdersDB.getString("id")));
+                order.setPaymentMethod(paymentMethod[findedOrdersDB.getInt("payment_method")]);
+                order.setOrderStatus(orderStatus[findedOrdersDB.getInt("status")]);
+                order.setTotalPrice(findedOrdersDB.getDouble("total_price"));
+                order.setDate(findedOrdersDB.getDate("order_date").toLocalDate());
+                
+                CustomerVO customer = new CustomerVO();
+                customer.setId(UUID.fromString(findedOrdersDB.getString("customer_id")));
+                customer = CustomerBO.findById(customer);
+                
+                order.setCustomer(customer);
+    
+                findedOrders.add(order);
+            }
+    
+            return findedOrders;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return null;
+        }
+    }
+
     public static boolean update(OrderVO order) {
         try {
-            if(customerDAO.findById(order.getCustomer()) == null) {
+            if(orderDAO.findById(order) == null) {
                 throw new Exception("Order not found.");
             }
 
-            if(orderDAO.findById(order) == null) {
+            if(customerDAO.findById(order.getCustomer()) == null) {
                 throw new Exception("Customer not found.");
             }
 
