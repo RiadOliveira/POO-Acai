@@ -2,7 +2,6 @@ package model.DAO;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.Time;
 import java.util.UUID;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +14,7 @@ import model.VO.OrderVO;
 public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
     public void insert(VO order) throws SQLException {
     	Connection connection = getConnection();
-		String query = "INSERT INTO orders (customer_id, payment_method, status, total_price, order_date, order_time) values (?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO orders (customer_id, payment_method, status, total_price, order_date) values (?, ?, ?, ?, ?)";
 
 		PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		
@@ -24,7 +23,6 @@ public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
 		statement.setInt(3, order.getOrderStatus().ordinal());
 		statement.setDouble(4, order.getTotalPrice());
 		statement.setDate(5, Date.valueOf(order.getDate()));
-		statement.setTime(6, Time.valueOf(order.getTime()));
 
 		statement.execute();
 		
