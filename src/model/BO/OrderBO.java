@@ -1,33 +1,35 @@
 package model.BO;
 
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import java.util.ArrayList;
 
 import model.DAO.CustomerDAO;
 import model.DAO.OrderDAO;
-
 import model.VO.OrderProductVO;
 import model.VO.OrderVO;
 import model.VO.CustomerVO;
-
+import utils.OrderStatus;
+import utils.PaymentMethod;
 import utils.ReportType;
 
 public class OrderBO {
     private static CustomerDAO<CustomerVO> customerDAO = new CustomerDAO<CustomerVO>();
-
-    public static boolean create(OrderVO order) {
+    private static OrderDAO<OrderVO> orderDAO = new OrderDAO<OrderVO>();
+    
+    public static boolean insert(OrderVO order) {
         try {
             if(customerDAO.findById(order.getCustomer()) == null) {
                 throw new Exception("Requested customer does not exist.");
             }
                         
             for (OrderProductVO orderProduct : order.getOrderProducts()) {
-            	order.setTotalPrice(orderProduct.getQuantity() * orderProduct.getProduct().getPrice());
+            	order.setTotalPrice(order.getTotalPrice() + orderProduct.getQuantity() * orderProduct.getProduct().getPrice());
             }
             
-            OrderDAO<OrderVO> dao = new OrderDAO<OrderVO>();
-            dao.insert(order);
+            orderDAO.insert(order);
             
             return true;
         } catch(Exception err) {
@@ -61,7 +63,7 @@ public class OrderBO {
     public static List<OrderVO> generateReport(
         List<OrderVO> allOrders, ReportType type, LocalDate date
     ) {
-        switch(type) { 
+        switch (type) { 
             case day: return OrderBO.findByDate(allOrders, date);
             
             case week: {
@@ -119,8 +121,100 @@ public class OrderBO {
         }
     }
 
+    public static OrderVO findById(OrderVO order) {
+        try {
+            ResultSet findedOrderDB = orderDAO.findById(order);
+    
+            CustomerVO customer = new CustomerVO();
+            customer.setId(UUID.fromString(findedOrderDB.getString("customer_id")));
+            customer = CustomerBO.findById(customer);
+            
+            PaymentMethod[] paymentMethod = PaymentMethod.values();
+            OrderStatus[] orderStatus = OrderStatus.values();
+            
+            OrderVO findedOrder = new OrderVO();
+            findedOrder.setId(UUID.fromString(findedOrderDB.getString("id")));
+            findedOrder.setCustomer(customer);
+            findedOrder.setPaymentMethod(paymentMethod[findedOrderDB.getInt("payment_method")]);
+            findedOrder.setOrderStatus(orderStatus[findedOrderDB.getInt("status")]);
+            findedOrder.setDate(findedOrderDB.getDate("order_date").toLocalDate());
+    
+            return findedOrder;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return null;
+        }
+    }
+
+    public static List<OrderVO> findByCustomer(CustomerVO customer) {
+        try {
+            ResultSet findedOrdersDB = orderDAO.findByCustomer(customer);
+            List<OrderVO> findedOrders = new ArrayList<OrderVO>();
+    
+            PaymentMethod[] paymentMethod = PaymentMethod.values();
+            OrderStatus[] orderStatus = OrderStatus.values();
+    
+            while(findedOrdersDB.next()) {
+                OrderVO order = new OrderVO();
+                
+                order.setId(UUID.fromString(findedOrdersDB.getString("id")));
+                order.setPaymentMethod(paymentMethod[findedOrdersDB.getInt("payment_method")]);
+                order.setOrderStatus(orderStatus[findedOrdersDB.getInt("status")]);
+                order.setTotalPrice(findedOrdersDB.getDouble("total_price"));
+                order.setDate(findedOrdersDB.getDate("order_date").toLocalDate());
+                
+                order.setCustomer(customer);
+    
+                findedOrders.add(order);
+            }
+    
+            return findedOrders;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return null;
+        }
+    }
+
+    public static List<OrderVO> findAll() {
+        try {
+            ResultSet findedOrdersDB = orderDAO.findAll();
+            List<OrderVO> findedOrders = new ArrayList<OrderVO>();
+    
+            PaymentMethod[] paymentMethod = PaymentMethod.values();
+            OrderStatus[] orderStatus = OrderStatus.values();
+    
+            while(findedOrdersDB.next()) {
+                OrderVO order = new OrderVO();
+                
+                order.setId(UUID.fromString(findedOrdersDB.getString("id")));
+                order.setPaymentMethod(paymentMethod[findedOrdersDB.getInt("payment_method")]);
+                order.setOrderStatus(orderStatus[findedOrdersDB.getInt("status")]);
+                order.setTotalPrice(findedOrdersDB.getDouble("total_price"));
+                order.setDate(findedOrdersDB.getDate("order_date").toLocalDate());
+                
+                CustomerVO customer = new CustomerVO();
+                customer.setId(UUID.fromString(findedOrdersDB.getString("customer_id")));
+                customer = CustomerBO.findById(customer);
+                
+                order.setCustomer(customer);
+    
+                findedOrders.add(order);
+            }
+    
+            return findedOrders;
+        } catch (Exception err) {
+            //Handle exception.
+        	System.out.println(err.getMessage());
+
+            return null;
+        }
+    }
+
     public static boolean update(OrderVO order) {
-    	OrderDAO<OrderVO> orderDAO = new OrderDAO<OrderVO>();
         try {
             if(orderDAO.findById(order) == null) {
                 throw new Exception("Order not found.");
@@ -142,7 +236,6 @@ public class OrderBO {
     }
 
     public static boolean delete(OrderVO order) {
-    	OrderDAO<OrderVO> orderDAO = new OrderDAO<OrderVO>();
         try {
             if(orderDAO.findById(order) == null) {
                 throw new Exception("Order not found.");
