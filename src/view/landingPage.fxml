@@ -8,8 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LandingController">
    <children>
       <Pane prefHeight="400.0" prefWidth="356.0" style="-fx-background-color: #F6F6F6;">
          <children>
@@ -19,28 +18,28 @@
                </font>
             </Label>
             <Label layoutX="59.0" layoutY="120.0" text="CPF" textFill="#4e2a84" />
-            <HBox layoutX="57.0" layoutY="143.0" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #fff; -fx-alignment: center;">
+            <HBox fx:id="cpfInputContainer" layoutX="57.0" layoutY="143.0" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #fff; -fx-alignment: center;">
                <children>
                   <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/user.png" />
                      </image>
                   </ImageView>
-                  <TextField prefHeight="25.0" prefWidth="134.0" promptText="000.000.000-00" style="-fx-text-box-border: transparent; -fx-background-color: #fff;">
+                  <TextField fx:id="cpfInput" prefHeight="25.0" prefWidth="134.0" promptText="000.000.000-00" style="-fx-text-box-border: transparent; -fx-background-color: #fff;">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
                </children>
             </HBox>
-            <HBox layoutX="57.0" layoutY="224.0" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #fff; -fx-alignment: center;">
+            <HBox fx:id="passwordInputContainer" layoutX="57.0" layoutY="224.0" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #fff; -fx-alignment: center;">
                <children>
                   <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/key.png" />
                      </image>
                   </ImageView>
-                  <PasswordField prefHeight="25.0" prefWidth="134.0" promptText="Digite sua senha" style="-fx-text-box-border: transparent; -fx-background-color: #fff;">
+                  <PasswordField fx:id="passwordInput" prefHeight="25.0" prefWidth="134.0" promptText="Digite sua senha" style="-fx-text-box-border: transparent; -fx-background-color: #fff;">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
@@ -48,7 +47,7 @@
                </children>
             </HBox>
             <Label layoutX="57.0" layoutY="201.0" text="Senha" textFill="#4e2a84" />
-            <Button layoutX="57.0" layoutY="295.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #4E2A84;" text="Entrar" textFill="WHITE">
+            <Button fx:id="loginButton" layoutX="57.0" layoutY="295.0" mnemonicParsing="false" onAction="#signIn" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #4E2A84;" text="Entrar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
