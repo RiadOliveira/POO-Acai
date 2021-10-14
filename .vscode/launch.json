@@ -6,23 +6,17 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Screens",
+            "request": "launch",
+            "mainClass": "view.Screens",
+            "projectName": "POO-Acai_25e52597",
+            "vmArgs": "--module-path ./lib/javafx-sdk-17.0.0.1 --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "Launch Main",
-            "request": "launch",
-            "mainClass": "Main",
-            "projectName": "POO-Acai_25e52597",
-        },
-        {
-            "type": "java",
-            "name": "Launch HelloFX",
-            "request": "launch",
-            "mainClass": "view.HelloFX",
-            "projectName": "POO-Acai_25e52597",
+            "mainClass": "${file}",
             "vmArgs": "--module-path ./lib/javafx-sdk-17.0.0.1 --add-modules javafx.controls,javafx.fxml"
         }
     ]
