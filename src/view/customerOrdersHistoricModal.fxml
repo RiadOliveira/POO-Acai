@@ -21,7 +21,56 @@
                   <Image url="@../../assets/close-modal.png" />
                </image>
             </ImageView>
-            <ListView layoutX="32.0" layoutY="85.0" prefHeight="367.0" prefWidth="536.0" style="-fx-background-color: F4F4F4;" />
+            <ScrollPane layoutX="37.0" layoutY="83.0" prefHeight="396.0" prefWidth="526.0" style="-fx-border-color: f4f4f4;">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="392.0" prefWidth="521.0" style="-fx-border-color: f4f4f4;">
+                     <children>
+                        <HBox alignment="CENTER" layoutX="15.0" prefHeight="91.0" prefWidth="494.0" style="-fx-spacing: 50px; -fx-border-color: #ddd #f4f4f4 #f4f4f4 #f4f4f4;">
+                           <children>
+                              <VBox prefHeight="136.0" prefWidth="150.0" style="-fx-alignment: center;">
+                                 <children>
+                                    <Label fx:id="orderDate" text="23/10/2021" textFill="#989898">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="paymentMethod" text="Dinheiro" textFill="#989898">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="totalPrice" text="Valor: R$ 0,00" textFill="#989898">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="136.0" prefWidth="150.0" style="-fx-alignment: center;">
+                                 <children>
+                                    <Label fx:id="orderProduct0" text="1x Açaí, 300ml" textFill="#260742">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="orderProduct1" text="3x Açaí, 500ml" textFill="#260742">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="orderProduct2" text="2x Açaí, 1000ml" textFill="#260742">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
          </children>
       </Pane>
    </children>
