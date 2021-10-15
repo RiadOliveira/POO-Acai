@@ -154,191 +154,46 @@
             </VBox>
          </children>
       </Group>
-      <HBox alignment="CENTER_RIGHT" layoutX="120.0" layoutY="120.0" prefHeight="52.0" prefWidth="445.0" style="-fx-background-color: #FFF;">
+      <HBox alignment="CENTER_RIGHT" layoutX="120.0" layoutY="160.0" prefHeight="52.0" prefWidth="861.0" style="-fx-background-color: #FFF;">
          <children>
             <ImageView fitHeight="56.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../assets/search.png" />
                </image>
             </ImageView>
-            <TextField prefHeight="52.0" prefWidth="410.0" promptText="Buscar produto" style="-fx-background-color: #FFF; -fx-padding: 16;">
+            <TextField prefHeight="52.0" prefWidth="818.0" promptText="Buscar produto" style="-fx-background-color: #FFF; -fx-padding: 16;">
                <font>
                   <Font size="14.0" />
                </font>
             </TextField>
          </children>
       </HBox>
-      <VBox layoutX="120.0" layoutY="208.0" prefHeight="467.0" prefWidth="445.0">
-         <children>
-            <VBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="445.0" style="-fx-background-color: #fff;">
-               <children>
-                  <Label text="Açaí, 300ml" textFill="#260742">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label text="R$ 9,00" textFill="#260742">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <padding>
-                  <Insets left="18.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="8.0" />
-               </VBox.margin>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="445.0" style="-fx-background-color: #fff;">
-               <children>
-                  <Label text="Açaí, 300ml" textFill="#260742">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label text="R$ 9,00" textFill="#260742">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <padding>
-                  <Insets left="18.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="8.0" />
-               </VBox.margin>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="445.0" style="-fx-background-color: #fff;">
-               <children>
-                  <Label text="Açaí, 300ml" textFill="#260742">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label text="R$ 9,00" textFill="#260742">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <padding>
-                  <Insets left="18.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="8.0" />
-               </VBox.margin>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="445.0" style="-fx-background-color: #fff;">
-               <children>
-                  <Label text="Açaí, 300ml" textFill="#260742">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label text="R$ 9,00" textFill="#260742">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <padding>
-                  <Insets left="18.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="8.0" />
-               </VBox.margin>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="445.0" style="-fx-background-color: #fff;">
-               <children>
-                  <Label text="Açaí, 300ml" textFill="#260742">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label text="R$ 9,00" textFill="#260742">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <padding>
-                  <Insets left="18.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="8.0" />
-               </VBox.margin>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="445.0" style="-fx-background-color: #fff;">
-               <children>
-                  <Label text="Açaí, 300ml" textFill="#260742">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label text="R$ 9,00" textFill="#260742">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <padding>
-                  <Insets left="18.0" />
-               </padding>
-            </VBox>
-         </children>
-      </VBox>
-      <Pane layoutX="599.0" layoutY="120.0" prefHeight="553.0" prefWidth="639.0" style="-fx-background-color: #fff;">
-         <children>
-            <TableView layoutX="5.0" layoutY="4.0" prefHeight="210.0" prefWidth="630.0" style="-fx-background-color: #fff;">
-              <columns>
-                <TableColumn prefWidth="375.0" text="Produto" />
-                <TableColumn minWidth="0.0" prefWidth="117.0" text="Qtd" />
-                  <TableColumn prefWidth="116.0" text="Preço" />
-              </columns>
-            </TableView>
-            <BorderPane layoutY="473.0" prefHeight="80.0" prefWidth="639.0">
-               <right>
-                  <Label alignment="CENTER_RIGHT" prefHeight="53.0" prefWidth="355.0" text="R$ 87,00" textAlignment="RIGHT" textFill="#4e2a84" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="36.0" />
-                     </font>
-                  </Label>
-               </right>
-               <left>
-                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="228.0" style="-fx-background-color: #4E2A84;" text="Finalizar" textFill="WHITE" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-               </left>
-               <padding>
-                  <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
-               </padding>
-            </BorderPane>
-         </children>
-      </Pane>
+      <Label alignment="TOP_LEFT" layoutX="120.0" layoutY="120.0" prefHeight="36.0" prefWidth="232.0" text="Produtos" textFill="#260742">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button graphicTextGap="14.0" layoutX="987.0" layoutY="160.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="250.0" style="-fx-background-color: #4E2A84;" text="Novo Produto" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/plus-circle.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TableView layoutX="120.0" layoutY="236.0" prefHeight="445.0" prefWidth="1118.0">
+        <columns>
+          <TableColumn prefWidth="696.0" text="Nome" />
+          <TableColumn prefWidth="285.0" text="Categoria" />
+            <TableColumn minWidth="0.0" prefWidth="136.0" text="Preço" />
+        </columns>
+      </TableView>
    </children>
 </Pane>
