@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utils.Screen;
 
 public class Screens extends Application {
     private static Stage primaryStage;
@@ -21,7 +22,7 @@ public class Screens extends Application {
         primaryStage = selectedStage;
     }
 
-    public static void loadScreen(String screenName) {
+    public static void loadScreen(Screen screenName) {
         try {
             Parent root = FXMLLoader.load(Screens.class.getResource(screenName + ".fxml"));
         
@@ -37,7 +38,7 @@ public class Screens extends Application {
         setPrimaryStage(primaryStage);
 
         primaryStage.setTitle("Digi");
-        loadScreen("landing");
+        loadScreen(Screen.landing);
         primaryStage.show();
     }
 }

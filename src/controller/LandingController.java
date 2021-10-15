@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import model.BO.UserBO;
 import model.VO.UserVO;
+import utils.Screen;
 import view.Screens;
 
 public class LandingController {
@@ -26,7 +27,7 @@ public class LandingController {
             cpfInputContainer.setStyle(cpfInputContainer.getStyle() + "-fx-border-color: red;");
             passwordInputContainer.setStyle(passwordInputContainer.getStyle() + "-fx-border-color: red;");
         } else {
-            Screens.loadScreen("dashboard");
+            Screens.loadScreen(Screen.homeScreen);
         }
     }
 }
