@@ -8,7 +8,7 @@ import model.VO.UserVO;
 import utils.Screen;
 import view.Screens;
 
-public class LandingController {
+public class Landing {
     @FXML private TextField cpfInput;
     @FXML private Pane cpfInputContainer;
 

@@ -6,7 +6,7 @@ public enum Screen {
     finishSaleModal("finishSaleModal"), homeScreen("homeScreen"), 
     landing("landing"), newCustomerModal("newCustomerModal"),
     newEmployeeModal("newEmployeeModal"), newProductModal("newProductModal"),
-    productsScreen("productsScreen"), saleScreen("saleScreen");
+    productsScreen("productsScreen"), salesScreen("salesScreen");
 
     private final String screenName;
 

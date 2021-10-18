@@ -38,7 +38,7 @@ public class Screens extends Application {
         setPrimaryStage(primaryStage);
 
         primaryStage.setTitle("Digi");
-        loadScreen(Screen.landing);
+        loadScreen(Screen.salesScreen);
         primaryStage.show();
     }
 }
