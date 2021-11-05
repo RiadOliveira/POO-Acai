@@ -45,9 +45,6 @@ public class UserBO {
 
             return findedUser;
         } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
             return null;
         }
     }

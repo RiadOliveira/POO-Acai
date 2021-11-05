@@ -1,5 +1,5 @@
 package controller;
 
-public class HomeScreen {
+public class HomeScreen extends DashboardPagesRedirect {
     
 }

@@ -1,5 +1,5 @@
 package controller;
 
-public class ProductsScreen {
+public class ProductsScreen extends DashboardPagesRedirect {
     
 }

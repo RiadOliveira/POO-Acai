@@ -45,7 +45,7 @@
       <Group>
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="640.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />
-            <Button fx:id="logoutButton" layoutX="2.0" layoutY="640.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textOverrun="CLIP">
+            <Button fx:id="logoutButton" layoutX="2.0" layoutY="640.0" mnemonicParsing="false" onAction="#logout" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textOverrun="CLIP">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -57,9 +57,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <VBox layoutY="107.0" prefHeight="480.0" prefWidth="80.0" style="-fx-background-color: #FFF;">
+            <VBox layoutY="124.0" prefHeight="404.0" prefWidth="80.0" style="-fx-background-color: #FFF;">
                <children>
-                  <Button fx:id="menuItemHome" contentDisplay="TOP" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Início" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP" wrapText="true">
+                  <Button fx:id="menuItemHome" contentDisplay="TOP" mnemonicParsing="false" onAction="#redirectToHome" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Início" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -74,7 +74,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="menuItemCart" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Venda" textFill="#4e2a84" textOverrun="CLIP">
+                  <Button fx:id="menuItemCart" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#redirectToSales" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Venda" textFill="#4e2a84" textOverrun="CLIP">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -89,7 +89,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="menuItemProducts" contentDisplay="TOP" layoutX="10.0" layoutY="70.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Produtos" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP">
+                  <Button fx:id="menuItemProducts" contentDisplay="TOP" layoutX="10.0" layoutY="70.0" mnemonicParsing="false" onAction="#redirectToProducts" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Produtos" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -104,7 +104,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="menuItemClients" contentDisplay="TOP" layoutX="10.0" layoutY="70.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Clientes" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP">
+                  <Button fx:id="menuItemClients" contentDisplay="TOP" layoutX="10.0" layoutY="70.0" mnemonicParsing="false" onAction="#redirectToCustomers" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Clientes" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -119,35 +119,20 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="menuItemReport" contentDisplay="TOP" layoutX="10.0" layoutY="130.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Relatório" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP">
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../assets/report.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
+                  <Button fx:id="menuItemClients1" contentDisplay="TOP" mnemonicParsing="false" onAction="#redirectToEmployees" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Funcs." textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                  </Button>
-                  <Button fx:id="menuItemSettings" contentDisplay="TOP" layoutX="10.0" layoutY="250.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Ajustes" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP">
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../assets/settings.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/customers.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
             </VBox>
