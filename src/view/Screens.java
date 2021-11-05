@@ -4,7 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import utils.Modal;
 import utils.Screen;
 
 public class Screens extends Application {
@@ -24,11 +26,23 @@ public class Screens extends Application {
 
     public static void loadScreen(Screen screenName) {
         try {
-            Parent root = FXMLLoader.load(Screens.class.getResource(screenName + ".fxml"));
+            Parent root = FXMLLoader.load(Screens.class.getResource("./screens/" + screenName + ".fxml"));
         
             Scene scene = new Scene(root);
     
             primaryStage.setScene(scene);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void loadModal(Modal modalName) {
+        try {
+            Parent root = FXMLLoader.load(Screens.class.getResource("./modals/" + modalName + ".fxml"));
+        
+            Popup popup = new Popup();
+
+            popup.getContent().add(root);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -1,11 +1,8 @@
 package utils;
 
 public enum Screen {
-    customerOrdersHistoricModal("customerOrdersHistoricModal"),
+    homeScreen("homeScreen"), landing("landing"),
     customersScreen("customersScreen"), employeesScreen("employeesScreen"),
-    finishSaleModal("finishSaleModal"), homeScreen("homeScreen"), 
-    landing("landing"), newCustomerModal("newCustomerModal"),
-    newEmployeeModal("newEmployeeModal"), newProductModal("newProductModal"),
     productsScreen("productsScreen"), salesScreen("salesScreen");
 
     private final String screenName;
