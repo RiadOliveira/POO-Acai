@@ -9,7 +9,7 @@
             "name": "Launch Screens",
             "request": "launch",
             "mainClass": "view.Screens",
-            "projectName": "POO-Acai_25e52597",
+            "projectName": "POO-Acai_2904ab05",
             "vmArgs": "--module-path ./lib/javafx-sdk-17.0.0.1 --add-modules javafx.controls,javafx.fxml"
         },
         {
