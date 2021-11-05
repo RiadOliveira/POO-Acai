@@ -1,30 +1,30 @@
 package controller;
 
 import utils.Screen;
-import view.Screens;
+import view.ScreenLoader;
 
 public class DashboardPagesRedirect {
     public void redirectToHome() {
-        Screens.loadScreen(Screen.homeScreen);
+        ScreenLoader.loadScreen(Screen.homeScreen);
     }
 
     public void redirectToSales() {
-        Screens.loadScreen(Screen.salesScreen);
+        ScreenLoader.loadScreen(Screen.salesScreen);
     }
 
     public void redirectToProducts() {
-        Screens.loadScreen(Screen.productsScreen);
+        ScreenLoader.loadScreen(Screen.productsScreen);
     }
 
     public void redirectToCustomers() {
-        Screens.loadScreen(Screen.customersScreen);
+        ScreenLoader.loadScreen(Screen.customersScreen);
     }
 
     public void redirectToEmployees() {
-        Screens.loadScreen(Screen.employeesScreen);
+        ScreenLoader.loadScreen(Screen.employeesScreen);
     }
 
     public void logout() {
-        Screens.loadScreen(Screen.landing);
+        ScreenLoader.loadScreen(Screen.landing);
     }
 }

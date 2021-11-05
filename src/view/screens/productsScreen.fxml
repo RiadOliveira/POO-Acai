@@ -62,7 +62,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button graphicTextGap="14.0" layoutX="987.0" layoutY="160.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="250.0" style="-fx-background-color: #4E2A84;" text="Novo Produto" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+      <Button graphicTextGap="14.0" layoutX="987.0" layoutY="160.0" mnemonicParsing="false" onAction="#openModal" prefHeight="52.0" prefWidth="250.0" style="-fx-background-color: #4E2A84;" text="Novo Produto" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

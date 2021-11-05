@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 import model.BO.UserBO;
 import model.VO.UserVO;
 import utils.Screen;
-import view.Screens;
+import view.ScreenLoader;
 
 public class Landing {
     @FXML private TextField cpfInput;
@@ -27,7 +27,7 @@ public class Landing {
             cpfInputContainer.setStyle(cpfInputContainer.getStyle() + "-fx-border-color: red;");
             passwordInputContainer.setStyle(passwordInputContainer.getStyle() + "-fx-border-color: red;");
         } else {
-            Screens.loadScreen(Screen.homeScreen);
+            ScreenLoader.loadScreen(Screen.homeScreen);
         }
     }
 }

@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import utils.Modal;
 import utils.Screen;
 
-public class Screens extends Application {
+public class ScreenLoader extends Application {
     private static Stage primaryStage;
 
     public static void main(String args[]) {
@@ -26,7 +26,7 @@ public class Screens extends Application {
 
     public static void loadScreen(Screen screenName) {
         try {
-            Parent root = FXMLLoader.load(Screens.class.getResource("./screens/" + screenName + ".fxml"));
+            Parent root = FXMLLoader.load(ScreenLoader.class.getResource("./screens/" + screenName + ".fxml"));
         
             Scene scene = new Scene(root);
     
@@ -38,7 +38,7 @@ public class Screens extends Application {
 
     public static void loadModal(Modal modalName) {
         try {
-            Parent root = FXMLLoader.load(Screens.class.getResource("./modals/" + modalName + ".fxml"));
+            Parent root = FXMLLoader.load(ScreenLoader.class.getResource("./modals/" + modalName + ".fxml"));
         
             Popup popup = new Popup();
 
