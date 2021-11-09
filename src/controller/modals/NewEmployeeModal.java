@@ -1,5 +1,7 @@
 package controller.modals;
 
-public class NewEmployeeModal {
+import controller.DashboardModal;
+
+public class NewEmployeeModal extends DashboardModal {
     
 }

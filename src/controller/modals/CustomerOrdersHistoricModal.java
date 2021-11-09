@@ -1,5 +1,7 @@
 package controller.modals;
 
-public class CustomerOrdersHistoricModal {
+import controller.DashboardModal;
+
+public class CustomerOrdersHistoricModal extends DashboardModal {
     
 }

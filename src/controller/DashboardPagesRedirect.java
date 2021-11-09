@@ -5,26 +5,26 @@ import view.ScreenLoader;
 
 public class DashboardPagesRedirect {
     public void redirectToHome() {
-        ScreenLoader.loadScreen(Screen.homeScreen);
+        ScreenLoader.load(Screen.homeScreen);
     }
 
     public void redirectToSales() {
-        ScreenLoader.loadScreen(Screen.salesScreen);
+        ScreenLoader.load(Screen.salesScreen);
     }
 
     public void redirectToProducts() {
-        ScreenLoader.loadScreen(Screen.productsScreen);
+        ScreenLoader.load(Screen.productsScreen);
     }
 
     public void redirectToCustomers() {
-        ScreenLoader.loadScreen(Screen.customersScreen);
+        ScreenLoader.load(Screen.customersScreen);
     }
 
     public void redirectToEmployees() {
-        ScreenLoader.loadScreen(Screen.employeesScreen);
+        ScreenLoader.load(Screen.employeesScreen);
     }
 
     public void logout() {
-        ScreenLoader.loadScreen(Screen.landing);
+        ScreenLoader.load(Screen.landing);
     }
 }

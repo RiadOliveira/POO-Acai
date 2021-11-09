@@ -27,7 +27,7 @@ public class Landing {
             cpfInputContainer.setStyle(cpfInputContainer.getStyle() + "-fx-border-color: red;");
             passwordInputContainer.setStyle(passwordInputContainer.getStyle() + "-fx-border-color: red;");
         } else {
-            ScreenLoader.loadScreen(Screen.homeScreen);
+            ScreenLoader.load(Screen.homeScreen);
         }
     }
 }
