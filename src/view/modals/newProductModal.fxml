@@ -16,10 +16,13 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Button layoutX="32.0" layoutY="388.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="536.0" style="-fx-background-color: #4E2A84; -fx-background-radius: 4px;" text="Adicionar" textFill="WHITE">
+            <Button layoutX="32.0" layoutY="388.0" mnemonicParsing="false" onAction="#confirmAdd" prefHeight="48.0" prefWidth="536.0" style="-fx-background-color: #4E2A84; -fx-background-radius: 4px;" text="Adicionar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
             </Button>
             <VBox layoutX="30.0" layoutY="82.0" prefHeight="284.0" prefWidth="536.0" style="-fx-spacing: 20px;">
                <children>
@@ -30,7 +33,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="48.0" prefWidth="536.0" promptText="Açaí, 500ml" style="-fx-background-color: #fff; -fx-background-radius: 4px;">
+                        <TextField fx:id="name" prefHeight="48.0" prefWidth="536.0" promptText="Açaí, 500ml" style="-fx-background-color: #fff; -fx-background-radius: 4px;">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -44,7 +47,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <ComboBox prefHeight="48.0" prefWidth="536.0" promptText="Selecione uma categoria" style="-fx-background-color: #fff;" />
+                        <ComboBox fx:id="categoryBox" prefHeight="48.0" prefWidth="536.0" promptText="Selecione uma categoria" style="-fx-background-color: #fff;" />
                      </children>
                   </VBox>
                   <VBox prefHeight="75.0" prefWidth="536.0" style="-fx-spacing: 8px;">
@@ -61,7 +64,7 @@
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <TextField prefHeight="34.0" prefWidth="489.0" promptText="0,00" style="-fx-background-color: #fff; -fx-border-color: #fff #fff #fff DDDDDD;">
+                              <TextField fx:id="price" prefHeight="34.0" prefWidth="489.0" promptText="0,00" style="-fx-background-color: #fff; -fx-border-color: #fff #fff #fff DDDDDD;">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -87,6 +90,11 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Label fx:id="errorText" layoutX="240.0" layoutY="450.0" style="-fx-opacity: 0;" text="Falha na adição" textAlignment="CENTER" textFill="#bf4332">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>
