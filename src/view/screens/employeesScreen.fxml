@@ -77,11 +77,11 @@
             </ImageView>
          </graphic>
       </Button>
-      <TableView layoutX="120.0" layoutY="236.0" prefHeight="445.0" prefWidth="1118.0">
+      <TableView fx:id="employeesTable" layoutX="120.0" layoutY="236.0" prefHeight="445.0" prefWidth="1118.0">
         <columns>
-          <TableColumn prefWidth="635.0" text="Nome" />
-          <TableColumn prefWidth="256.0" text="CPF" />
-            <TableColumn minWidth="0.0" prefWidth="226.0" text="Telefone" />
+          <TableColumn fx:id="name" prefWidth="635.0" style="-fx-alignment: CENTER;" text="Nome" />
+          <TableColumn fx:id="cpf" prefWidth="256.0" style="-fx-alignment: CENTER;" text="CPF" />
+            <TableColumn fx:id="phoneNumber" minWidth="0.0" prefWidth="226.0" style="-fx-alignment: CENTER;" text="Telefone" />
         </columns>
       </TableView>
       <Group layoutX="-1.0" layoutY="-1.0">
