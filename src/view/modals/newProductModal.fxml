@@ -57,7 +57,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #fff; -fx-spacing: 10px;">
+                        <HBox fx:id="priceContainer" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #fff; -fx-spacing: 10px;">
                            <children>
                               <Label text="R$">
                                  <font>

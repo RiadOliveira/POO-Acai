@@ -7,9 +7,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import model.BO.ProductBO;
 import model.VO.ProductVO;
 import utils.Category;
+import utils.Screen;
 import view.ScreenLoader;
 
 public class NewProductModal extends DashboardModal {
@@ -18,6 +20,7 @@ public class NewProductModal extends DashboardModal {
 
     @FXML private Label errorText;
 
+    @FXML HBox priceContainer;
     @FXML private ComboBox<Category> categoryBox;
 
     public void initialize() {
@@ -39,19 +42,28 @@ public class NewProductModal extends DashboardModal {
 
             ProductBO.insert(ScreenLoader.getLoggedUser(), product);
 
+            ScreenLoader.load(Screen.productsScreen);
             closeModal();
         } catch (Exception err) {
             String message = err.getMessage();
 
+            name.setStyle(name.getStyle() + "-fx-border-color: none;");
+            categoryBox.setStyle(categoryBox.getStyle() + "-fx-border-color: none;");
+            priceContainer.setStyle(priceContainer.getStyle() + "-fx-border-color: none;");
+
             if(message.contains("name")) {
                 name.setStyle(name.getStyle() + "-fx-border-color: red;");
-            } else if(message.contains("price")) {
-                price.setStyle(price.getStyle() + "-fx-border-color: red;");
-            } else if(message.contains("category")) {
+            } 
+            
+            if(message.contains("category")) {
                 categoryBox.setStyle(categoryBox.getStyle() + "-fx-border-color: red;");
-            } else {
-                errorText.setStyle(errorText.getStyle() + "-fx-opacity: 1;");
+            } 
+            
+            if(message.contains("price")) {
+                priceContainer.setStyle(priceContainer.getStyle() + "-fx-border-color: red;");
             }
+            
+            errorText.setStyle(errorText.getStyle() + "-fx-opacity: 1;");
         }
     }
 
@@ -60,20 +72,21 @@ public class NewProductModal extends DashboardModal {
             throw new Exception("Empty name");
         }
 
-        if(price.getText().length() == 0 || !verifyPrice()) {
-            throw new Exception("Invalid price");
-        }
-
         if(categoryBox.getValue() == null) {
             throw new Exception("Empty category");
+        }
+
+        if(price.getText().length() == 0 || !verifyPrice()) {
+            throw new Exception("Invalid price");
         }
     }
 
     private boolean verifyPrice() throws NumberFormatException {
         try {
-            Double formattedPrice = Double.parseDouble(price.getText().replace(',', '.'));
+            String formmatedPrice = price.getText().replace(',', '.');
+            Double.parseDouble(formmatedPrice);
 
-            price.setText(formattedPrice.toString());
+            price.setText(formmatedPrice);
 
             return true;
         } catch (Exception err) {

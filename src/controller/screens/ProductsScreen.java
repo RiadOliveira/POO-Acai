@@ -35,7 +35,7 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
         category.setCellValueFactory(new PropertyValueFactory<ProductVO, Category>("category"));
         price.setCellValueFactory(new PropertyValueFactory<ProductVO, Double>("price"));
         
-        price.setCellFactory(cell -> {          
+        price.setCellFactory(cell -> {
             return new TableCell<ProductVO, Double>() {
                 @Override
                 protected void updateItem(Double item, boolean empty) {
@@ -44,7 +44,10 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
                    if(empty) {
                         setText("");
                    } else {
-                        setText(item.toString().replace('.', ','));
+                        int verifyNumber = item.toString().split("\\.")[1].length();
+                        String extraZero = (verifyNumber == 1) ? "0" : "";
+
+                        setText("R$ " + item.toString().replace('.', ',') + extraZero);
                    }
                 }
             };
