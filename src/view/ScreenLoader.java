@@ -35,7 +35,6 @@ public class ScreenLoader extends Application {
     public static void load(Screen screenName) {
         try {
             Parent root = FXMLLoader.load(ScreenLoader.class.getResource("./screens/" + screenName + ".fxml"));
-        
             Scene scene = new Scene(root);
     
             primaryStage.setScene(scene);

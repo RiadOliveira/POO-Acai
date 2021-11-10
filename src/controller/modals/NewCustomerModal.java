@@ -23,10 +23,13 @@ public class NewCustomerModal extends DashboardModal {
 
             CustomerVO customer = new CustomerVO();
 
+            String formattedCpf = getOnlyNumbers(cpf.getText());
+            String formattedPhoneNumber = getOnlyNumbers(phoneNumber.getText());
+
             customer.setName(name.getText());
-            customer.setCpf(cpf.getText().replaceAll("\\.", "").replace("-", ""));
+            customer.setCpf(formattedCpf);
             customer.setAddress(address.getText());
-            customer.setPhoneNumber(phoneNumber.getText());
+            customer.setPhoneNumber(formattedPhoneNumber);
 
             CustomerBO.insert(customer);
 
@@ -76,5 +79,9 @@ public class NewCustomerModal extends DashboardModal {
         if(phoneNumber.getText().length() == 0) {
             throw new Exception("Empty phoneNumber");
         }
+    }
+
+    private String getOnlyNumbers(String inputValue) {
+        return inputValue.replaceAll("[^\\d.]", "").replaceAll("\\.", "");
     }
 }

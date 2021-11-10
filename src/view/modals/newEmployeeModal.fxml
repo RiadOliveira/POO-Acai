@@ -61,7 +61,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="address" prefHeight="48.0" prefWidth="536.0" promptText="(84) 9 8888-8888" style="-fx-background-color: #fff; -fx-background-radius: 4px;">
+                        <TextField fx:id="phoneNumber" prefHeight="48.0" prefWidth="536.0" promptText="(84) 9 8888-8888" style="-fx-background-color: #fff; -fx-background-radius: 4px;">
                            <font>
                               <Font size="16.0" />
                            </font>

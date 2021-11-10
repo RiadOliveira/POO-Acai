@@ -24,9 +24,12 @@ public class NewEmployeeModal extends DashboardModal {
 
             UserVO user = new UserVO();
 
+            String formattedCpf = getOnlyNumbers(cpf.getText());
+            String formattedPhoneNumber = getOnlyNumbers(phoneNumber.getText());
+
             user.setName(name.getText());
-            user.setCpf(cpf.getText().replaceAll("\\.", "").replace("-", ""));
-            user.setPhoneNumber(phoneNumber.getText());
+            user.setCpf(formattedCpf);
+            user.setPhoneNumber(formattedPhoneNumber);
             user.setPassword(password.getText());
 
             UserBO.signUp(user);
@@ -77,5 +80,9 @@ public class NewEmployeeModal extends DashboardModal {
         if(password.getText().length() == 0) {
             throw new Exception("Empty password");
         }
+    }
+
+    private String getOnlyNumbers(String inputValue) {
+        return inputValue.replaceAll("[^\\d.]", "").replaceAll("\\.", "");
     }
 }
