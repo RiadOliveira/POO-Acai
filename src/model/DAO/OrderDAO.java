@@ -3,6 +3,9 @@ package model.DAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.UUID;
+
+import errors.ValidationException;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +15,7 @@ import model.VO.CustomerVO;
 import model.VO.OrderVO;
 
 public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
-    public void insert(VO order) throws SQLException {
+    public void insert(VO order) throws SQLException, ValidationException {
     	Connection connection = getConnection();
 		String query = "INSERT INTO orders (customer_id, payment_method, status, total_price, order_date) values (?, ?, ?, ?, ?)";
 

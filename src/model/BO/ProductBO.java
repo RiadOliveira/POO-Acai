@@ -1,10 +1,12 @@
 package model.BO;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import errors.ValidationException;
 import model.DAO.ProductDAO;
 import model.VO.ProductVO;
 import model.VO.UserVO;
@@ -21,31 +23,24 @@ public class ProductBO {
         productDAO.insert(product);
     }
 
-    public static List<ProductVO> findAll() {
-        try {
-            List<ProductVO> products = new ArrayList<ProductVO>();
-            ResultSet findedProducts = productDAO.findAll();
+    public static List<ProductVO> findAll() throws SQLException, ValidationException {
+        List<ProductVO> products = new ArrayList<ProductVO>();
+        ResultSet findedProducts = productDAO.findAll();
 
-            Category category[] = Category.values();
+        Category category[] = Category.values();
 
-            while(findedProducts.next()) {
-                ProductVO product = new ProductVO();
-                
-                product.setId(UUID.fromString(findedProducts.getString("id")));
-                product.setName(findedProducts.getString("name"));
-                product.setCategory(category[findedProducts.getInt("category")]);
-                product.setPrice(findedProducts.getDouble("price"));
-    
-                products.add(product);
-            }
+        while(findedProducts.next()) {
+            ProductVO product = new ProductVO();
+            
+            product.setId(UUID.fromString(findedProducts.getString("id")));
+            product.setName(findedProducts.getString("name"));
+            product.setCategory(category[findedProducts.getInt("category")]);
+            product.setPrice(findedProducts.getDouble("price"));
 
-            return products;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return null;
+            products.add(product);
         }
+
+        return products;
     }
 
     public static List<ProductVO> findByName(List<ProductVO> allProducts, String searchedName) {
@@ -71,8 +66,7 @@ public class ProductBO {
         return findedProducts;
     }
 
-    public static ProductVO findById(ProductVO product) {
-    	try{
+    public static ProductVO findById(ProductVO product) throws SQLException, ValidationException {
             ProductVO findedProduct = new ProductVO();
             ResultSet findedProductDB = productDAO.findById(product);
 
@@ -84,49 +78,25 @@ public class ProductBO {
             findedProduct.setPrice(findedProductDB.getDouble("price"));
 
             return findedProduct;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return null;
-        }
     }
 
-    public static boolean update(ProductVO product) {
-        try {
-            if(productDAO.findById(product) == null) {
-                throw new Exception("Product not found.");
-            }
-            
-            productDAO.update(product);
-
-            return true;
-        } catch(Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return false;
+    public static void update(ProductVO product) throws Exception {
+        if(productDAO.findById(product) == null) {
+            throw new Exception("Product not found.");
         }
+        
+        productDAO.update(product);
     }
     
-    public static boolean delete(UserVO user, ProductVO product) {
-        try {
-            if(!user.getIsAdmin()) {
-                throw new Exception("The user does not have permission to execute this action.");
-            }
-
-            if(productDAO.findById(product) == null) {
-                throw new Exception("Product not found.");
-            }
-            
-            productDAO.delete(product);
-
-            return true;
-        } catch(Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return false;
+    public static void delete(UserVO user, ProductVO product) throws Exception {
+        if(!user.getIsAdmin()) {
+            throw new Exception("The user does not have permission to execute this action.");
         }
+
+        if(productDAO.findById(product) == null) {
+            throw new Exception("Product not found.");
+        }
+        
+        productDAO.delete(product);
     }
 }

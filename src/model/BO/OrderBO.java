@@ -1,9 +1,13 @@
 package model.BO;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+
+import errors.ValidationException;
+
 import java.util.ArrayList;
 
 import model.DAO.CustomerDAO;
@@ -19,25 +23,16 @@ public class OrderBO {
     private static CustomerDAO<CustomerVO> customerDAO = new CustomerDAO<CustomerVO>();
     private static OrderDAO<OrderVO> orderDAO = new OrderDAO<OrderVO>();
     
-    public static boolean insert(OrderVO order) {
-        try {
-            if(customerDAO.findById(order.getCustomer()) == null) {
-                throw new Exception("Requested customer does not exist.");
-            }
-                        
-            for (OrderProductVO orderProduct : order.getOrderProducts()) {
-            	order.setTotalPrice(order.getTotalPrice() + orderProduct.getQuantity() * orderProduct.getProduct().getPrice());
-            }
-            
-            orderDAO.insert(order);
-            
-            return true;
-        } catch(Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return false;
+    public static void insert(OrderVO order) throws Exception {
+        if(customerDAO.findById(order.getCustomer()) == null) {
+            throw new Exception("Requested customer does not exist.");
         }
+                    
+        for (OrderProductVO orderProduct : order.getOrderProducts()) {
+            order.setTotalPrice(order.getTotalPrice() + orderProduct.getQuantity() * orderProduct.getProduct().getPrice());
+        }
+        
+        orderDAO.insert(order);
     }
     
     public static List<OrderVO> findByDate(List<OrderVO> allOrders, LocalDate date) {
@@ -121,134 +116,95 @@ public class OrderBO {
         }
     }
 
-    public static OrderVO findById(OrderVO order) {
-        try {
-            ResultSet findedOrderDB = orderDAO.findById(order);
-    
+    public static OrderVO findById(OrderVO order) throws SQLException, ValidationException {
+        ResultSet findedOrderDB = orderDAO.findById(order);
+
+        CustomerVO customer = new CustomerVO();
+        customer.setId(UUID.fromString(findedOrderDB.getString("customer_id")));
+        customer = CustomerBO.findById(customer);
+        
+        PaymentMethod[] paymentMethod = PaymentMethod.values();
+        OrderStatus[] orderStatus = OrderStatus.values();
+        
+        OrderVO findedOrder = new OrderVO();
+        findedOrder.setId(UUID.fromString(findedOrderDB.getString("id")));
+        findedOrder.setCustomer(customer);
+        findedOrder.setPaymentMethod(paymentMethod[findedOrderDB.getInt("payment_method")]);
+        findedOrder.setOrderStatus(orderStatus[findedOrderDB.getInt("status")]);
+        findedOrder.setDate(findedOrderDB.getDate("order_date").toLocalDate());
+
+        return findedOrder;
+    }
+
+    public static List<OrderVO> findByCustomer(CustomerVO customer) throws SQLException, ValidationException {
+        ResultSet findedOrdersDB = orderDAO.findByCustomer(customer);
+        List<OrderVO> findedOrders = new ArrayList<OrderVO>();
+
+        PaymentMethod[] paymentMethod = PaymentMethod.values();
+        OrderStatus[] orderStatus = OrderStatus.values();
+
+        while(findedOrdersDB.next()) {
+            OrderVO order = new OrderVO();
+            
+            order.setId(UUID.fromString(findedOrdersDB.getString("id")));
+            order.setPaymentMethod(paymentMethod[findedOrdersDB.getInt("payment_method")]);
+            order.setOrderStatus(orderStatus[findedOrdersDB.getInt("status")]);
+            order.setTotalPrice(findedOrdersDB.getDouble("total_price"));
+            order.setDate(findedOrdersDB.getDate("order_date").toLocalDate());
+            
+            order.setCustomer(customer);
+
+            findedOrders.add(order);
+        }
+
+        return findedOrders;
+    }
+
+    public static List<OrderVO> findAll() throws SQLException, ValidationException {
+        ResultSet findedOrdersDB = orderDAO.findAll();
+        List<OrderVO> findedOrders = new ArrayList<OrderVO>();
+
+        PaymentMethod[] paymentMethod = PaymentMethod.values();
+        OrderStatus[] orderStatus = OrderStatus.values();
+
+        while(findedOrdersDB.next()) {
+            OrderVO order = new OrderVO();
+            
+            order.setId(UUID.fromString(findedOrdersDB.getString("id")));
+            order.setPaymentMethod(paymentMethod[findedOrdersDB.getInt("payment_method")]);
+            order.setOrderStatus(orderStatus[findedOrdersDB.getInt("status")]);
+            order.setTotalPrice(findedOrdersDB.getDouble("total_price"));
+            order.setDate(findedOrdersDB.getDate("order_date").toLocalDate());
+            
             CustomerVO customer = new CustomerVO();
-            customer.setId(UUID.fromString(findedOrderDB.getString("customer_id")));
+            customer.setId(UUID.fromString(findedOrdersDB.getString("customer_id")));
             customer = CustomerBO.findById(customer);
             
-            PaymentMethod[] paymentMethod = PaymentMethod.values();
-            OrderStatus[] orderStatus = OrderStatus.values();
-            
-            OrderVO findedOrder = new OrderVO();
-            findedOrder.setId(UUID.fromString(findedOrderDB.getString("id")));
-            findedOrder.setCustomer(customer);
-            findedOrder.setPaymentMethod(paymentMethod[findedOrderDB.getInt("payment_method")]);
-            findedOrder.setOrderStatus(orderStatus[findedOrderDB.getInt("status")]);
-            findedOrder.setDate(findedOrderDB.getDate("order_date").toLocalDate());
-    
-            return findedOrder;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
+            order.setCustomer(customer);
 
-            return null;
+            findedOrders.add(order);
         }
+
+        return findedOrders;
     }
 
-    public static List<OrderVO> findByCustomer(CustomerVO customer) {
-        try {
-            ResultSet findedOrdersDB = orderDAO.findByCustomer(customer);
-            List<OrderVO> findedOrders = new ArrayList<OrderVO>();
-    
-            PaymentMethod[] paymentMethod = PaymentMethod.values();
-            OrderStatus[] orderStatus = OrderStatus.values();
-    
-            while(findedOrdersDB.next()) {
-                OrderVO order = new OrderVO();
-                
-                order.setId(UUID.fromString(findedOrdersDB.getString("id")));
-                order.setPaymentMethod(paymentMethod[findedOrdersDB.getInt("payment_method")]);
-                order.setOrderStatus(orderStatus[findedOrdersDB.getInt("status")]);
-                order.setTotalPrice(findedOrdersDB.getDouble("total_price"));
-                order.setDate(findedOrdersDB.getDate("order_date").toLocalDate());
-                
-                order.setCustomer(customer);
-    
-                findedOrders.add(order);
-            }
-    
-            return findedOrders;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return null;
+    public static void update(OrderVO order) throws Exception {
+        if(orderDAO.findById(order) == null) {
+            throw new Exception("Order not found.");
         }
+
+        if(customerDAO.findById(order.getCustomer()) == null) {
+            throw new Exception("Customer not found.");
+        }
+
+        orderDAO.update(order);
     }
 
-    public static List<OrderVO> findAll() {
-        try {
-            ResultSet findedOrdersDB = orderDAO.findAll();
-            List<OrderVO> findedOrders = new ArrayList<OrderVO>();
-    
-            PaymentMethod[] paymentMethod = PaymentMethod.values();
-            OrderStatus[] orderStatus = OrderStatus.values();
-    
-            while(findedOrdersDB.next()) {
-                OrderVO order = new OrderVO();
-                
-                order.setId(UUID.fromString(findedOrdersDB.getString("id")));
-                order.setPaymentMethod(paymentMethod[findedOrdersDB.getInt("payment_method")]);
-                order.setOrderStatus(orderStatus[findedOrdersDB.getInt("status")]);
-                order.setTotalPrice(findedOrdersDB.getDouble("total_price"));
-                order.setDate(findedOrdersDB.getDate("order_date").toLocalDate());
-                
-                CustomerVO customer = new CustomerVO();
-                customer.setId(UUID.fromString(findedOrdersDB.getString("customer_id")));
-                customer = CustomerBO.findById(customer);
-                
-                order.setCustomer(customer);
-    
-                findedOrders.add(order);
-            }
-    
-            return findedOrders;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return null;
+    public static void delete(OrderVO order) throws Exception {
+        if(orderDAO.findById(order) == null) {
+            throw new Exception("Order not found.");
         }
-    }
 
-    public static boolean update(OrderVO order) {
-        try {
-            if(orderDAO.findById(order) == null) {
-                throw new Exception("Order not found.");
-            }
-
-            if(customerDAO.findById(order.getCustomer()) == null) {
-                throw new Exception("Customer not found.");
-            }
-
-            orderDAO.update(order);
-
-            return true;
-        } catch(Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return false;
-        }
-    }
-
-    public static boolean delete(OrderVO order) {
-        try {
-            if(orderDAO.findById(order) == null) {
-                throw new Exception("Order not found.");
-            }
-
-            orderDAO.delete(order);
-
-            return true;
-        } catch(Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return false;
-        }
+        orderDAO.delete(order);
     }
 }

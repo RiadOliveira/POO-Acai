@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 
+import errors.ValidationException;
 import model.VO.UserVO;
 
 public class UserDAO<VO extends UserVO> extends BaseDAO<VO> implements PersonInterDAO<VO> {
-    public void insert(VO user) throws SQLException { 
+    public void insert(VO user) throws SQLException, ValidationException { 
     	Connection connection = getConnection();
 		String query = "insert into users (name, cpf, phone_number, password, is_admin) values (?, ?, ?, ?, ?)";
 

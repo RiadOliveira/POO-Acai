@@ -24,16 +24,21 @@ public class CustomersScreen extends DashboardPagesRedirect implements Dashboard
     @FXML private TableColumn<CustomerVO, String> phoneNumber;
 
     public void initialize() {
-        ObservableList<CustomerVO> customers = FXCollections.observableArrayList();
-        List<CustomerVO> allCustomers = CustomerBO.findAll();
-
-        customers.addAll(allCustomers);
-        customersTable.setItems(customers);
-
-        name.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("name"));
-        cpf.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("cpf"));
-        address.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("address"));
-        phoneNumber.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("phoneNumber"));
+        try {
+            ObservableList<CustomerVO> customers = FXCollections.observableArrayList();
+            List<CustomerVO> allCustomers = CustomerBO.findAll();
+    
+            customers.addAll(allCustomers);
+            customersTable.setItems(customers);
+    
+            name.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("name"));
+            cpf.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("cpf"));
+            address.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("address"));
+            phoneNumber.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("phoneNumber"));
+        } catch (Exception err) {
+            //Handle exception.
+            System.out.println(err.getMessage());
+        }
     }
 
     public void openModal() {

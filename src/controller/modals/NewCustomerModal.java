@@ -36,6 +36,7 @@ public class NewCustomerModal extends DashboardModal {
             String message = err.getMessage();
 
             name.setStyle(name.getStyle() + "-fx-border-color: none;");
+            cpf.setStyle(cpf.getStyle() + "-fx-border-color: none;");
             address.setStyle(address.getStyle() + "-fx-border-color: none;");
             phoneNumber.setStyle(phoneNumber.getStyle() + "-fx-border-color: none;");
 

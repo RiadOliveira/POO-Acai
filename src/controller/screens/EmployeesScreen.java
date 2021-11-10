@@ -23,15 +23,20 @@ public class EmployeesScreen extends DashboardPagesRedirect implements Dashboard
     @FXML private TableColumn<UserVO, String> phoneNumber;
 
     public void initialize() {
-        ObservableList<UserVO> employees = FXCollections.observableArrayList();
-        List<UserVO> allEmployees = UserBO.findAll();
-
-        employees.addAll(allEmployees);
-        employeesTable.setItems(employees);
-
-        name.setCellValueFactory(new PropertyValueFactory<UserVO, String>("name"));
-        cpf.setCellValueFactory(new PropertyValueFactory<UserVO, String>("cpf"));
-        phoneNumber.setCellValueFactory(new PropertyValueFactory<UserVO, String>("phoneNumber"));
+        try {
+            ObservableList<UserVO> employees = FXCollections.observableArrayList();
+            List<UserVO> allEmployees = UserBO.findAll();
+    
+            employees.addAll(allEmployees);
+            employeesTable.setItems(employees);
+    
+            name.setCellValueFactory(new PropertyValueFactory<UserVO, String>("name"));
+            cpf.setCellValueFactory(new PropertyValueFactory<UserVO, String>("cpf"));
+            phoneNumber.setCellValueFactory(new PropertyValueFactory<UserVO, String>("phoneNumber"));
+        } catch (Exception err) {
+            //Handle exception.
+            System.out.println(err.getMessage());
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package model.VO;
 
+import errors.ValidationException;
 
 public class UserVO extends PersonVO {
     private String password;
@@ -10,21 +11,16 @@ public class UserVO extends PersonVO {
         return this.password;
     }
 
-    public void setPassword(String password) {
-        try {
-            if(password == null) {
-                throw new Exception("User's password can't be null.");
-            }
+    public void setPassword(String password) throws ValidationException {
+        if(password == null) {
+            throw new ValidationException("User's password can't be null.");
+        }
 
-            if(password.length() < 6) {
-                throw new Exception("User's password must have at least 6 characters.");
-            }
-    
-            this.password = password;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-        } 
+        if(password.length() < 6) {
+            throw new ValidationException("User's password must have at least 6 characters.");
+        }
+
+        this.password = password;
     }
 
     public boolean getIsAdmin() {

@@ -1,5 +1,7 @@
 package model.VO;
 
+import errors.ValidationException;
+
 public class CustomerVO extends PersonVO {
     private String address;
 
@@ -7,17 +9,12 @@ public class CustomerVO extends PersonVO {
         return this.address;
     }
 
-    public void setAddress(String address) {
-        try {
-            if(address == null || address.equals("")) {
-                throw new Exception("Address can't be null or empty.");
-            }
+    public void setAddress(String address) throws ValidationException {
+        if(address == null || address.equals("")) {
+            throw new ValidationException("Address can't be null or empty.");
+        }
 
-            this.address = address;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-        } 
+        this.address = address;
     }
 
     public String toString() {

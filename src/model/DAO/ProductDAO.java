@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 
+import errors.ValidationException;
 import model.VO.ProductVO;
 
 public class ProductDAO<VO extends ProductVO> extends BaseDAO<VO> {
-    public void insert(VO product) throws SQLException {
+    public void insert(VO product) throws SQLException, ValidationException {
     	Connection connection = getConnection();
 		String query = "INSERT INTO products (name, category, price) values (?, ?, ?)";
 

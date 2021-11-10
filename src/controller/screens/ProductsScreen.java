@@ -25,33 +25,39 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
     @FXML private TableColumn<ProductVO, Double> price;
 
     public void initialize() {
-        ObservableList<ProductVO> products = FXCollections.observableArrayList();
-        List<ProductVO> allProducts = ProductBO.findAll();
-
-        products.addAll(allProducts);
-        productsTable.setItems(products);
-
-        name.setCellValueFactory(new PropertyValueFactory<ProductVO, String>("name"));
-        category.setCellValueFactory(new PropertyValueFactory<ProductVO, Category>("category"));
-        price.setCellValueFactory(new PropertyValueFactory<ProductVO, Double>("price"));
-        
-        price.setCellFactory(cell -> {
-            return new TableCell<ProductVO, Double>() {
-                @Override
-                protected void updateItem(Double item, boolean empty) {
-                   super.updateItem(item, empty);
-
-                   if(empty) {
-                        setText("");
-                   } else {
-                        int verifyNumber = item.toString().split("\\.")[1].length();
-                        String extraZero = (verifyNumber == 1) ? "0" : "";
-
-                        setText("R$ " + item.toString().replace('.', ',') + extraZero);
-                   }
-                }
-            };
-         } );
+        try {
+            ObservableList<ProductVO> products = FXCollections.observableArrayList();
+            List<ProductVO> allProducts = ProductBO.findAll();
+    
+            products.addAll(allProducts);
+            productsTable.setItems(products);
+    
+            name.setCellValueFactory(new PropertyValueFactory<ProductVO, String>("name"));
+            category.setCellValueFactory(new PropertyValueFactory<ProductVO, Category>("category"));
+            price.setCellValueFactory(new PropertyValueFactory<ProductVO, Double>("price"));
+            
+            price.setCellFactory(cell -> {
+                return new TableCell<ProductVO, Double>() {
+                    @Override
+                    protected void updateItem(Double item, boolean empty) {
+                       super.updateItem(item, empty);
+    
+                       if(empty) {
+                            setText("");
+                       } else {
+                            int verifyNumber = item.toString().split("\\.")[1].length();
+                            String extraZero = (verifyNumber == 1) ? "0" : "";
+    
+                            setText("R$ " + item.toString().replace('.', ',') + extraZero);
+                       }
+                    }
+                };
+             } 
+            );
+        } catch (Exception err) {
+            //Handle exception.
+            System.out.println(err.getMessage());
+        }
     }
 
     public void openModal() {

@@ -2,6 +2,7 @@ package model.VO;
 
 import java.util.UUID;
 
+import errors.ValidationException;
 import utils.Category;
 
 public class ProductVO {
@@ -14,68 +15,48 @@ public class ProductVO {
         return this.id;
     }
 
-    public void setId(UUID id) {
-        try {
-            if(id == null) { //UUID can't be created from empty string.
-                throw new Exception("Product's id can't be null.");
-            }
-    
-            this.id = id;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-        } 
+    public void setId(UUID id) throws ValidationException {
+        if(id == null) { //UUID can't be created from empty string.
+            throw new ValidationException("Product's id can't be null.");
+        }
+
+        this.id = id;
     }
 
     public String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
-        try {
-            if(name == null || name.equals("")) {
-                throw new Exception("Product's name can't be null or empty.");
-            }
-    
-            this.name = name;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-        } 
+    public void setName(String name) throws ValidationException {
+        if(name == null || name.equals("")) {
+            throw new ValidationException("Product's name can't be null or empty.");
+        }
+
+        this.name = name;
     }
 
     public Category getCategory() {
         return this.category;
     }
 
-    public void setCategory(Category category) {
-        try {
-            if(category == null) {
-                throw new Exception("Product's category can't be null.");
-            }
-    
-            this.category = category;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-        } 
+    public void setCategory(Category category) throws ValidationException {
+        if(category == null) {
+            throw new ValidationException("Product's category can't be null.");
+        }
+
+        this.category = category; 
     }
 
     public double getPrice() {
         return this.price;
     }
 
-    public void setPrice(double price) {
-        try {
-            if(price <= 0) {
-                throw new Exception("Price of a product must be greater than zero.");
-            }
-
-            this.price = price;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
+    public void setPrice(double price) throws ValidationException {
+        if(price <= 0) {
+            throw new ValidationException("Price of a product must be greater than zero.");
         }
+
+        this.price = price;
     }
 
     public String toString() {

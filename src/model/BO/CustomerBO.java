@@ -2,7 +2,11 @@ package model.BO;
 
 import java.util.List;
 import java.util.UUID;
+
+import errors.ValidationException;
+
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.DAO.CustomerDAO;
@@ -42,103 +46,64 @@ public class CustomerBO {
         return findedCustomers;
     }
 
-    public static List<CustomerVO> findAll() {
-        try {
-            List<CustomerVO> customers = new ArrayList<CustomerVO>();
-            ResultSet findedCustomers = customerDAO.findAll();
+    public static List<CustomerVO> findAll() throws SQLException, ValidationException {
+        List<CustomerVO> customers = new ArrayList<CustomerVO>();
+        ResultSet findedCustomers = customerDAO.findAll();
 
-            while(findedCustomers.next()) {
-                CustomerVO customer = new CustomerVO();
-                
-                customer.setId(UUID.fromString(findedCustomers.getString("id")));
-                customer.setName(findedCustomers.getString("name"));
-                customer.setCpf(findedCustomers.getString("cpf"));
-                customer.setPhoneNumber(findedCustomers.getString("phone_number"));
-                customer.setAddress(findedCustomers.getString("address"));
-    
-                customers.add(customer);
-            }
+        while(findedCustomers.next()) {
+            CustomerVO customer = new CustomerVO();
+            
+            customer.setId(UUID.fromString(findedCustomers.getString("id")));
+            customer.setName(findedCustomers.getString("name"));
+            customer.setCpf(findedCustomers.getString("cpf"));
+            customer.setPhoneNumber(findedCustomers.getString("phone_number"));
+            customer.setAddress(findedCustomers.getString("address"));
 
-            return customers;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return null;
+            customers.add(customer);
         }
+
+        return customers;
     }
 
-    public static CustomerVO findById(CustomerVO customer) {
-        try{
-            CustomerVO findedCustomer = new CustomerVO();
-            ResultSet findedCustomerDB = customerDAO.findById(customer);
+    public static CustomerVO findById(CustomerVO customer) throws SQLException, ValidationException {
+        CustomerVO findedCustomer = new CustomerVO();
+        ResultSet findedCustomerDB = customerDAO.findById(customer);
 
-            findedCustomer.setId(UUID.fromString(findedCustomerDB.getString("id")));
-            findedCustomer.setName(findedCustomerDB.getString("name"));
-            findedCustomer.setCpf(findedCustomerDB.getString("cpf"));
-            findedCustomer.setPhoneNumber(findedCustomerDB.getString("phone_number"));
-            findedCustomer.setAddress(findedCustomerDB.getString("address"));
+        findedCustomer.setId(UUID.fromString(findedCustomerDB.getString("id")));
+        findedCustomer.setName(findedCustomerDB.getString("name"));
+        findedCustomer.setCpf(findedCustomerDB.getString("cpf"));
+        findedCustomer.setPhoneNumber(findedCustomerDB.getString("phone_number"));
+        findedCustomer.setAddress(findedCustomerDB.getString("address"));
 
-            return findedCustomer;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return null;
-        }
+        return findedCustomer;
     }
 
-    public static CustomerVO findByCpf(CustomerVO customer) {
-        try{
-            CustomerVO findedCustomer = new CustomerVO();
-            ResultSet findedCustomerDB = customerDAO.findById(customer);
+    public static CustomerVO findByCpf(CustomerVO customer) throws SQLException, ValidationException {
+        CustomerVO findedCustomer = new CustomerVO();
+        ResultSet findedCustomerDB = customerDAO.findById(customer);
 
-            findedCustomer.setId(UUID.fromString(findedCustomerDB.getString("id")));
-            findedCustomer.setName(findedCustomerDB.getString("name"));
-            findedCustomer.setCpf(findedCustomerDB.getString("cpf"));
-            findedCustomer.setPhoneNumber(findedCustomerDB.getString("phone_number"));
-            findedCustomer.setAddress(findedCustomerDB.getString("address"));
+        findedCustomer.setId(UUID.fromString(findedCustomerDB.getString("id")));
+        findedCustomer.setName(findedCustomerDB.getString("name"));
+        findedCustomer.setCpf(findedCustomerDB.getString("cpf"));
+        findedCustomer.setPhoneNumber(findedCustomerDB.getString("phone_number"));
+        findedCustomer.setAddress(findedCustomerDB.getString("address"));
 
-            return findedCustomer;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return null;
-        }
+        return findedCustomer;
     }
 
-    public static boolean update(CustomerVO customer) {
-        try {    
-            if(customerDAO.findById(customer) == null) {
-                throw new Exception("Customer not found.");
-            }
-
-            customerDAO.update(customer);
-    
-            return true;
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return false;
+    public static void update(CustomerVO customer) throws Exception {
+        if(customerDAO.findById(customer) == null) {
+            throw new Exception("Customer not found.");
         }
+
+        customerDAO.update(customer);
     }
 
-    public static boolean delete(CustomerVO customer) {
-        try {
-            if(customerDAO.findById(customer) == null) {
-                throw new Exception("Customer not found.");
-            }
-
-            customerDAO.delete(customer);
-    
-            return true;             
-        } catch (Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return false;
+    public static void delete(CustomerVO customer) throws Exception {
+        if(customerDAO.findById(customer) == null) {
+            throw new Exception("Customer not found.");
         }
+
+        customerDAO.delete(customer);
     }
 }
