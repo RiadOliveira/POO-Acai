@@ -13,21 +13,12 @@ import utils.Category;
 public class ProductBO {
 	private static ProductDAO<ProductVO> productDAO = new ProductDAO<ProductVO>();
 	
-    public static boolean insert(UserVO user, ProductVO product) {
-        try {
-            if(!user.getIsAdmin()) {
-                throw new Exception("The user does not have permission to execute this action.");
-            }
-
-            productDAO.insert(product);
-
-            return true;
-        } catch(Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return false;
+    public static void insert(UserVO user, ProductVO product) throws Exception {
+        if(!user.getIsAdmin()) {
+            throw new Exception("The user does not have permission to execute this action.");
         }
+
+        productDAO.insert(product);
     }
 
     public static List<ProductVO> findAll() {

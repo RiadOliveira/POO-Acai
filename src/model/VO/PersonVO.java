@@ -83,12 +83,6 @@ public abstract class PersonVO {
                 throw new Exception("Person's phone number must have at least 10 numbers.");
             }
 
-            for (int ind=0 ; ind < phoneNumber.length() ; ind++) { //Verify if has only numbers.
-                if (phoneNumber.charAt(ind) < '0' || phoneNumber.charAt(ind) > '9') {
-                    throw new Exception("Person's phone number must have only numbers.");
-                }
-            }
-
             this.phoneNumber = phoneNumber;
         } catch (Exception err) {
             //Handle exception.

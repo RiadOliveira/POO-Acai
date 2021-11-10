@@ -11,21 +11,12 @@ import model.VO.CustomerVO;
 public class CustomerBO {   
     private static CustomerDAO<CustomerVO> customerDAO = new CustomerDAO<CustomerVO>();
     
-    public static boolean insert(CustomerVO customer) {
-        try {
-            if(customerDAO.findByCpf(customer) != null) {
-                throw new Exception("A customer with this cpf already exists.");
-            }
-
-            customerDAO.insert(customer);
-
-            return true;
-        } catch(Exception err) {
-            //Handle exception.
-        	System.out.println(err.getMessage());
-
-            return false;
+    public static void insert(CustomerVO customer) throws Exception {
+        if(customerDAO.findByCpf(customer) != null) {
+            throw new Exception("A customer with this cpf already exists.");
         }
+
+        customerDAO.insert(customer);
     }
 
     public static List<CustomerVO> findByName(List<CustomerVO> allCustomers, String searchedName) {
