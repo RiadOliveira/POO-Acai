@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.screens.ReportsScreen">
+   <children>
+      <Rectangle fill="#f6f6f6" height="720.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0" />
+      <Group>
+         <children>
+            <Rectangle fill="#a393c0" height="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />
+            <ImageView fitHeight="27.0" fitWidth="23.0" layoutX="29.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../assets/user-white.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group>
+         <children>
+            <Rectangle fill="WHITE" height="80.0" layoutX="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1200.0" />
+            <Label layoutX="117.0" layoutY="19.0" text="Jhon Doe" textFill="#260742">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="117.0" layoutY="42.0" text="Gerente" textFill="#260742">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="30.0" fitWidth="89.0" layoutX="1126.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../assets/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group layoutX="-1.0" layoutY="-1.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="640.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />
+            <Button fx:id="logoutButton" layoutX="2.0" layoutY="640.0" mnemonicParsing="false" onAction="#logout" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" textOverrun="CLIP">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/log-out.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <VBox layoutY="124.0" prefHeight="440.0" prefWidth="80.0" style="-fx-background-color: #FFF;">
+               <children>
+                  <Button fx:id="menuItemHome" contentDisplay="TOP" mnemonicParsing="false" onAction="#redirectToHome" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Início" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP" wrapText="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="menuItemCart" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#redirectToSales" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Venda" textFill="#4e2a84" textOverrun="CLIP">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/orders-status.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="menuItemProducts" contentDisplay="TOP" layoutX="10.0" layoutY="70.0" mnemonicParsing="false" onAction="#redirectToProducts" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Produtos" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/products.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="menuItemClients" contentDisplay="TOP" layoutX="10.0" layoutY="70.0" mnemonicParsing="false" onAction="#redirectToCustomers" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Clientes" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/customers.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="menuItemClients1" contentDisplay="TOP" mnemonicParsing="false" onAction="#redirectToEmployees" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Funcs." textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/customers.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="menuItemHome1" contentDisplay="TOP" mnemonicParsing="false" onAction="#redirectToReports" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Relatório" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP" wrapText="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/report.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </Group>
+      <HBox layoutX="85.0" layoutY="134.0" prefHeight="95.0" prefWidth="1190.0" style="-fx-alignment: CENTER; -fx-spacing: 40px;">
+         <children>
+            <VBox prefHeight="100.0" prefWidth="217.0" style="-fx-alignment: CENTER; -fx-spacing: 6px;">
+               <children>
+                  <Label text="Data">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="date" prefHeight="52.0" prefWidth="210.0" promptText="Data do relatório" />
+               </children>
+            </VBox>
+            <VBox prefHeight="100.0" prefWidth="219.0" style="-fx-alignment: CENTER; -fx-spacing: 6px;">
+               <children>
+                  <Label text="Tipo de relatório">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="reportType" prefHeight="52.0" prefWidth="210.0" promptText="Selecione o tipo" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Button layoutX="575.0" layoutY="622.0" mnemonicParsing="false" onAction="#generateReport" prefHeight="52.0" prefWidth="210.0" style="-fx-background-color: #4E2A84; -fx-border-radius: 4px;" text="Gerar relatório" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="CLOSED_HAND" />
+         </cursor>
+      </Button>
+   </children>
+</Pane>

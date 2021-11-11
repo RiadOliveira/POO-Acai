@@ -1,10 +1,17 @@
 package model.BO;
 
+import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+
+import javax.swing.JFileChooser;
+
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
 
 import errors.ValidationException;
 
@@ -114,6 +121,35 @@ public class OrderBO {
 
             default: return null;
         }
+    }
+
+    private static String chooseGenerateReportFolder() {
+        JFileChooser chooser;
+
+        chooser = new JFileChooser(); 
+        chooser.setDialogTitle("Selecione o local para salvar o PDF");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        chooser.setAcceptAllFileFilterUsed(false);
+
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) { 
+            return chooser.getCurrentDirectory().getPath();
+        } else {
+            return null;
+        }
+    }
+
+    public static void generatePdf() throws FileNotFoundException {
+        String directoryPath = chooseGenerateReportFolder();
+
+        PdfWriter writer = new PdfWriter(directoryPath + "/report.pdf");
+        PdfDocument pdfDocument = new PdfDocument(writer);
+
+        pdfDocument.addNewPage();
+
+        Document document = new Document(pdfDocument);
+
+        document.close();
     }
 
     public static OrderVO findById(OrderVO order) throws SQLException, ValidationException {

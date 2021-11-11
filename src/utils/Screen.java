@@ -3,7 +3,8 @@ package utils;
 public enum Screen {
     homeScreen("homeScreen"), landing("landing"),
     customersScreen("customersScreen"), employeesScreen("employeesScreen"),
-    productsScreen("productsScreen"), salesScreen("salesScreen");
+    productsScreen("productsScreen"), salesScreen("salesScreen"),
+    reportsScreen("reportsScreen");
 
     private final String screenName;
 

@@ -219,7 +219,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <VBox layoutY="124.0" prefHeight="404.0" prefWidth="80.0" style="-fx-background-color: #FFF;">
+            <VBox layoutY="124.0" prefHeight="440.0" prefWidth="80.0" style="-fx-background-color: #FFF;">
                <children>
                   <Button fx:id="menuItemHome" contentDisplay="TOP" mnemonicParsing="false" onAction="#redirectToHome" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Início" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP" wrapText="true">
                      <cursor>
@@ -292,6 +292,21 @@
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../assets/customers.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="menuItemHome1" contentDisplay="TOP" mnemonicParsing="false" onAction="#redirectToReports" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Relatório" textAlignment="CENTER" textFill="#4e2a84" textOverrun="CLIP" wrapText="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/report.png" />
                            </image>
                         </ImageView>
                      </graphic>

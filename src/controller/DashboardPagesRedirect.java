@@ -24,6 +24,10 @@ public class DashboardPagesRedirect {
         ScreenLoader.load(Screen.employeesScreen);
     }
 
+    public void redirectToReports() {
+        ScreenLoader.load(Screen.reportsScreen);
+    }
+
     public void logout() {
         ScreenLoader.load(Screen.landing);
     }
