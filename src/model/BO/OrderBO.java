@@ -1,6 +1,7 @@
 package model.BO;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -9,9 +10,15 @@ import java.util.UUID;
 
 import javax.swing.JFileChooser;
 
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+
+import com.itextpdf.text.pdf.PdfWriter;
 
 import errors.ValidationException;
 
@@ -62,11 +69,19 @@ public class OrderBO {
         return searchedOrders;
     }
 
-    public static List<OrderVO> generateReport(
+    public static void generateReport(
         List<OrderVO> allOrders, ReportType type, LocalDate date
-    ) {
+    ) throws FileNotFoundException, DocumentException, SQLException, ValidationException {
+        Document report = generatePdf();
+
+        List<OrderVO> searchedOrders = new ArrayList<OrderVO>();
+
+        allOrders = OrderBO.findAll();
+        type = ReportType.day;
+        date = LocalDate.now();
+
         switch (type) { 
-            case day: return OrderBO.findByDate(allOrders, date);
+            case day: searchedOrders = OrderBO.findByDate(allOrders, date);
             
             case week: {
                 int startOfWeek = date.getDayOfMonth() - date.getDayOfWeek().getValue();
@@ -87,13 +102,9 @@ public class OrderBO {
                     }
                 }
 
-                List<OrderVO> searchedOrders = new ArrayList<OrderVO>();
-
                 for(int ind=0 ; ind<searchedOrdersLength ; ind++) {
                     searchedOrders.add(allOrders.get(searchedPositions[ind]));
                 }
-
-                return searchedOrders;
             }
             
             case month: {
@@ -110,17 +121,27 @@ public class OrderBO {
                     }
                 }
 
-                List<OrderVO> searchedOrders = new ArrayList<OrderVO>();
-
                 for(int ind=0 ; ind<searchedOrdersLength ; ind++) {
                     searchedOrders.add(allOrders.get(searchedPositions[ind]));
                 }
-
-                return searchedOrders;
             }
-
-            default: return null;
         }
+
+        for(OrderVO order : searchedOrders) {
+            Font fontTitle = FontFactory.getFont(FontFactory.TIMES_BOLD, 12, Font.BOLD);
+            Font fontContent = FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL);
+            
+            Chunk customerTitle = new Chunk("Cliente: ", fontTitle);
+            Chunk customerContent = new Chunk(order.getCustomer().getName(), fontContent);
+
+            Paragraph customer = new Paragraph();
+            customer.add(customerTitle);
+            customer.add(customerContent);
+
+            report.add(customer);
+        }
+
+        report.close();
     }
 
     private static String chooseGenerateReportFolder() {
@@ -139,17 +160,20 @@ public class OrderBO {
         }
     }
 
-    public static void generatePdf() throws FileNotFoundException {
+    public static Document generatePdf() throws FileNotFoundException, DocumentException {
         String directoryPath = chooseGenerateReportFolder();
+        Document document = new Document();
 
-        PdfWriter writer = new PdfWriter(directoryPath + "/report.pdf");
-        PdfDocument pdfDocument = new PdfDocument(writer);
+        PdfWriter.getInstance(document, new FileOutputStream(directoryPath + "/report.pdf"));
 
-        pdfDocument.addNewPage();
+        document.open();
 
-        Document document = new Document(pdfDocument);
+        Paragraph title = new Paragraph("Dados do relatório", FontFactory.getFont(FontFactory.TIMES_BOLD, 24, Font.BOLD));
+        title.setAlignment(Element.ALIGN_CENTER);
 
-        document.close();
+        document.add(title);
+
+        return document;
     }
 
     public static OrderVO findById(OrderVO order) throws SQLException, ValidationException {
