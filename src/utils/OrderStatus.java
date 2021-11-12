@@ -1,5 +1,5 @@
 package utils;
 
 public enum OrderStatus {
-    analyzing, preparing, ready
+    Analisando, Preparando, Pronto
 }

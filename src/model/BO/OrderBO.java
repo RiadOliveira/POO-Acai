@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -125,19 +126,14 @@ public class OrderBO {
         }
 
         for(OrderVO order : searchedOrders) {
-            Font fontTitle = FontFactory.getFont(FontFactory.TIMES_BOLD, 12, Font.BOLD);
-            Font fontContent = FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL);
-            
-            Chunk customerTitle = new Chunk("Cliente: ", fontTitle);
-            Chunk customerContent = new Chunk(order.getCustomer().getName(), fontContent);
+            List<Paragraph> documentParagraphs = new ArrayList<Paragraph>();
 
-            Paragraph customer = new Paragraph();
-            customer.add(customerTitle);
-            customer.add(customerContent);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
-            Chunk productsTitle = new Chunk("Produtos:", fontTitle);
+            documentParagraphs.add(generateParagraph("Data", order.getDate().format(formatter)));
+            documentParagraphs.add(generateParagraph("Cliente", order.getCustomer().getName()));
+
             String productsContentString = " ";
-
             List<OrderProductVO> orderProducts = OrderProductBO.findByOrder(order);
             int length = orderProducts.size();
 
@@ -145,23 +141,33 @@ public class OrderBO {
                 int quantity = orderProducts.get(0).getQuantity();
                 ProductVO product = orderProducts.get(ind).getProduct();
 
+                int verifyNumber = Double.valueOf(product.getPrice()).toString().split("\\.")[1].length();
+                String extraZero = (verifyNumber == 1) ? "0" : "";
+
                 productsContentString = productsContentString.concat("(" + quantity + "x) " + product.getName());
-                productsContentString = productsContentString.concat(" (R$ " + product.getPrice() + ")").replace(".", ",");
+                productsContentString = productsContentString.concat(" (R$ " + product.getPrice() + extraZero + ")").replace(".", ",");
 
                 if(ind + 1 != length) {
                     productsContentString = productsContentString.concat(", ");
                 }
             }
 
-            Chunk productsContent = new Chunk(productsContentString, fontContent);
+            documentParagraphs.add(generateParagraph("Produtos", productsContentString));
+            documentParagraphs.add(generateParagraph("Método", order.getPaymentMethod().toString()));
+            documentParagraphs.add(generateParagraph("Status", order.getOrderStatus().toString()));
 
-            Paragraph products = new Paragraph();
-            products.add(productsTitle);
-            products.add(productsContent);
+            int verifyNumber = Double.valueOf(order.getTotalPrice()).toString().split("\\.")[1].length();
+            String extraZero = (verifyNumber == 1) ? "0" : "";
 
-            report.add(customer);
-            report.add(products);
+            documentParagraphs.add(generateParagraph("Preço total", "R$ " + 
+                Double.valueOf(order.getTotalPrice()).toString().replace(".", ",") + extraZero)
+            );
 
+            for(Paragraph paragraph : documentParagraphs) {
+                report.add(paragraph);
+            }
+
+            report.add(Chunk.NEWLINE);
             report.add(Chunk.NEWLINE);
         }
 
@@ -197,9 +203,22 @@ public class OrderBO {
 
         document.add(title);
         document.add(Chunk.NEWLINE);
-        document.add(Chunk.NEWLINE);
 
         return document;
+    }
+
+    public static Paragraph generateParagraph(String title, String content) {
+        Font fontTitle = FontFactory.getFont(FontFactory.TIMES_BOLD, 12, Font.BOLD);
+        Font fontContent = FontFactory.getFont(FontFactory.TIMES, 12, Font.NORMAL);
+
+        Chunk paragraphTitle = new Chunk(title + ": ", fontTitle);
+        Chunk paragraphContent = new Chunk(content, fontContent);
+
+        Paragraph paragraph = new Paragraph();
+        paragraph.add(paragraphTitle);
+        paragraph.add(paragraphContent);
+
+        return paragraph;
     }
 
     public static OrderVO findById(OrderVO order) throws SQLException, ValidationException {
