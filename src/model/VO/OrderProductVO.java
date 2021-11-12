@@ -62,9 +62,9 @@ public class OrderProductVO {
         String obj = "";
 
         obj = "id: " + this.id + '\n';
-        obj += "order: " + this.order.toString() + '\n';
-        obj += "product: " + this.product.toString() + '\n';
-        obj += "quantity: " + this.quantity;
+        obj += "quantity: " + this.quantity  + '\n' + '\n';
+        obj += "order: " + '\n' + this.order.toString() + '\n' + '\n';
+        obj += "product: " + '\n' + this.product.toString();
 
         return obj;
     }

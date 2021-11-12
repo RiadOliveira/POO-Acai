@@ -1,7 +1,6 @@
 package model.VO;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 import errors.ValidationException;
@@ -10,7 +9,6 @@ import utils.PaymentMethod;
 
 public class OrderVO {
     private UUID id;
-    private List<OrderProductVO> orderProducts;
     private CustomerVO customer;
     private PaymentMethod paymentMethod;
     private OrderStatus status;
@@ -27,20 +25,6 @@ public class OrderVO {
         }
 
         this.id = id;
-    }
-
-    public List<OrderProductVO> getOrderProducts() {
-        return this.orderProducts;
-    }
-
-    public void setOrderProducts(List<OrderProductVO> orderProducts) throws ValidationException {
-        for(int ind=0 ; ind<orderProducts.size() ; ind++) {
-            if(orderProducts.get(ind) == null) {
-                throw new ValidationException("None order's product can be null.");
-            }
-        }
-
-        this.orderProducts = orderProducts;
     }
 
     public CustomerVO getCustomer() {
@@ -88,10 +72,6 @@ public class OrderVO {
             throw new ValidationException("Order's date can't be null.");
         }
 
-        if(date.compareTo(LocalDate.now()) < 0) {
-            throw new ValidationException("An order can't be registered in a past date.");
-        }
-
         this.date = date;
     }
 
@@ -111,12 +91,11 @@ public class OrderVO {
         String obj = "";
 
         obj = "id: " + this.id + '\n';
-        obj += "orderProducts: " + this.orderProducts + '\n';
-        obj += "customer: " + this.customer.toString() + '\n';
         obj += "paymentMethod: " + this.paymentMethod + '\n';
         obj += "status: " + this.status + '\n';
         obj += "date: " + this.date + '\n';
-        obj += "totalPrice: " + this.totalPrice;
+        obj += "totalPrice: " + this.totalPrice + '\n';
+        obj += "customer: " + '\n' + this.customer.toString(); 
 
         return obj;
     }

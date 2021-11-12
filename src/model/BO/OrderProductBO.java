@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.Math;
 
 import java.util.UUID;
 
@@ -30,6 +31,11 @@ public class OrderProductBO {
         }
 
         orderProductDAO.insert(orderProduct);
+
+        OrderVO updatedOrder = orderProduct.getOrder();
+        updatedOrder.setTotalPrice(orderProduct.getQuantity() * orderProduct.getProduct().getPrice());
+
+        OrderBO.update(updatedOrder);
     }
 
     public static OrderProductVO findById(OrderProductVO orderProduct) throws SQLException, ValidationException {
@@ -120,11 +126,24 @@ public class OrderProductBO {
     }
 
     public static void update(OrderProductVO orderProduct) throws Exception {
-        if(orderProductDAO.findById(orderProduct) == null) {
+        OrderProductVO findedOrderProduct = OrderProductBO.findById(orderProduct);
+
+        if(findedOrderProduct == null) {
             throw new Exception("OrderProduct not found.");
         }
 
+        OrderVO updatedOrder = orderProduct.getOrder();
+        int quantityDifference = Math.abs(findedOrderProduct.getQuantity() - orderProduct.getQuantity());
+        double priceDifference = quantityDifference * orderProduct.getProduct().getPrice();
+
+        if(findedOrderProduct.getQuantity() > orderProduct.getQuantity()) {
+            updatedOrder.setTotalPrice(updatedOrder.getTotalPrice() - priceDifference);
+        } else if(findedOrderProduct.getQuantity() < orderProduct.getQuantity()) {
+            updatedOrder.setTotalPrice(updatedOrder.getTotalPrice() + priceDifference);
+        }
+
         orderProductDAO.update(orderProduct);
+        OrderBO.update(updatedOrder);
     }
 
     public static void delete(OrderProductVO orderProduct) throws Exception {
@@ -133,5 +152,12 @@ public class OrderProductBO {
         }
 
         orderProductDAO.delete(orderProduct);
+
+        double orderProductTotalPrice = orderProduct.getQuantity() * orderProduct.getProduct().getPrice();
+
+        OrderVO updatedOrder = orderProduct.getOrder();
+        updatedOrder.setTotalPrice(updatedOrder.getTotalPrice() - orderProductTotalPrice);
+
+        OrderBO.update(updatedOrder);
     }
 }

@@ -26,9 +26,10 @@ import java.util.ArrayList;
 
 import model.DAO.CustomerDAO;
 import model.DAO.OrderDAO;
-import model.VO.OrderProductVO;
 import model.VO.OrderVO;
+import model.VO.ProductVO;
 import model.VO.CustomerVO;
+import model.VO.OrderProductVO;
 import utils.OrderStatus;
 import utils.PaymentMethod;
 import utils.ReportType;
@@ -40,10 +41,6 @@ public class OrderBO {
     public static void insert(OrderVO order) throws Exception {
         if(customerDAO.findById(order.getCustomer()) == null) {
             throw new Exception("Requested customer does not exist.");
-        }
-                    
-        for (OrderProductVO orderProduct : order.getOrderProducts()) {
-            order.setTotalPrice(order.getTotalPrice() + orderProduct.getQuantity() * orderProduct.getProduct().getPrice());
         }
         
         orderDAO.insert(order);
@@ -138,7 +135,34 @@ public class OrderBO {
             customer.add(customerTitle);
             customer.add(customerContent);
 
+            Chunk productsTitle = new Chunk("Produtos:", fontTitle);
+            String productsContentString = " ";
+
+            List<OrderProductVO> orderProducts = OrderProductBO.findByOrder(order);
+            int length = orderProducts.size();
+
+            for(int ind = 0 ; ind < length ; ind++) {
+                int quantity = orderProducts.get(0).getQuantity();
+                ProductVO product = orderProducts.get(ind).getProduct();
+
+                productsContentString = productsContentString.concat("(" + quantity + "x) " + product.getName());
+                productsContentString = productsContentString.concat(" (R$ " + product.getPrice() + ")").replace(".", ",");
+
+                if(ind + 1 != length) {
+                    productsContentString = productsContentString.concat(", ");
+                }
+            }
+
+            Chunk productsContent = new Chunk(productsContentString, fontContent);
+
+            Paragraph products = new Paragraph();
+            products.add(productsTitle);
+            products.add(productsContent);
+
             report.add(customer);
+            report.add(products);
+
+            report.add(Chunk.NEWLINE);
         }
 
         report.close();
@@ -172,6 +196,8 @@ public class OrderBO {
         title.setAlignment(Element.ALIGN_CENTER);
 
         document.add(title);
+        document.add(Chunk.NEWLINE);
+        document.add(Chunk.NEWLINE);
 
         return document;
     }
@@ -187,6 +213,7 @@ public class OrderBO {
         OrderStatus[] orderStatus = OrderStatus.values();
         
         OrderVO findedOrder = new OrderVO();
+
         findedOrder.setId(UUID.fromString(findedOrderDB.getString("id")));
         findedOrder.setCustomer(customer);
         findedOrder.setPaymentMethod(paymentMethod[findedOrderDB.getInt("payment_method")]);

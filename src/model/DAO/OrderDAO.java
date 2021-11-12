@@ -24,7 +24,7 @@ public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
 		statement.setObject(1, order.getCustomer().getId());
 		statement.setInt(2, order.getPaymentMethod().ordinal());
 		statement.setInt(3, order.getOrderStatus().ordinal());
-		statement.setDouble(4, order.getTotalPrice());
+		statement.setDouble(4, 0);
 		statement.setDate(5, Date.valueOf(order.getDate()));
 
 		statement.execute();
