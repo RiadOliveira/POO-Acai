@@ -9,8 +9,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
-import javax.swing.JFileChooser;
-
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -67,32 +65,26 @@ public class OrderBO {
         return searchedOrders;
     }
 
-    public static void generateReport(
-        List<OrderVO> allOrders, ReportType type, LocalDate date
-    ) throws FileNotFoundException, DocumentException, SQLException, ValidationException {
-        Document report = generatePdf();
+    public static void generateReport(String directoryPath, ReportType type, LocalDate date) 
+    throws FileNotFoundException, DocumentException, SQLException, ValidationException {
+        Document report = generatePdf(directoryPath);
 
+        List<OrderVO> allOrders = OrderBO.findAll();
         List<OrderVO> searchedOrders = new ArrayList<OrderVO>();
 
-        allOrders = OrderBO.findAll();
-        type = ReportType.day;
-        date = LocalDate.now();
-
         switch (type) { 
-            case day: searchedOrders = OrderBO.findByDate(allOrders, date);
+            case Dia: searchedOrders = OrderBO.findByDate(allOrders, date);
+            break;
             
-            case week: {
-                int startOfWeek = date.getDayOfMonth() - date.getDayOfWeek().getValue();
-
-                LocalDate initialDate = LocalDate.of(date.getYear(), date.getMonthValue(), startOfWeek);
-                LocalDate finalDate = initialDate.plusDays(7);
+            case Semana: {
+                LocalDate finalDate = date.plusDays(7);
 
                 int searchedOrdersLength = 0;
                 int searchedPositions[] = new int[allOrders.size()];
 
                 for(int ind=0, i=0 ; ind<allOrders.size() ; ind++) {
                     if(
-                        allOrders.get(ind).getDate().compareTo(initialDate) >= 0 &&
+                        allOrders.get(ind).getDate().compareTo(date) >= 0 &&
                         allOrders.get(ind).getDate().compareTo(finalDate) < 0
                     ) {
                         searchedOrdersLength++;
@@ -104,8 +96,9 @@ public class OrderBO {
                     searchedOrders.add(allOrders.get(searchedPositions[ind]));
                 }
             }
+            break;
             
-            case month: {
+            case Mês: {
                 int searchedOrdersLength = 0;
                 int searchedPositions[] = new int[allOrders.size()];
 
@@ -174,27 +167,10 @@ public class OrderBO {
         report.close();
     }
 
-    private static String chooseGenerateReportFolder() {
-        JFileChooser chooser;
-
-        chooser = new JFileChooser(); 
-        chooser.setDialogTitle("Selecione o local para salvar o PDF");
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        chooser.setAcceptAllFileFilterUsed(false);
-
-        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) { 
-            return chooser.getCurrentDirectory().getPath();
-        } else {
-            return null;
-        }
-    }
-
-    public static Document generatePdf() throws FileNotFoundException, DocumentException {
-        String directoryPath = chooseGenerateReportFolder();
+    private static Document generatePdf(String directoryPath) throws FileNotFoundException, DocumentException {
         Document document = new Document();
 
-        PdfWriter.getInstance(document, new FileOutputStream(directoryPath + "/report.pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(directoryPath));
 
         document.open();
 

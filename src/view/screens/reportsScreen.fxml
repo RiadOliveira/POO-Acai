@@ -186,5 +186,23 @@
             <Cursor fx:constant="CLOSED_HAND" />
          </cursor>
       </Button>
+      <VBox fx:id="openReportContainer" layoutX="588.0" layoutY="337.0" opacity="0.0" prefHeight="176.0" prefWidth="185.0" style="-fx-alignment: CENTER; -fx-spacing: -15px; -fx-padding: 10px; -fx-border-color: #bababa; -fx-background-color: #e6e6e6; -fx-border-radius: 4px;">
+         <children>
+            <Button fx:id="openReportButton" mnemonicParsing="false" onAction="#openReport" prefHeight="139.0" prefWidth="139.0" style="-fx-background-color: none;">
+               <graphic>
+                  <ImageView fitHeight="125.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/file.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label alignment="CENTER" prefHeight="43.0" prefWidth="173.0" text="Abrir relatório" textFill="#4e2a84">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
    </children>
 </Pane>
