@@ -3,10 +3,11 @@ package controller.modals;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.DashboardModal;
+import controller.NewEntityModal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -19,7 +20,7 @@ import utils.Component;
 import utils.Screen;
 import view.ScreenLoader;
 
-public class NewProductModal extends DashboardModal {
+public class NewProductModal extends NewEntityModal<Node> {
     @FXML private TextField name;
     @FXML private TextField price;
 
@@ -39,11 +40,11 @@ public class NewProductModal extends DashboardModal {
     }
 
     public void submit() {
-        List<Component> inputs = new ArrayList<Component>();
+        List<Component<Node>> inputs = new ArrayList<Component<Node>>();
 
-        inputs.add(new Component(name, "name"));
-        inputs.add(new Component(price, "cpf"));
-        inputs.add(new Component(categoryBox, "category"));
+        inputs.add(new Component<Node>(name, "name"));
+        inputs.add(new Component<Node>(categoryBox, "category"));
+        inputs.add(new Component<Node>(priceContainer, "price"));
 
         try {
             verifyData();
@@ -61,7 +62,7 @@ public class NewProductModal extends DashboardModal {
         } catch (Exception err) {
             String message = err.getMessage();
 
-            for(Component input : inputs) {
+            for(Component<Node> input : inputs) {
                 verifyInputError(input, message);
             }
             
@@ -80,14 +81,6 @@ public class NewProductModal extends DashboardModal {
 
         if(price.getText().length() == 0 || !verifyPrice()) {
             throw new Exception("Invalid price");
-        }
-    }
-
-    private void verifyInputError(Component input, String message) {
-        if(message.contains(input.name)) {
-            input.component.setStyle(input.component.getStyle() + "-fx-border-color: red;");
-        } else {
-            input.component.setStyle(input.component.getStyle() + "-fx-border-color: none;");
         }
     }
 

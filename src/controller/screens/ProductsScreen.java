@@ -2,7 +2,7 @@ package controller.screens;
 
 import java.util.List;
 
-import controller.DashboardPageWithModal;
+import controller.DashboardPageWithTable;
 import controller.DashboardPagesRedirect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +17,7 @@ import utils.Category;
 import utils.Modal;
 import view.ModalLoader;
 
-public class ProductsScreen extends DashboardPagesRedirect implements DashboardPageWithModal {
+public class ProductsScreen extends DashboardPagesRedirect implements DashboardPageWithTable {
     @FXML private TableView<ProductVO> productsTable;
 
     @FXML private TableColumn<ProductVO, String> name;
@@ -58,6 +58,14 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
             //Handle exception.
             System.out.println(err.getMessage());
         }
+    }
+
+    public void update() {
+
+    }
+
+    public void delete() {
+        
     }
 
     public void openModal() {

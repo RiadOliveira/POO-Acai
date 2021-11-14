@@ -2,7 +2,7 @@ package controller.screens;
 
 import java.util.List;
 
-import controller.DashboardPageWithModal;
+import controller.DashboardPageWithTable;
 import controller.DashboardPagesRedirect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +18,7 @@ import utils.Screen;
 import view.ModalLoader;
 import view.ScreenLoader;
 
-public class EmployeesScreen extends DashboardPagesRedirect implements DashboardPageWithModal {
+public class EmployeesScreen extends DashboardPagesRedirect implements DashboardPageWithTable {
     @FXML private TableView<UserVO> employeesTable;
 
     @FXML private TableColumn<UserVO, String> name;

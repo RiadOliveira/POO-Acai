@@ -1,12 +1,12 @@
 package utils;
 
-import javafx.scene.control.Control;
+import javafx.scene.Node;
 
-public class Component {
-    public Control component;
+public class Component<T extends Node> {
+    public T component;
     public String name;
 
-    public Component(Control component, String name) {
+    public Component(T component, String name) {
         this.name = name;
         this.component = component;
     }

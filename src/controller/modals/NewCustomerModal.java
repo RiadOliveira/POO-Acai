@@ -3,7 +3,7 @@ package controller.modals;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.DashboardModal;
+import controller.NewEntityModal;
 import controller.screens.CustomersScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,11 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.BO.CustomerBO;
 import model.VO.CustomerVO;
-import utils.Input;
+import utils.Component;
 import utils.Screen;
 import view.ScreenLoader;
 
-public class NewCustomerModal extends DashboardModal {
+public class NewCustomerModal extends NewEntityModal<TextField> {
     @FXML private TextField name;
     @FXML private TextField cpf;
     @FXML private TextField address;
@@ -44,15 +44,15 @@ public class NewCustomerModal extends DashboardModal {
     }
 
     public void submit() {
-        List<Input> inputs = new ArrayList<Input>();
+        List<Component<TextField>> inputs = new ArrayList<Component<TextField>>();
 
-        inputs.add(new Input(name, "name"));
-        inputs.add(new Input(cpf, "cpf"));
-        inputs.add(new Input(address, "address"));
-        inputs.add(new Input(phoneNumber, "phoneNumber"));
+        inputs.add(new Component<TextField>(name, "name"));
+        inputs.add(new Component<TextField>(cpf, "cpf"));
+        inputs.add(new Component<TextField>(address, "address"));
+        inputs.add(new Component<TextField>(phoneNumber, "phoneNumber"));
 
         try {
-            for(Input input : inputs) {
+            for(Component<TextField> input : inputs) {
                 verifyData(input);
             }
 
@@ -78,25 +78,11 @@ public class NewCustomerModal extends DashboardModal {
         } catch (Exception err) {
             String message = err.getMessage();
 
-            for(Input input : inputs) {
+            for(Component<TextField> input : inputs) {
                 verifyInputError(input, message);
             }
             
             errorText.setStyle(errorText.getStyle() + "-fx-opacity: 1;");
-        }
-    }
-
-    private void verifyData(Input input) throws Exception  {
-        if(input.component.getText().length() == 0) {
-            throw new Exception("Empty " + input.name);
-        }
-    }
-
-    private void verifyInputError(Input input, String message) {
-        if(message.contains(input.name)) {
-            input.component.setStyle(input.component.getStyle() + "-fx-border-color: red;");
-        } else {
-            input.component.setStyle(input.component.getStyle() + "-fx-border-color: none;");
         }
     }
 
