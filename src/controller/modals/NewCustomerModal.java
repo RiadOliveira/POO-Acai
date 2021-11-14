@@ -1,7 +1,9 @@
 package controller.modals;
 
 import controller.DashboardModal;
+import controller.screens.CustomersScreen;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.BO.CustomerBO;
@@ -15,9 +17,31 @@ public class NewCustomerModal extends DashboardModal {
     @FXML private TextField address;
     @FXML private TextField phoneNumber;
 
+    @FXML private Label modalTitle;
     @FXML private Label errorText;
 
-    public void confirmAdd() {
+    @FXML private Button submitButton;
+
+    private CustomerVO selectedCustomer = null;
+
+    public void initialize() {
+        CustomersScreen customersScreen = new CustomersScreen();
+        selectedCustomer = customersScreen.getSelectedCustomer();
+
+        System.out.println(selectedCustomer);
+
+        if(selectedCustomer != null) {
+            name.setText(selectedCustomer.getName());
+            cpf.setText(selectedCustomer.getCpf());
+            address.setText(selectedCustomer.getAddress());
+            phoneNumber.setText(selectedCustomer.getPhoneNumber());
+
+            modalTitle.setText("Atualizar Cliente");
+            submitButton.setText("Atualizar");
+        }
+    }
+
+    public void submit() {
         try {
             verifyData();
 
@@ -26,12 +50,17 @@ public class NewCustomerModal extends DashboardModal {
             String formattedCpf = getOnlyNumbers(cpf.getText());
             String formattedPhoneNumber = getOnlyNumbers(phoneNumber.getText());
 
+            customer.setId(selectedCustomer.getId());
             customer.setName(name.getText());
             customer.setCpf(formattedCpf);
             customer.setAddress(address.getText());
             customer.setPhoneNumber(formattedPhoneNumber);
 
-            CustomerBO.insert(customer);
+            if(selectedCustomer == null) {
+                CustomerBO.insert(customer);
+            } else {
+                CustomerBO.update(customer);
+            }
 
             ScreenLoader.load(Screen.customersScreen);
             closeModal();

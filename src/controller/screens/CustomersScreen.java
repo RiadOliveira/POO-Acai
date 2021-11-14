@@ -28,7 +28,7 @@ public class CustomersScreen extends DashboardPagesRedirect implements Dashboard
 
     @FXML private Label errorMessage;
 
-    private static CustomerVO selectedCustomer;
+    private static CustomerVO selectedCustomer = null;
 
     public void initialize() {
         try {
