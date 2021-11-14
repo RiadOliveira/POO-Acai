@@ -1,7 +1,9 @@
 package controller.modals;
 
 import controller.DashboardModal;
+import controller.screens.EmployeesScreen;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -16,9 +18,28 @@ public class NewEmployeeModal extends DashboardModal {
     @FXML private TextField phoneNumber;
     @FXML private PasswordField password;
 
+    @FXML private Label modalTitle;
     @FXML private Label errorText;
 
-    public void confirmAdd() {
+    @FXML private Button submitButton;
+
+    private UserVO selectedEmployee = null;
+
+    public void initialize() {
+        EmployeesScreen employeesScreen = new EmployeesScreen();
+        selectedEmployee = employeesScreen.getSelectedEmployee();
+
+        if(selectedEmployee != null) {
+            name.setText(selectedEmployee.getName());
+            cpf.setText(selectedEmployee.getCpf());
+            phoneNumber.setText(selectedEmployee.getPhoneNumber());
+
+            modalTitle.setText("Atualizar Funcionário");
+            submitButton.setText("Atualizar");
+        }
+    }
+
+    public void submit() {
         try {
             verifyData();
 
@@ -32,7 +53,12 @@ public class NewEmployeeModal extends DashboardModal {
             user.setPhoneNumber(formattedPhoneNumber);
             user.setPassword(password.getText());
 
-            UserBO.signUp(user);
+            if(selectedEmployee == null) {
+                UserBO.signUp(user);
+            } else {
+                user.setId(selectedEmployee.getId());
+                UserBO.update(user);
+            }
 
             ScreenLoader.load(Screen.employeesScreen);
             closeModal();

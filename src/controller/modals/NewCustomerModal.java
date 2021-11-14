@@ -28,8 +28,6 @@ public class NewCustomerModal extends DashboardModal {
         CustomersScreen customersScreen = new CustomersScreen();
         selectedCustomer = customersScreen.getSelectedCustomer();
 
-        System.out.println(selectedCustomer);
-
         if(selectedCustomer != null) {
             name.setText(selectedCustomer.getName());
             cpf.setText(selectedCustomer.getCpf());
@@ -50,7 +48,6 @@ public class NewCustomerModal extends DashboardModal {
             String formattedCpf = getOnlyNumbers(cpf.getText());
             String formattedPhoneNumber = getOnlyNumbers(phoneNumber.getText());
 
-            customer.setId(selectedCustomer.getId());
             customer.setName(name.getText());
             customer.setCpf(formattedCpf);
             customer.setAddress(address.getText());
@@ -59,6 +56,7 @@ public class NewCustomerModal extends DashboardModal {
             if(selectedCustomer == null) {
                 CustomerBO.insert(customer);
             } else {
+                customer.setId(selectedCustomer.getId());
                 CustomerBO.update(customer);
             }
 

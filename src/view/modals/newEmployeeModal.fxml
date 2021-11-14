@@ -11,12 +11,12 @@
    <children>
       <Pane layoutX="330.0" layoutY="85.0" prefHeight="550.0" prefWidth="620.0" style="-fx-background-color: #F4F4F4;">
          <children>
-            <Label layoutX="42.0" layoutY="28.0" text="Novo Funcionário" textFill="#260742">
+            <Label fx:id="modalTitle" layoutX="42.0" layoutY="28.0" text="Novo Funcionário" textFill="#260742">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Button layoutX="42.0" layoutY="457.0" mnemonicParsing="false" onAction="#confirmAdd" prefHeight="48.0" prefWidth="536.0" style="-fx-background-color: #4E2A84; -fx-background-radius: 4px;" text="Adicionar" textFill="WHITE">
+            <Button fx:id="submitButton" layoutX="42.0" layoutY="457.0" mnemonicParsing="false" onAction="#submit" prefHeight="48.0" prefWidth="536.0" style="-fx-background-color: #4E2A84; -fx-background-radius: 4px;" text="Adicionar" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="CLOSED_HAND" />
                </cursor>

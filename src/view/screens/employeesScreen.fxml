@@ -77,7 +77,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <TableView fx:id="employeesTable" layoutX="120.0" layoutY="236.0" prefHeight="445.0" prefWidth="1118.0">
+      <TableView fx:id="employeesTable" layoutX="120.0" layoutY="236.0" prefHeight="383.0" prefWidth="1118.0">
         <columns>
           <TableColumn fx:id="name" prefWidth="635.0" style="-fx-alignment: CENTER;" text="Nome" />
           <TableColumn fx:id="cpf" prefWidth="256.0" style="-fx-alignment: CENTER;" text="CPF" />
@@ -195,5 +195,30 @@
             </VBox>
          </children>
       </Group>
+      <HBox layoutX="120.0" layoutY="619.0" prefHeight="97.0" prefWidth="292.0" style="-fx-spacing: 50px; -fx-alignment: CENTER;">
+         <children>
+            <Button mnemonicParsing="false" onAction="#update" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #1c274e; -fx-border-radius: 4px;" text="Atualizar" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #F24141; -fx-border-radius: 4px;" text="Deletar" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <Label fx:id="errorMessage" layoutX="1079.0" layoutY="650.0" maxWidth="158.0" prefHeight="36.0" prefWidth="158.0" style="-fx-opacity: 0;" text="Falha na operação" textFill="#f24141">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

@@ -196,9 +196,9 @@
             </VBox>
          </children>
       </Group>
-      <HBox layoutX="120.0" layoutY="620.0" prefHeight="97.0" prefWidth="465.0" style="-fx-spacing: 50px; -fx-alignment: CENTER;">
+      <HBox layoutX="120.0" layoutY="620.0" prefHeight="97.0" prefWidth="459.0" style="-fx-spacing: 50px; -fx-alignment: CENTER;">
          <children>
-            <Button mnemonicParsing="false" onAction="#update" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #4e2a84; -fx-border-radius: 4px;" text="Atualizar" textFill="WHITE">
+            <Button mnemonicParsing="false" onAction="#update" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #1c274e; -fx-border-radius: 4px;" text="Atualizar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
