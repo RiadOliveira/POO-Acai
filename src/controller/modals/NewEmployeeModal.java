@@ -52,8 +52,8 @@ public class NewEmployeeModal extends DashboardModal {
         inputs.add(new Input(password, "password"));
 
         try {
-            for(Input selectedInput : inputs) {
-                verifyData(selectedInput);
+            for(Input input : inputs) {
+                verifyData(input);
             }
 
             UserVO user = new UserVO();
@@ -78,25 +78,25 @@ public class NewEmployeeModal extends DashboardModal {
         } catch (Exception err) {
             String message = err.getMessage();
 
-            for(Input selectedInput : inputs) {
-                verifyInputError(selectedInput, message);
+            for(Input input : inputs) {
+                verifyInputError(input, message);
             }
             
             errorText.setStyle(errorText.getStyle() + "-fx-opacity: 1;");
         }
     }
 
-    private void verifyData(Input selectedInput) throws Exception  {
-        if(selectedInput.input.getText().length() == 0) {
-            throw new Exception("Empty " + selectedInput.name);
+    private void verifyData(Input input) throws Exception  {
+        if(input.component.getText().length() == 0) {
+            throw new Exception("Empty " + input.name);
         }
     }
 
-    private void verifyInputError(Input selectedInput, String message) {
-        if(message.contains(selectedInput.name)) {
-            selectedInput.input.setStyle(selectedInput.input.getStyle() + "-fx-border-color: red;");
+    private void verifyInputError(Input input, String message) {
+        if(message.contains(input.name)) {
+            input.component.setStyle(input.component.getStyle() + "-fx-border-color: red;");
         } else {
-            selectedInput.input.setStyle(selectedInput.input.getStyle() + "-fx-border-color: none;");
+            input.component.setStyle(input.component.getStyle() + "-fx-border-color: none;");
         }
     }
 

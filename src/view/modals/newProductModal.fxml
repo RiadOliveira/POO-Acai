@@ -11,12 +11,12 @@
    <children>
       <Pane layoutX="340.0" layoutY="120.0" prefHeight="480.0" prefWidth="600.0" style="-fx-background-color: #F4F4F4;">
          <children>
-            <Label layoutX="30.0" layoutY="28.0" text="Novo Produto" textFill="#260742">
+            <Label fx:id="modalTitle" layoutX="30.0" layoutY="28.0" text="Novo Produto" textFill="#260742">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Button layoutX="32.0" layoutY="388.0" mnemonicParsing="false" onAction="#confirmAdd" prefHeight="48.0" prefWidth="536.0" style="-fx-background-color: #4E2A84; -fx-background-radius: 4px;" text="Adicionar" textFill="WHITE">
+            <Button fx:id="submitButton" layoutX="32.0" layoutY="388.0" mnemonicParsing="false" onAction="#submit" prefHeight="48.0" prefWidth="536.0" style="-fx-background-color: #4E2A84; -fx-background-radius: 4px;" text="Adicionar" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -33,7 +33,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="name" prefHeight="48.0" prefWidth="536.0" promptText="Açaí, 500ml" style="-fx-background-color: #fff; -fx-background-radius: 4px;">
+                        <TextField fx:id="name" prefHeight="48.0" prefWidth="536.0" promptText="Açaí, 500ml" style="-fx-background-color: #fff; -fx-background-radius: 4px; -fx-border-radius: 4px;">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -47,7 +47,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="categoryBox" prefHeight="48.0" prefWidth="536.0" promptText="Selecione uma categoria" style="-fx-background-color: #fff;" />
+                        <ComboBox fx:id="categoryBox" prefHeight="48.0" prefWidth="536.0" promptText="Selecione uma categoria" style="-fx-background-color: #fff; -fx-border-radius: 4px;" />
                      </children>
                   </VBox>
                   <VBox prefHeight="75.0" prefWidth="536.0" style="-fx-spacing: 8px;">
@@ -57,7 +57,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <HBox fx:id="priceContainer" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #fff; -fx-spacing: 10px;">
+                        <HBox fx:id="priceContainer" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #fff; -fx-spacing: 10px; -fx-border-radius: 4px;">
                            <children>
                               <Label text="R$">
                                  <font>

@@ -1,9 +1,13 @@
 package controller.modals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import controller.DashboardModal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,6 +15,7 @@ import javafx.scene.layout.HBox;
 import model.BO.ProductBO;
 import model.VO.ProductVO;
 import utils.Category;
+import utils.Component;
 import utils.Screen;
 import view.ScreenLoader;
 
@@ -18,7 +23,10 @@ public class NewProductModal extends DashboardModal {
     @FXML private TextField name;
     @FXML private TextField price;
 
+    @FXML private Label modalTitle;
     @FXML private Label errorText;
+
+    @FXML private Button submitButton;
 
     @FXML HBox priceContainer;
     @FXML private ComboBox<Category> categoryBox;
@@ -30,7 +38,13 @@ public class NewProductModal extends DashboardModal {
         categoryBox.setItems(categories);
     }
 
-    public void confirmAdd() {
+    public void submit() {
+        List<Component> inputs = new ArrayList<Component>();
+
+        inputs.add(new Component(name, "name"));
+        inputs.add(new Component(price, "cpf"));
+        inputs.add(new Component(categoryBox, "category"));
+
         try {
             verifyData();
 
@@ -47,20 +61,8 @@ public class NewProductModal extends DashboardModal {
         } catch (Exception err) {
             String message = err.getMessage();
 
-            name.setStyle(name.getStyle() + "-fx-border-color: none;");
-            categoryBox.setStyle(categoryBox.getStyle() + "-fx-border-color: none;");
-            priceContainer.setStyle(priceContainer.getStyle() + "-fx-border-color: none;");
-
-            if(message.contains("name")) {
-                name.setStyle(name.getStyle() + "-fx-border-color: red;");
-            } 
-            
-            if(message.contains("category")) {
-                categoryBox.setStyle(categoryBox.getStyle() + "-fx-border-color: red;");
-            } 
-            
-            if(message.contains("price")) {
-                priceContainer.setStyle(priceContainer.getStyle() + "-fx-border-color: red;");
+            for(Component input : inputs) {
+                verifyInputError(input, message);
             }
             
             errorText.setStyle(errorText.getStyle() + "-fx-opacity: 1;");
@@ -81,7 +83,15 @@ public class NewProductModal extends DashboardModal {
         }
     }
 
-    private boolean verifyPrice() throws NumberFormatException {
+    private void verifyInputError(Component input, String message) {
+        if(message.contains(input.name)) {
+            input.component.setStyle(input.component.getStyle() + "-fx-border-color: red;");
+        } else {
+            input.component.setStyle(input.component.getStyle() + "-fx-border-color: none;");
+        }
+    }
+
+    private boolean verifyPrice() {
         try {
             String formmatedPrice = price.getText().replace(',', '.');
             Double.parseDouble(formmatedPrice);
