@@ -67,10 +67,6 @@ public class OrderProductDAO<VO extends OrderProductVO> extends BaseDAO<VO> {
     	statement.setString(1, product.getId().toString());
     	
     	ResultSet findedOrderProducts = statement.executeQuery();
-    	
-    	if (!findedOrderProducts.next()) {
-    		return null;
-    	}
         
         return findedOrderProducts;
     }
@@ -83,10 +79,6 @@ public class OrderProductDAO<VO extends OrderProductVO> extends BaseDAO<VO> {
     	statement.setString(1, order.getId().toString());
     	
     	ResultSet findedOrderProducts = statement.executeQuery();
-    	
-    	if (!findedOrderProducts.next()) {
-    		return null;
-    	}
         
         return findedOrderProducts;
     }
