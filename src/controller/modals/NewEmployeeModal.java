@@ -1,5 +1,8 @@
 package controller.modals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import controller.DashboardModal;
 import controller.screens.EmployeesScreen;
 import javafx.fxml.FXML;
@@ -9,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.BO.UserBO;
 import model.VO.UserVO;
+import utils.Input;
 import utils.Screen;
 import view.ScreenLoader;
 
@@ -40,8 +44,17 @@ public class NewEmployeeModal extends DashboardModal {
     }
 
     public void submit() {
+        List<Input> inputs = new ArrayList<Input>();
+
+        inputs.add(new Input(name, "name"));
+        inputs.add(new Input(cpf, "cpf"));
+        inputs.add(new Input(phoneNumber, "phoneNumber"));
+        inputs.add(new Input(password, "password"));
+
         try {
-            verifyData();
+            for(Input selectedInput : inputs) {
+                verifyData(selectedInput);
+            }
 
             UserVO user = new UserVO();
 
@@ -65,46 +78,25 @@ public class NewEmployeeModal extends DashboardModal {
         } catch (Exception err) {
             String message = err.getMessage();
 
-            name.setStyle(name.getStyle() + "-fx-border-color: none;");
-            cpf.setStyle(cpf.getStyle() + "-fx-border-color: none;");
-            phoneNumber.setStyle(phoneNumber.getStyle() + "-fx-border-color: none;");
-            password.setStyle(password.getStyle() + "-fx-border-color: none;");
-
-            if(message.contains("name")) {
-                name.setStyle(name.getStyle() + "-fx-border-color: red;");
-            } 
-            
-            if(message.contains("cpf")) {
-                cpf.setStyle(cpf.getStyle() + "-fx-border-color: red;");
-            } 
-            
-            if(message.contains("phoneNumber")) {
-                phoneNumber.setStyle(phoneNumber.getStyle() + "-fx-border-color: red;");
-            }
-
-            if(message.contains("password")) {
-                password.setStyle(password.getStyle() + "-fx-border-color: red;");
+            for(Input selectedInput : inputs) {
+                verifyInputError(selectedInput, message);
             }
             
             errorText.setStyle(errorText.getStyle() + "-fx-opacity: 1;");
         }
     }
 
-    private void verifyData() throws Exception  {
-        if(name.getText().length() == 0) {
-            throw new Exception("Empty name");
+    private void verifyData(Input selectedInput) throws Exception  {
+        if(selectedInput.input.getText().length() == 0) {
+            throw new Exception("Empty " + selectedInput.name);
         }
+    }
 
-        if(cpf.getText().length() == 0) {
-            throw new Exception("Empty cpf");
-        }
-
-        if(phoneNumber.getText().length() == 0) {
-            throw new Exception("Empty phoneNumber");
-        }
-
-        if(password.getText().length() == 0) {
-            throw new Exception("Empty password");
+    private void verifyInputError(Input selectedInput, String message) {
+        if(message.contains(selectedInput.name)) {
+            selectedInput.input.setStyle(selectedInput.input.getStyle() + "-fx-border-color: red;");
+        } else {
+            selectedInput.input.setStyle(selectedInput.input.getStyle() + "-fx-border-color: none;");
         }
     }
 
