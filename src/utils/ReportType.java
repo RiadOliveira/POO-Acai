@@ -1,5 +1,5 @@
 package utils;
 
 public enum ReportType {
-    Dia, Semana, Mês
+    Dia, Semana, Mes
 }

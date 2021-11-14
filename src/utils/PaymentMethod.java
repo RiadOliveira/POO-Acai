@@ -1,5 +1,5 @@
 package utils;
 
 public enum PaymentMethod {
-    Dinheiro, Cartão, Pix
+    Dinheiro, Cartao, Pix
 }

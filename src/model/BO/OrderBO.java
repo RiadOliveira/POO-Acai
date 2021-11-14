@@ -98,7 +98,7 @@ public class OrderBO {
             }
             break;
             
-            case Mês: {
+            case Mes: {
                 int searchedOrdersLength = 0;
                 int searchedPositions[] = new int[allOrders.size()];
 

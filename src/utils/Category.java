@@ -1,6 +1,6 @@
 package utils;
 
 public enum Category {
-    Açaí, Brasileiro, Pizza, Hambúrguer, Doce, 
+    Acai, Brasileiro, Pizza, Hamburguer, Doce, 
     Bebida, Sorvete, Sushi, Lanche
 }
