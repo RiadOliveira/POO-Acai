@@ -77,7 +77,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <TableView fx:id="customersTable" layoutX="120.0" layoutY="236.0" prefHeight="445.0" prefWidth="1118.0">
+      <TableView fx:id="customersTable" layoutX="121.0" layoutY="238.0" prefHeight="383.0" prefWidth="1118.0">
         <columns>
           <TableColumn fx:id="name" prefWidth="342.0" style="-fx-alignment: CENTER;" text="Nome" />
           <TableColumn fx:id="address" prefWidth="297.0" style="-fx-alignment: CENTER;" text="Endereço" />
@@ -196,5 +196,38 @@
             </VBox>
          </children>
       </Group>
+      <HBox layoutX="120.0" layoutY="620.0" prefHeight="97.0" prefWidth="465.0" style="-fx-spacing: 50px; -fx-alignment: CENTER;">
+         <children>
+            <Button mnemonicParsing="false" onAction="#update" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #4e2a84; -fx-border-radius: 4px;" text="Atualizar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#showCustomerHistory" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #50BF77; -fx-border-radius: 4px;" text="Histórico" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #F24141; -fx-border-radius: 4px;" text="Deletar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </HBox>
+      <Label fx:id="errorMessage" layoutX="1081.0" layoutY="651.0" maxWidth="158.0" prefHeight="36.0" prefWidth="158.0" style="-fx-opacity: 0;" text="Falha na operação" textFill="#f24141">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

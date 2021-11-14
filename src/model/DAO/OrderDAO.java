@@ -75,19 +75,18 @@ public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
 
     public ResultSet findByCustomer(CustomerVO customer) throws SQLException {
     	Connection connection = getConnection();
-		String query = "SELECT * FROM orders WHERE customer_id=?::uuid";
-		
-		PreparedStatement statement = connection.prepareStatement(query);
+    	
+    	String query = "SELECT * FROM orders WHERE customer_id=?::uuid";
+    	
+    	PreparedStatement statement;
+    	ResultSet findedOrders = null;
+    	
+		statement = connection.prepareStatement(query);
 		statement.setString(1, customer.getId().toString());
 		
-        ResultSet findedOrders;
-        findedOrders = statement.executeQuery(query);
-        
-        if(!findedOrders.next()) {
-        	return null;
-        }
-
-        return findedOrders;
+		findedOrders = statement.executeQuery();
+    		
+    	return findedOrders;
     }
 
     public void update(VO order) throws SQLException {

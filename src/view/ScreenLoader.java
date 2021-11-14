@@ -47,7 +47,7 @@ public class ScreenLoader extends Application {
         setPrimaryStage(primaryStage);
 
         primaryStage.setTitle("Digi");
-        load(Screen.reportsScreen);
+        load(Screen.customersScreen);
         primaryStage.show();
     }
 }
