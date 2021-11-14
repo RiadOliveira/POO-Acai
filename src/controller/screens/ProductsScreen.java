@@ -8,14 +8,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.ProductBO;
+import model.BO.UserBO;
 import model.VO.ProductVO;
+import model.VO.UserVO;
 import utils.Category;
 import utils.Modal;
+import utils.Screen;
 import view.ModalLoader;
 import view.ScreenLoader;
 
@@ -25,8 +29,12 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
     @FXML private TableColumn<ProductVO, String> name;
     @FXML private TableColumn<ProductVO, Category> category;
     @FXML private TableColumn<ProductVO, Double> price;
+    
+    @FXML private Label errorMessage;
 
     @FXML Button newProductButton;
+    
+    private static ProductVO selectedProduct = null;
 
     public void initialize() {
         if(!ScreenLoader.getLoggedUser().getIsAdmin()) {
@@ -70,11 +78,26 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
     }
 
     public void update() {
+    	int index = productsTable.getSelectionModel().getFocusedIndex();
 
+        try {
+            selectedProduct = productsTable.getItems().get(index);
+            System.out.println("Selected Product" + selectedProduct);
+            ModalLoader.load(Modal.newProductModal);            
+        } catch (Exception err) {
+            errorMessage.setStyle(errorMessage.getStyle() + "-fx-opacity: 1;");
+        }
     }
 
     public void delete() {
-        
+//    	int index = productsTable.getSelectionModel().getFocusedIndex();
+
+//        try {
+//            ProductBO.delete(productsTable.getItems().get(index));
+//            ScreenLoader.load(Screen.employeesScreen);
+//        } catch (Exception err) {
+//            errorMessage.setStyle(errorMessage.getStyle() + "-fx-opacity: 1;");
+//        }
     }
 
     public void openModal() {
