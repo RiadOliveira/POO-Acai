@@ -7,6 +7,7 @@ import controller.DashboardPagesRedirect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -27,14 +28,21 @@ public class EmployeesScreen extends DashboardPagesRedirect implements Dashboard
 
     @FXML private Label errorMessage;
 
+    @FXML Button newEmployeeButton;
+
     private static UserVO selectedEmployee = null;
 
     public void initialize() {
-        try {
-            if(selectedEmployee != null) {
-                selectedEmployee = null;
-            }
+        if(selectedEmployee != null) {
+            selectedEmployee = null;
+        }
 
+        if(!ScreenLoader.getLoggedUser().getIsAdmin()) {
+            newEmployeeButton.setDisable(true);
+            newEmployeeButton.setStyle(newEmployeeButton.getStyle() + "-fx-opacity: 0.8");;
+        }
+
+        try {
             ObservableList<UserVO> employees = FXCollections.observableArrayList();
             List<UserVO> allEmployees = UserBO.findAll();
     

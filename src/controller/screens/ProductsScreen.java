@@ -7,6 +7,7 @@ import controller.DashboardPagesRedirect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -16,6 +17,7 @@ import model.VO.ProductVO;
 import utils.Category;
 import utils.Modal;
 import view.ModalLoader;
+import view.ScreenLoader;
 
 public class ProductsScreen extends DashboardPagesRedirect implements DashboardPageWithTable {
     @FXML private TableView<ProductVO> productsTable;
@@ -24,7 +26,14 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
     @FXML private TableColumn<ProductVO, Category> category;
     @FXML private TableColumn<ProductVO, Double> price;
 
+    @FXML Button newProductButton;
+
     public void initialize() {
+        if(!ScreenLoader.getLoggedUser().getIsAdmin()) {
+            newProductButton.setDisable(true);
+            newProductButton.setStyle(newProductButton.getStyle() + "-fx-opacity: 0.8");;
+        }
+
         try {
             ObservableList<ProductVO> products = FXCollections.observableArrayList();
             List<ProductVO> allProducts = ProductBO.findAll();

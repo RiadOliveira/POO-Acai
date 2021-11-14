@@ -35,8 +35,10 @@ public class NewEmployeeModal extends NewEntityModal<TextField> {
 
         if(selectedEmployee != null) {
             name.setText(selectedEmployee.getName());
-            cpf.setText(selectedEmployee.getCpf());
             phoneNumber.setText(selectedEmployee.getPhoneNumber());
+
+            cpf.setText(selectedEmployee.getCpf());
+            cpf.setDisable(true);
 
             modalTitle.setText("Atualizar Funcionário");
             submitButton.setText("Atualizar");

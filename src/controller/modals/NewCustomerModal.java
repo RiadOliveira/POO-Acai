@@ -34,9 +34,11 @@ public class NewCustomerModal extends NewEntityModal<TextField> {
 
         if(selectedCustomer != null) {
             name.setText(selectedCustomer.getName());
-            cpf.setText(selectedCustomer.getCpf());
             address.setText(selectedCustomer.getAddress());
             phoneNumber.setText(selectedCustomer.getPhoneNumber());
+
+            cpf.setText(selectedCustomer.getCpf());
+            cpf.setDisable(true);
 
             modalTitle.setText("Atualizar Cliente");
             submitButton.setText("Atualizar");
