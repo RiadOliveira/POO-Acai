@@ -85,8 +85,4 @@ public class NewEmployeeModal extends NewEntityModal<TextField> {
             errorText.setStyle(errorText.getStyle() + "-fx-opacity: 1;");
         }
     }
-
-    private String getOnlyNumbers(String inputValue) {
-        return inputValue.replaceAll("[^\\d.]", "").replaceAll("\\.", "");
-    }
 }

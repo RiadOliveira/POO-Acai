@@ -5,6 +5,9 @@ import javafx.scene.control.TextField;
 import utils.Component;
 
 public abstract class NewEntityModal<T extends Node> extends DashboardModal {
+    public abstract void initialize();
+    public abstract void submit();
+
     protected void verifyData(Component<TextField> input) throws Exception  {
         if(input.component.getText().length() == 0) {
             throw new Exception("Empty " + input.name);
@@ -17,5 +20,9 @@ public abstract class NewEntityModal<T extends Node> extends DashboardModal {
         } else {
             input.component.setStyle(input.component.getStyle() + "-fx-border-color: none;");
         }
+    }
+
+    protected String getOnlyNumbers(String inputValue) {
+        return inputValue.replaceAll("[^\\d.]", "").replaceAll("\\.", "");
     }
 }
