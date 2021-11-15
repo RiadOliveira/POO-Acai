@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.UserBO;
 import model.VO.UserVO;
@@ -28,9 +29,12 @@ public class EmployeesScreen extends DashboardPagesRedirect implements Dashboard
 
     @FXML private Label errorMessage;
 
+    @FXML private TextField searchBar;
+
     @FXML Button newEmployeeButton;
 
     private static UserVO selectedEmployee = null;
+    private List<UserVO> allEmployees = null;
 
     public void initialize() {
         if(selectedEmployee != null) {
@@ -42,9 +46,13 @@ public class EmployeesScreen extends DashboardPagesRedirect implements Dashboard
             newEmployeeButton.setStyle(newEmployeeButton.getStyle() + "-fx-opacity: 0.8");;
         }
 
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> 
+            handleSearchTable(newValue)
+        );
+
         try {
             ObservableList<UserVO> employees = FXCollections.observableArrayList();
-            List<UserVO> allEmployees = UserBO.findAll();
+            allEmployees = UserBO.findAll();
     
             employees.addAll(allEmployees);
             employeesTable.setItems(employees);
@@ -60,6 +68,13 @@ public class EmployeesScreen extends DashboardPagesRedirect implements Dashboard
 
     public UserVO getSelectedEmployee() {
         return selectedEmployee;
+    }
+
+    private void handleSearchTable(String searchedText) {
+        ObservableList<UserVO> employees = FXCollections.observableArrayList();
+        employees.addAll(UserBO.findEmployeesByName(allEmployees, searchedText));
+
+        employeesTable.setItems(employees);
     }
 
     public void update() {

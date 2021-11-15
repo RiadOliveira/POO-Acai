@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.CustomerBO;
 import model.VO.CustomerVO;
@@ -28,16 +29,23 @@ public class CustomersScreen extends DashboardPagesRedirect implements Dashboard
 
     @FXML private Label errorMessage;
 
+    @FXML private TextField searchBar;
+
     private static CustomerVO selectedCustomer = null;
+    private List<CustomerVO> allCustomers = null;
 
     public void initialize() {
-        try {
-            if(selectedCustomer != null) {
-                selectedCustomer = null;
-            }
+        if(selectedCustomer != null) {
+            selectedCustomer = null;
+        }
 
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> 
+            handleSearchTable(newValue)
+        );
+
+        try {
             ObservableList<CustomerVO> customers = FXCollections.observableArrayList();
-            List<CustomerVO> allCustomers = CustomerBO.findAll();
+            allCustomers = CustomerBO.findAll();
     
             customers.addAll(allCustomers);
             customersTable.setItems(customers);
@@ -54,6 +62,13 @@ public class CustomersScreen extends DashboardPagesRedirect implements Dashboard
 
     public CustomerVO getSelectedCustomer() {
         return selectedCustomer;
+    }
+
+    private void handleSearchTable(String searchedText) {
+        ObservableList<CustomerVO> customers = FXCollections.observableArrayList();
+        customers.addAll(CustomerBO.findByName(allCustomers, searchedText));
+
+        customersTable.setItems(customers);
     }
 
     public void update() {
