@@ -35,7 +35,7 @@ public class NewProductModal extends NewEntityModal<Node> {
 
     private ProductVO selectedProduct = null;
     
-    public void initialize() {
+    public void initialize() {    	
         ObservableList<Category> categories = FXCollections.observableArrayList();
         categories.addAll(Category.values());
         

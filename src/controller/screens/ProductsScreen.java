@@ -82,7 +82,6 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
     public ProductVO getSelectedProduct() {
         return selectedProduct;
     }
-
     public void update() {
     	int index = productsTable.getSelectionModel().getFocusedIndex();
 
