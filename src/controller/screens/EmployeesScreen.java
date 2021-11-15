@@ -1,9 +1,11 @@
 package controller.screens;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import controller.DashboardPageWithTable;
 import controller.DashboardPagesRedirect;
+import errors.ValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -51,16 +53,8 @@ public class EmployeesScreen extends DashboardPagesRedirect implements Dashboard
         );
 
         try {
-            ObservableList<UserVO> employees = FXCollections.observableArrayList();
-            allEmployees = UserBO.findAll();
-    
-            employees.addAll(allEmployees);
-            employeesTable.setItems(employees);
-    
-            name.setCellValueFactory(new PropertyValueFactory<UserVO, String>("name"));
-            cpf.setCellValueFactory(new PropertyValueFactory<UserVO, String>("cpf"));
-            phoneNumber.setCellValueFactory(new PropertyValueFactory<UserVO, String>("phoneNumber"));
-        } catch (Exception err) {
+            fillTable();
+        } catch (SQLException | ValidationException err) {
             //Handle exception.
             System.out.println(err.getMessage());
         }
@@ -75,6 +69,18 @@ public class EmployeesScreen extends DashboardPagesRedirect implements Dashboard
         employees.addAll(UserBO.findEmployeesByName(allEmployees, searchedText));
 
         employeesTable.setItems(employees);
+    }
+
+    private void fillTable() throws SQLException, ValidationException {
+        ObservableList<UserVO> employees = FXCollections.observableArrayList();
+        allEmployees = UserBO.findAll();
+
+        employees.addAll(allEmployees);
+        employeesTable.setItems(employees);
+
+        name.setCellValueFactory(new PropertyValueFactory<UserVO, String>("name"));
+        cpf.setCellValueFactory(new PropertyValueFactory<UserVO, String>("cpf"));
+        phoneNumber.setCellValueFactory(new PropertyValueFactory<UserVO, String>("phoneNumber"));
     }
 
     public void update() {

@@ -1,9 +1,11 @@
 package controller.screens;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import controller.DashboardPageWithTable;
 import controller.DashboardPagesRedirect;
+import errors.ValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -44,17 +46,8 @@ public class CustomersScreen extends DashboardPagesRedirect implements Dashboard
         );
 
         try {
-            ObservableList<CustomerVO> customers = FXCollections.observableArrayList();
-            allCustomers = CustomerBO.findAll();
-    
-            customers.addAll(allCustomers);
-            customersTable.setItems(customers);
-    
-            name.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("name"));
-            cpf.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("cpf"));
-            address.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("address"));
-            phoneNumber.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("phoneNumber"));
-        } catch (Exception err) {
+            fillTable();
+        } catch (SQLException | ValidationException err) {
             //Handle exception.
             System.out.println(err.getMessage());
         }
@@ -69,6 +62,19 @@ public class CustomersScreen extends DashboardPagesRedirect implements Dashboard
         customers.addAll(CustomerBO.findByName(allCustomers, searchedText));
 
         customersTable.setItems(customers);
+    }
+
+    private void fillTable() throws SQLException, ValidationException {
+        ObservableList<CustomerVO> customers = FXCollections.observableArrayList();
+        allCustomers = CustomerBO.findAll();
+
+        customers.addAll(allCustomers);
+        customersTable.setItems(customers);
+
+        name.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("name"));
+        cpf.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("cpf"));
+        address.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("address"));
+        phoneNumber.setCellValueFactory(new PropertyValueFactory<CustomerVO, String>("phoneNumber"));
     }
 
     public void update() {
