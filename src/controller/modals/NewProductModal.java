@@ -70,7 +70,12 @@ public class NewProductModal extends NewEntityModal<Node> {
             product.setPrice(Double.parseDouble(price.getText()));
             product.setCategory(categoryBox.getValue());
 
-            ProductBO.insert(ScreenLoader.getLoggedUser(), product);
+            if(selectedProduct == null) {
+                ProductBO.insert(ScreenLoader.getLoggedUser(), product);
+            } else {
+                product.setId(selectedProduct.getId());
+                ProductBO.update(product);
+            }
 
             ScreenLoader.load(Screen.productsScreen);
             closeModal();
