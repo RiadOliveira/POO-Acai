@@ -35,16 +35,16 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
     private static ProductVO selectedProduct = null;
 
     public void initialize() {
+        if(selectedProduct != null) {
+            selectedProduct = null;
+        }
+
         if(!ScreenLoader.getLoggedUser().getIsAdmin()) {
             newProductButton.setDisable(true);
             newProductButton.setStyle(newProductButton.getStyle() + "-fx-opacity: 0.8");;
         }
 
         try {
-        	if(selectedProduct != null) {
-                selectedProduct = null;
-            }
-        	
             ObservableList<ProductVO> products = FXCollections.observableArrayList();
             List<ProductVO> allProducts = ProductBO.findAll();
     
@@ -79,15 +79,15 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
         }
     }
 
+    public ProductVO getSelectedProduct() {
+        return selectedProduct;
+    }
+
     public void update() {
     	int index = productsTable.getSelectionModel().getFocusedIndex();
 
-        try {
-            selectedProduct = productsTable.getItems().get(index);
-            ModalLoader.load(Modal.newProductModal);            
-        } catch (Exception err) {
-            errorMessage.setStyle(errorMessage.getStyle() + "-fx-opacity: 1;");
-        }
+        selectedProduct = productsTable.getItems().get(index);
+        ModalLoader.load(Modal.newProductModal);
     }
 
     public void delete() {
