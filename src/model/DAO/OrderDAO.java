@@ -17,15 +17,14 @@ import model.VO.OrderVO;
 public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
     public void insert(VO order) throws SQLException, ValidationException {
     	Connection connection = getConnection();
-		String query = "INSERT INTO orders (customer_id, payment_method, status, total_price, order_date) values (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO orders (customer_id, payment_method, status, order_date) values (?, ?, ?, ?)";
 
 		PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		
 		statement.setObject(1, order.getCustomer().getId());
 		statement.setInt(2, order.getPaymentMethod().ordinal());
 		statement.setInt(3, order.getOrderStatus().ordinal());
-		statement.setDouble(4, 0);
-		statement.setDate(5, Date.valueOf(order.getDate()));
+		statement.setDate(4, Date.valueOf(order.getDate()));
 
 		statement.execute();
 		

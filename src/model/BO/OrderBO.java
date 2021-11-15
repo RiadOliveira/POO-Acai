@@ -131,7 +131,7 @@ public class OrderBO {
             int length = orderProducts.size();
 
             for(int ind = 0 ; ind < length ; ind++) {
-                int quantity = orderProducts.get(0).getQuantity();
+                int quantity = orderProducts.get(ind).getQuantity();
                 ProductVO product = orderProducts.get(ind).getProduct();
 
                 int verifyNumber = Double.valueOf(product.getPrice()).toString().split("\\.")[1].length();
