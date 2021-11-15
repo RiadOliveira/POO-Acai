@@ -36,6 +36,7 @@ public class ModalLoader {
     }
 
     public static void close() {
+    	
         modalStage.hide();
     }
 }
