@@ -1,9 +1,11 @@
 package controller.screens;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import controller.DashboardPageWithTable;
 import controller.DashboardPagesRedirect;
+import errors.ValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.UserBO;
 import model.VO.UserVO;
@@ -28,9 +31,12 @@ public class EmployeesScreen extends DashboardPagesRedirect implements Dashboard
 
     @FXML private Label errorMessage;
 
+    @FXML private TextField searchBar;
+
     @FXML Button newEmployeeButton;
 
     private static UserVO selectedEmployee = null;
+    private List<UserVO> allEmployees = null;
 
     public void initialize() {
         if(selectedEmployee != null) {
@@ -42,17 +48,13 @@ public class EmployeesScreen extends DashboardPagesRedirect implements Dashboard
             newEmployeeButton.setStyle(newEmployeeButton.getStyle() + "-fx-opacity: 0.8");;
         }
 
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> 
+            handleSearchTable(newValue)
+        );
+
         try {
-            ObservableList<UserVO> employees = FXCollections.observableArrayList();
-            List<UserVO> allEmployees = UserBO.findAll();
-    
-            employees.addAll(allEmployees);
-            employeesTable.setItems(employees);
-    
-            name.setCellValueFactory(new PropertyValueFactory<UserVO, String>("name"));
-            cpf.setCellValueFactory(new PropertyValueFactory<UserVO, String>("cpf"));
-            phoneNumber.setCellValueFactory(new PropertyValueFactory<UserVO, String>("phoneNumber"));
-        } catch (Exception err) {
+            fillTable();
+        } catch (SQLException | ValidationException err) {
             //Handle exception.
             System.out.println(err.getMessage());
         }
@@ -60,6 +62,25 @@ public class EmployeesScreen extends DashboardPagesRedirect implements Dashboard
 
     public UserVO getSelectedEmployee() {
         return selectedEmployee;
+    }
+
+    private void handleSearchTable(String searchedText) {
+        ObservableList<UserVO> employees = FXCollections.observableArrayList();
+        employees.addAll(UserBO.findEmployeesByName(allEmployees, searchedText));
+
+        employeesTable.setItems(employees);
+    }
+
+    private void fillTable() throws SQLException, ValidationException {
+        ObservableList<UserVO> employees = FXCollections.observableArrayList();
+        allEmployees = UserBO.findAll();
+
+        employees.addAll(allEmployees);
+        employeesTable.setItems(employees);
+
+        name.setCellValueFactory(new PropertyValueFactory<UserVO, String>("name"));
+        cpf.setCellValueFactory(new PropertyValueFactory<UserVO, String>("cpf"));
+        phoneNumber.setCellValueFactory(new PropertyValueFactory<UserVO, String>("phoneNumber"));
     }
 
     public void update() {

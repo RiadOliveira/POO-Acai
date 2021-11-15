@@ -33,7 +33,10 @@ public class OrderProductBO {
         orderProductDAO.insert(orderProduct);
 
         OrderVO updatedOrder = orderProduct.getOrder();
-        updatedOrder.setTotalPrice(orderProduct.getQuantity() * orderProduct.getProduct().getPrice());
+
+        updatedOrder.setTotalPrice(updatedOrder.getTotalPrice() + 
+            orderProduct.getQuantity() * orderProduct.getProduct().getPrice()
+        );
 
         OrderBO.update(updatedOrder);
     }

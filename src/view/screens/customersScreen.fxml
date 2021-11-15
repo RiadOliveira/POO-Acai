@@ -50,7 +50,7 @@
                   <Image url="@../../../assets/search.png" />
                </image>
             </ImageView>
-            <TextField prefHeight="52.0" prefWidth="818.0" promptText="Buscar cliente" style="-fx-background-color: #FFF; -fx-padding: 16;">
+            <TextField fx:id="searchBar" prefHeight="52.0" prefWidth="818.0" promptText="Buscar cliente" style="-fx-background-color: #FFF; -fx-padding: 16;">
                <font>
                   <Font size="14.0" />
                </font>

@@ -32,21 +32,26 @@ public class NewProductModal extends NewEntityModal<Node> {
 
     @FXML HBox priceContainer;
     @FXML private ComboBox<Category> categoryBox;
-    
+
     private ProductVO selectedProduct = null;
     
-    public void initialize() {
-    	ProductsScreen productsScreen = new ProductsScreen();
-    	selectedProduct = productsScreen.getSelectedProduct();
-    	
-    	if (selectedProduct != null) {
-    		name.setText(selectedProduct.getName());
-    	}
-    	
+    public void initialize() {    	
         ObservableList<Category> categories = FXCollections.observableArrayList();
         categories.addAll(Category.values());
         
         categoryBox.setItems(categories);
+
+        ProductsScreen productsScreen = new ProductsScreen();
+        selectedProduct = productsScreen.getSelectedProduct();
+
+        if(selectedProduct != null) {
+            name.setText(selectedProduct.getName());
+            price.setText(Double.toString(selectedProduct.getPrice()).replace(".", ","));
+            categoryBox.setValue(selectedProduct.getCategory());
+
+            modalTitle.setText("Atualizar Produto");
+            submitButton.setText("Atualizar");
+        }
     }
 
     public void submit() {
@@ -65,7 +70,12 @@ public class NewProductModal extends NewEntityModal<Node> {
             product.setPrice(Double.parseDouble(price.getText()));
             product.setCategory(categoryBox.getValue());
 
-            ProductBO.insert(ScreenLoader.getLoggedUser(), product);
+            if(selectedProduct == null) {
+                ProductBO.insert(ScreenLoader.getLoggedUser(), product);
+            } else {
+                product.setId(selectedProduct.getId());
+                ProductBO.update(product);
+            }
 
             ScreenLoader.load(Screen.productsScreen);
             closeModal();

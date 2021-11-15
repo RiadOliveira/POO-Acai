@@ -90,6 +90,29 @@ public class UserBO {
         return findedUser;
     }
 
+    public static List<UserVO> findEmployeesByName(List<UserVO> allEmployees, String searchedName) {
+        int findedEmployeesLength = 0;
+        int findedEmployeesPositions[] = new int[allEmployees.size()];
+
+        for(int ind=0, i=0 ; ind < allEmployees.size() ; ind++) {
+            if(
+                allEmployees.get(ind).getName().toLowerCase().
+                contains(searchedName.toLowerCase())
+            ) {
+                findedEmployeesLength++;
+                findedEmployeesPositions[i++] = ind;
+            }
+        }
+
+        List<UserVO> findedEmployees = new ArrayList<UserVO>();
+
+        for(int ind=0 ; ind<findedEmployeesLength ; ind++) {
+            findedEmployees.add(allEmployees.get(findedEmployeesPositions[ind]));
+        }
+
+        return findedEmployees;
+    }
+
     public static void update(UserVO user) throws Exception {
         if(userDAO.findById(user) == null)  {
             throw new Exception("User not found.");
