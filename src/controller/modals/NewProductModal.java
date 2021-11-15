@@ -31,11 +31,11 @@ public class NewProductModal extends NewEntityModal<Node> {
 
     @FXML HBox priceContainer;
     @FXML private ComboBox<Category> categoryBox;
-
+    
     public void initialize() {
         ObservableList<Category> categories = FXCollections.observableArrayList();
         categories.addAll(Category.values());
-
+        
         categoryBox.setItems(categories);
     }
 

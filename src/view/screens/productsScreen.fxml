@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.web.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.screens.ProductsScreen">
+<Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.screens.ProductsScreen">
    <children>
       <Rectangle fill="#f6f6f6" height="720.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0" />
       <Group>
@@ -77,13 +82,33 @@
             </ImageView>
          </graphic>
       </Button>
-      <TableView fx:id="productsTable" layoutX="120.0" layoutY="236.0" prefHeight="445.0" prefWidth="1118.0">
+      <TableView fx:id="productsTable" layoutX="120.0" layoutY="236.0" prefHeight="366.0" prefWidth="1118.0">
         <columns>
           <TableColumn fx:id="name" prefWidth="696.0" style="-fx-alignment: CENTER;" text="Nome" />
           <TableColumn fx:id="category" prefWidth="285.0" style="-fx-alignment: CENTER;" text="Categoria" />
             <TableColumn fx:id="price" minWidth="0.0" prefWidth="136.0" style="-fx-alignment: CENTER;" text="Preço" />
         </columns>
       </TableView>
+      <HBox layoutX="120.0" layoutY="602.0" prefHeight="97.0" prefWidth="292.0" style="-fx-spacing: 50px; -fx-alignment: CENTER;">
+         <children>
+            <Button mnemonicParsing="false" onAction="#update" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #1c274e; -fx-border-radius: 4px;" text="Atualizar" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #F24141; -fx-border-radius: 4px;" text="Deletar" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
       <Group layoutX="-1.0" layoutY="-1.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="640.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />
@@ -195,5 +220,10 @@
             </VBox>
          </children>
       </Group>
+      <Label fx:id="errorMessage" layoutX="1080.0" layoutY="633.0" maxWidth="158.0" prefHeight="36.0" prefWidth="158.0" style="-fx-opacity: 0;" text="Falha na operação" textFill="#f24141">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
