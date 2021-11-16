@@ -9,6 +9,7 @@ import errors.ValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -53,7 +54,25 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 
         name.setCellValueFactory(new PropertyValueFactory<ProductVO, String>("name"));
         price.setCellValueFactory(new PropertyValueFactory<ProductVO, Double>("price"));
-    }
+        price.setCellFactory(cell -> {
+            return new TableCell<ProductVO, Double>() {
+                @Override
+                protected void updateItem(Double item, boolean empty) {
+                   super.updateItem(item, empty);
+
+                   if(empty) {
+                        setText("");
+                   } else {
+                        int verifyNumber = item.toString().split("\\.")[1].length();
+                        String extraZero = (verifyNumber == 1) ? "0" : "";
+
+                        setText("R$ " + item.toString().replace('.', ',') + extraZero);
+                   }
+                }
+            };
+         } 
+        );
+	}
 	
 	@Override
 	public void update() {
