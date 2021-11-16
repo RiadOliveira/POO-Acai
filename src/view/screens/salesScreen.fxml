@@ -177,7 +177,7 @@
       </Group>
       <Pane layoutX="609.0" layoutY="120.0" prefHeight="563.0" prefWidth="639.0" style="-fx-background-color: #fff;">
          <children>
-            <TableView fx:id="selectedProductsTable" layoutX="5.0" layoutY="4.0" prefHeight="210.0" prefWidth="630.0" style="-fx-background-color: #fff;">
+            <TableView fx:id="selectedProductsTable" layoutX="5.0" layoutY="4.0" prefHeight="458.0" prefWidth="630.0" style="-fx-background-color: #fff;">
                <columns>
                   <TableColumn fx:id="selectedProductName" prefWidth="375.0" text="Produto" />
                   <TableColumn fx:id="selectedProductQuantity" minWidth="0.0" prefWidth="127.0" text="Qtd" />
@@ -186,7 +186,7 @@
             </TableView>
             <BorderPane layoutY="473.0" prefHeight="80.0" prefWidth="639.0">
                <right>
-                  <Label alignment="CENTER_RIGHT" prefHeight="53.0" prefWidth="355.0" text="R$ 00,00" textAlignment="RIGHT" textFill="#4e2a84" BorderPane.alignment="CENTER">
+                  <Label fx:id="totalPrice" alignment="CENTER_RIGHT" prefHeight="53.0" prefWidth="355.0" text="R$ 00,00" textAlignment="RIGHT" textFill="#4e2a84" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
@@ -208,7 +208,7 @@
             </BorderPane>
          </children>
       </Pane>
-      <TableView fx:id="productsTable" layoutX="120.0" layoutY="188.0" prefHeight="496.0" prefWidth="445.0" style="-fx-background-color: #fff;">
+      <TableView fx:id="productsTable" layoutX="120.0" layoutY="188.0" onMouseClicked="#addToCart" prefHeight="496.0" prefWidth="445.0" style="-fx-background-color: #fff;">
         <columns>
           <TableColumn fx:id="name" prefWidth="287.0" text="Produto" />
             <TableColumn fx:id="price" prefWidth="157.0" style="-fx-alignment: CENTER;" text="Preço" />
