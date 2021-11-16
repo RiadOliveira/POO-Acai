@@ -20,6 +20,7 @@ import view.ModalLoader;
 
 public class SalesScreen extends DashboardPagesRedirect implements DashboardPageWithTable {
 	@FXML private TableView<ProductVO> productsTable;
+	@FXML private TableView<ProductVO> selectedProductsTable;
 	
 	@FXML private TableColumn<ProductVO, String> name;
 	@FXML private TableColumn<ProductVO, Double> price;

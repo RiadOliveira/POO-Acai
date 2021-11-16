@@ -177,7 +177,7 @@
       </Group>
       <Pane layoutX="609.0" layoutY="120.0" prefHeight="563.0" prefWidth="639.0" style="-fx-background-color: #fff;">
          <children>
-            <TableView layoutX="5.0" layoutY="4.0" prefHeight="210.0" prefWidth="630.0" style="-fx-background-color: #fff;">
+            <TableView fx:id="selectedProductsTable" layoutX="5.0" layoutY="4.0" prefHeight="210.0" prefWidth="630.0" style="-fx-background-color: #fff;">
                <columns>
                   <TableColumn fx:id="selectedProductName" prefWidth="375.0" text="Produto" />
                   <TableColumn fx:id="selectedProductQuantity" minWidth="0.0" prefWidth="127.0" text="Qtd" />
@@ -208,10 +208,10 @@
             </BorderPane>
          </children>
       </Pane>
-      <TableView layoutX="120.0" layoutY="188.0" prefHeight="496.0" prefWidth="445.0" style="-fx-background-color: #fff;">
+      <TableView fx:id="productsTable" layoutX="120.0" layoutY="188.0" prefHeight="496.0" prefWidth="445.0" style="-fx-background-color: #fff;">
         <columns>
           <TableColumn fx:id="name" prefWidth="287.0" text="Produto" />
-            <TableColumn fx:id="price" prefWidth="157.0" text="Preço" />
+            <TableColumn fx:id="price" prefWidth="157.0" style="-fx-alignment: CENTER;" text="Preço" />
         </columns>
       </TableView>
    </children>
