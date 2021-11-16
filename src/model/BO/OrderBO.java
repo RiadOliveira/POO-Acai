@@ -68,7 +68,59 @@ public class OrderBO {
     public static void generateReport(String directoryPath, ReportType type, LocalDate date) 
     throws FileNotFoundException, DocumentException, SQLException, ValidationException {
         Document report = generatePdf(directoryPath);
+        List<OrderVO> searchedOrders = generateReportsList(type, date);
 
+        for(OrderVO order : searchedOrders) {
+            List<Paragraph> documentParagraphs = new ArrayList<Paragraph>();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+
+            documentParagraphs.add(generateParagraph("Data", order.getDate().format(formatter)));
+            documentParagraphs.add(generateParagraph("Cliente", order.getCustomer().getName()));
+
+            String productsContentString = " ";
+            List<OrderProductVO> orderProducts = OrderProductBO.findByOrder(order);
+            int length = orderProducts.size();
+
+            for(int ind = 0 ; ind < length ; ind++) {
+                int quantity = orderProducts.get(ind).getQuantity();
+                ProductVO product = orderProducts.get(ind).getProduct();
+
+                int verifyNumber = Double.valueOf(product.getPrice()).toString().split("\\.")[1].length();
+                String extraZero = (verifyNumber == 1) ? "0" : "";
+
+                productsContentString = productsContentString.concat("(" + quantity + "x) " + product.getName());
+                productsContentString = productsContentString.concat(" (R$ " + product.getPrice() + extraZero + ")").replace(".", ",");
+
+                if(ind + 1 != length) {
+                    productsContentString = productsContentString.concat(", ");
+                }
+            }
+
+            documentParagraphs.add(generateParagraph("Produtos", productsContentString));
+            documentParagraphs.add(generateParagraph("Método", order.getPaymentMethod().toString()));
+            documentParagraphs.add(generateParagraph("Status", order.getOrderStatus().toString()));
+
+            int verifyNumber = Double.valueOf(order.getTotalPrice()).toString().split("\\.")[1].length();
+            String extraZero = (verifyNumber == 1) ? "0" : "";
+
+            documentParagraphs.add(generateParagraph("Preço total", "R$ " + 
+                Double.valueOf(order.getTotalPrice()).toString().replace(".", ",") + extraZero)
+            );
+
+            for(Paragraph paragraph : documentParagraphs) {
+                report.add(paragraph);
+            }
+
+            report.add(Chunk.NEWLINE);
+            report.add(Chunk.NEWLINE);
+        }
+
+        report.close();
+    }
+
+    private static List<OrderVO> generateReportsList(ReportType type, LocalDate date) 
+    throws SQLException, ValidationException {
         List<OrderVO> allOrders = OrderBO.findAll();
         List<OrderVO> searchedOrders = new ArrayList<OrderVO>();
 
@@ -118,53 +170,7 @@ public class OrderBO {
             }
         }
 
-        for(OrderVO order : searchedOrders) {
-            List<Paragraph> documentParagraphs = new ArrayList<Paragraph>();
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-
-            documentParagraphs.add(generateParagraph("Data", order.getDate().format(formatter)));
-            documentParagraphs.add(generateParagraph("Cliente", order.getCustomer().getName()));
-
-            String productsContentString = " ";
-            List<OrderProductVO> orderProducts = OrderProductBO.findByOrder(order);
-            int length = orderProducts.size();
-
-            for(int ind = 0 ; ind < length ; ind++) {
-                int quantity = orderProducts.get(ind).getQuantity();
-                ProductVO product = orderProducts.get(ind).getProduct();
-
-                int verifyNumber = Double.valueOf(product.getPrice()).toString().split("\\.")[1].length();
-                String extraZero = (verifyNumber == 1) ? "0" : "";
-
-                productsContentString = productsContentString.concat("(" + quantity + "x) " + product.getName());
-                productsContentString = productsContentString.concat(" (R$ " + product.getPrice() + extraZero + ")").replace(".", ",");
-
-                if(ind + 1 != length) {
-                    productsContentString = productsContentString.concat(", ");
-                }
-            }
-
-            documentParagraphs.add(generateParagraph("Produtos", productsContentString));
-            documentParagraphs.add(generateParagraph("Método", order.getPaymentMethod().toString()));
-            documentParagraphs.add(generateParagraph("Status", order.getOrderStatus().toString()));
-
-            int verifyNumber = Double.valueOf(order.getTotalPrice()).toString().split("\\.")[1].length();
-            String extraZero = (verifyNumber == 1) ? "0" : "";
-
-            documentParagraphs.add(generateParagraph("Preço total", "R$ " + 
-                Double.valueOf(order.getTotalPrice()).toString().replace(".", ",") + extraZero)
-            );
-
-            for(Paragraph paragraph : documentParagraphs) {
-                report.add(paragraph);
-            }
-
-            report.add(Chunk.NEWLINE);
-            report.add(Chunk.NEWLINE);
-        }
-
-        report.close();
+        return searchedOrders;
     }
 
     private static Document generatePdf(String directoryPath) throws FileNotFoundException, DocumentException {

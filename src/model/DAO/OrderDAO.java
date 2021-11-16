@@ -39,7 +39,7 @@ public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
 
     public ResultSet findAll() throws SQLException {
     	Connection connection = getConnection();
-		String query = "SELECT * FROM orders";
+		String query = "SELECT * FROM formatted_orders";
 		
 		Statement statement;
         ResultSet findedOrders;
@@ -54,7 +54,7 @@ public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
     public ResultSet findById(VO order) throws SQLException {
     	Connection connection = getConnection();
     	
-    	String query = "SELECT * FROM orders WHERE id=?::uuid";
+    	String query = "SELECT * FROM formatted_orders WHERE id=?::uuid";
     	
     	PreparedStatement statement;
     	
@@ -75,7 +75,7 @@ public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
     public ResultSet findByCustomer(CustomerVO customer) throws SQLException {
     	Connection connection = getConnection();
     	
-    	String query = "SELECT * FROM orders WHERE customer_id=?::uuid";
+    	String query = "SELECT * FROM formatted_orders WHERE customer_id=?::uuid";
     	
     	PreparedStatement statement;
     	ResultSet findedOrders = null;
@@ -91,7 +91,7 @@ public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
     public void update(VO order) throws SQLException {
     	Connection connection = getConnection();
 
-        String query = "UPDATE orders SET customer_id=?, payment_method=?, status=?, total_price=?, order_date=? WHERE id=?::uuid";
+        String query = "UPDATE formatted_orders SET customer_id=?, payment_method=?, status=?, total_price=?, order_date=? WHERE id=?::uuid";
 
         PreparedStatement statement;
 
