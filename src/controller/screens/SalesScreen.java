@@ -9,6 +9,7 @@ import errors.ValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,10 +29,15 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 
 	@FXML private TableColumn<ProductVO, String> selectedProductName;
 	@FXML private TableColumn<ProductVO, Integer> selectedProductQuantity;
-	@FXML private TableColumn<ProductVO, Double> selectedProductType;
+	@FXML private TableColumn<ProductVO, String> selectedProductPrice;
+	
+	@FXML private Label totalPrice;
 	
 	private static UserVO selectedEmployee = null;
+	private static ProductVO selectedProduct = null;
 	private List<ProductVO> allProducts = null;
+	private ObservableList<ProductVO> selectedProductsList = FXCollections.observableArrayList();
+	private double total = 0;
 	
 	public void initialize() {
 		if(selectedEmployee != null) {
@@ -72,6 +78,28 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
             };
          } 
         );
+	}
+	
+	public void addToCart() {
+		int index = productsTable.getSelectionModel().getFocusedIndex();
+		
+		try {
+			selectedProduct = productsTable.getItems().get(index);
+			selectedProductsList.add(selectedProduct);
+			
+			selectedProductsTable.setItems(selectedProductsList);
+			
+			System.out.println(selectedProductsList);
+			
+			total += selectedProduct.getPrice();
+			
+			selectedProductName.setCellValueFactory(new PropertyValueFactory<ProductVO, String>("name"));
+			selectedProductPrice.setCellValueFactory(new PropertyValueFactory<ProductVO, String>("price"));
+			
+			totalPrice.setText("R$ " + total);
+		} catch (Exception err) {
+			System.out.println(err.getMessage());
+		}
 	}
 	
 	@Override
