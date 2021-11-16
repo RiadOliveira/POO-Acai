@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.web.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.screens.HomeScreen">
+<Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.screens.HomeScreen">
    <children>
       <Rectangle fill="#f6f6f6" height="720.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0" />
       <Group>
@@ -58,152 +65,131 @@
             </TextField>
          </children>
       </HBox>
-      <VBox layoutX="120.0" layoutY="201.0" prefHeight="480.0" prefWidth="350.0" style="-fx-background-color: #fff; -fx-padding: 10;">
-         <children>
-            <Label alignment="TOP_CENTER" prefHeight="36.0" prefWidth="111.0" text="Em espera" textFill="#260742">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <GridPane prefHeight="112.0" prefWidth="330.0" style="-fx-background-color: #F4F4F4; -fx-padding: 10;">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label prefHeight="5.0" prefWidth="155.0" text="Albert Freiria Cruz" textFill="#260742">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER_RIGHT" text="#0001" textFill="#260742" GridPane.columnIndex="1">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #BBBBBB;" text="Ver detalhes" textFill="WHITE" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="57.0" prefWidth="152.0" style="-fx-background-color: #50BF77;" text="Próxima etapa" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-               </children>
-            </GridPane>
-         </children>
-      </VBox>
-      <VBox layoutX="505.0" layoutY="201.0" prefHeight="480.0" prefWidth="350.0" style="-fx-background-color: #fff; -fx-padding: 10;">
-         <children>
-            <Label alignment="TOP_LEFT" prefHeight="36.0" prefWidth="125.0" text="Preparando" textFill="#260742">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <GridPane prefHeight="112.0" prefWidth="330.0" style="-fx-background-color: #F4F4F4; -fx-padding: 10;">
-               <children>
-                  <Label prefHeight="5.0" prefWidth="155.0" text="Albert Freiria Cruz" textFill="#260742">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER_RIGHT" text="#0001" textFill="#260742" GridPane.columnIndex="1">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #BBBBBB;" text="Ver detalhes" textFill="WHITE" GridPane.rowIndex="1">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="57.0" prefWidth="152.0" style="-fx-background-color: #50BF77;" text="Próxima etapa" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-            </GridPane>
-         </children>
-      </VBox>
-      <VBox layoutX="890.0" layoutY="201.0" prefHeight="480.0" prefWidth="350.0" style="-fx-background-color: #fff; -fx-padding: 10;">
-         <children>
-            <Label alignment="TOP_LEFT" prefHeight="36.0" prefWidth="100.0" text="Pronto" textFill="#260742">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <GridPane prefHeight="112.0" prefWidth="330.0" style="-fx-background-color: #F4F4F4; -fx-padding: 10;">
-               <children>
-                  <Label prefHeight="5.0" prefWidth="155.0" text="Albert Freiria Cruz" textFill="#260742">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER_RIGHT" text="#0001" textFill="#260742" GridPane.columnIndex="1">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #BBBBBB;" text="Ver detalhes" textFill="WHITE" GridPane.rowIndex="1">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="57.0" prefWidth="152.0" style="-fx-background-color: #50BF77;" text="Entregar" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-            </GridPane>
-         </children>
-      </VBox>
       <ComboBox layoutX="1088.0" layoutY="120.0" prefHeight="52.0" prefWidth="152.0" promptText="Filtrar" style="-fx-background-color: #FFF;">
          <padding>
             <Insets left="10.0" />
          </padding>
       </ComboBox>
+      <VBox layoutX="120.0" layoutY="201.0" prefHeight="480.0" prefWidth="350.0" style="-fx-background-color: #fff; -fx-padding: 10;">
+         <children>
+            <Label alignment="TOP_CENTER" prefHeight="36.0" prefWidth="92.0" text="Em espera" textFill="#260742">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TableView fx:id="onHoldTable" prefHeight="360.0" prefWidth="330.0">
+              <columns>
+                <TableColumn fx:id="onHoldCustomer" prefWidth="329.0" style="-fx-alignment: CENTER;" text="Cliente" />
+              </columns>
+            </TableView>
+            <HBox prefHeight="62.0" prefWidth="330.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #BBBBBB;" text="Ver detalhes" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="57.0" prefWidth="152.0" style="-fx-background-color: #50BF77;" text="Preparar" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="505.0" layoutY="201.0" prefHeight="480.0" prefWidth="350.0" style="-fx-background-color: #fff; -fx-padding: 10;">
+         <children>
+            <Label alignment="TOP_CENTER" prefHeight="36.0" prefWidth="103.0" text="Preparando" textFill="#260742">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TableView fx:id="prepringTable" prefHeight="360.0" prefWidth="330.0">
+               <columns>
+                  <TableColumn fx:id="onPrepCustomer" prefWidth="329.0" style="-fx-alignment: CENTER;" text="Cliente" />
+               </columns>
+            </TableView>
+            <HBox prefHeight="62.0" prefWidth="330.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #BBBBBB;" text="Ver detalhes" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="57.0" prefWidth="152.0" style="-fx-background-color: #50BF77;" text="Finalizar" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="890.0" layoutY="201.0" prefHeight="480.0" prefWidth="350.0" style="-fx-background-color: #fff; -fx-padding: 10;">
+         <children>
+            <Label alignment="TOP_CENTER" prefHeight="36.0" prefWidth="63.0" text="Pronto" textFill="#260742">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TableView fx:id="doneTable" prefHeight="360.0" prefWidth="330.0">
+               <columns>
+                  <TableColumn fx:id="doneCustomer" prefWidth="329.0" style="-fx-alignment: CENTER;" text="Cliente" />
+               </columns>
+            </TableView>
+            <HBox prefHeight="62.0" prefWidth="330.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #BBBBBB;" text="Ver detalhes" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="57.0" prefWidth="152.0" style="-fx-background-color: #50BF77;" text="Entregar" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
       <Group layoutX="-1.0" layoutY="-1.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="640.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />

@@ -247,6 +247,33 @@ public class OrderBO {
 
         return findedOrders;
     }
+    
+    public static List<OrderVO> findByStatus(OrderStatus status) throws SQLException, ValidationException {
+        ResultSet findedOrdersDB = orderDAO.findByStatus(status);
+        List<OrderVO> findedOrders = new ArrayList<OrderVO>();
+        CustomerVO customer = new CustomerVO();
+
+        PaymentMethod[] paymentMethod = PaymentMethod.values();
+        OrderStatus[] orderStatus = OrderStatus.values();
+
+        while(findedOrdersDB.next()) {
+            OrderVO order = new OrderVO();
+            
+            order.setId(UUID.fromString(findedOrdersDB.getString("id")));
+            order.setPaymentMethod(paymentMethod[findedOrdersDB.getInt("payment_method")]);
+            order.setOrderStatus(orderStatus[findedOrdersDB.getInt("status")]);
+            order.setTotalPrice(findedOrdersDB.getDouble("total_price"));
+            order.setDate(findedOrdersDB.getDate("order_date").toLocalDate());
+            
+            customer.setId(UUID.fromString(findedOrdersDB.getString("customer_id")));
+            customer = CustomerBO.findById(customer);
+            order.setCustomer(customer);
+
+            findedOrders.add(order);
+        }
+
+        return findedOrders;
+    }
 
     public static List<OrderVO> findAll() throws SQLException, ValidationException {
         ResultSet findedOrdersDB = orderDAO.findAll();

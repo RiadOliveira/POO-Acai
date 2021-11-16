@@ -13,6 +13,7 @@ import java.sql.Statement;
 
 import model.VO.CustomerVO;
 import model.VO.OrderVO;
+import utils.OrderStatus;
 
 public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
     public void insert(VO order) throws SQLException, ValidationException {
@@ -82,6 +83,31 @@ public class OrderDAO<VO extends OrderVO> extends BaseDAO<VO> {
     	
 		statement = connection.prepareStatement(query);
 		statement.setString(1, customer.getId().toString());
+		
+		findedOrders = statement.executeQuery();
+    		
+    	return findedOrders;
+    }
+    
+    public ResultSet findByStatus(OrderStatus status) throws SQLException {
+    	Connection connection = getConnection();
+    	OrderStatus[] orderStatus = OrderStatus.values();
+    	
+    	int statusCode = 0;
+    	
+    	for (OrderStatus statusName : orderStatus) {
+    		if (statusName == status) {
+    			statusCode = statusName.ordinal();
+    		}
+    	}
+    	
+    	String query = "SELECT * FROM formatted_orders WHERE status=?";
+    	
+    	PreparedStatement statement;
+    	ResultSet findedOrders = null;
+    	
+		statement = connection.prepareStatement(query);
+		statement.setInt(1, statusCode);
 		
 		findedOrders = statement.executeQuery();
     		
