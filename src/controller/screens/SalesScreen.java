@@ -37,7 +37,7 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 	private static ProductVO selectedProduct = null;
 	private List<ProductVO> allProducts = null;
 	private ObservableList<ProductVO> selectedProductsList = FXCollections.observableArrayList();
-	private double total = 0;
+	private Double total = 0.0;
 	
 	public void initialize() {
 		if(selectedEmployee != null) {
@@ -96,7 +96,10 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 			selectedProductName.setCellValueFactory(new PropertyValueFactory<ProductVO, String>("name"));
 			selectedProductPrice.setCellValueFactory(new PropertyValueFactory<ProductVO, String>("price"));
 			
-			totalPrice.setText("R$ " + total);
+			int verifyNumber = total.toString().split("\\.")[1].length();
+            String extraZero = (verifyNumber == 1) ? "0" : "";
+
+            totalPrice.setText("R$ " + total.toString().replace('.', ',') + extraZero);
 		} catch (Exception err) {
 			System.out.println(err.getMessage());
 		}
