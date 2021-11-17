@@ -251,8 +251,7 @@ public class OrderBO {
     public static List<OrderVO> findByStatus(OrderStatus status) throws SQLException, ValidationException {
         ResultSet findedOrdersDB = orderDAO.findByStatus(status);
         List<OrderVO> findedOrders = new ArrayList<OrderVO>();
-        CustomerVO customer = new CustomerVO();
-
+        
         PaymentMethod[] paymentMethod = PaymentMethod.values();
         OrderStatus[] orderStatus = OrderStatus.values();
 
@@ -265,6 +264,7 @@ public class OrderBO {
             order.setTotalPrice(findedOrdersDB.getDouble("total_price"));
             order.setDate(findedOrdersDB.getDate("order_date").toLocalDate());
             
+            CustomerVO customer = new CustomerVO();
             customer.setId(UUID.fromString(findedOrdersDB.getString("customer_id")));
             customer = CustomerBO.findById(customer);
             order.setCustomer(customer);
