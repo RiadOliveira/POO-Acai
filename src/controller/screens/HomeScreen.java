@@ -60,8 +60,6 @@ public class HomeScreen extends DashboardPagesRedirect {
 		} catch (Exception err) {
 			System.out.println(err);
 		}
-
-
 	}
 	
 	public void sendToDone() {
@@ -78,8 +76,6 @@ public class HomeScreen extends DashboardPagesRedirect {
 		} catch (Exception err) {
 			System.out.println(err);
 		}
-
-
 	}
 
 	private void fillOnHoldTable() throws SQLException, ValidationException {
@@ -106,7 +102,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 				}
 			};
 		} 
-				);
+		);
 	}
 
 	private void fillPreparingTable() throws SQLException, ValidationException {
@@ -133,7 +129,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 				}
 			};
 		} 
-				);
+		);
 	}
 	
 	private void fillDoneTable() throws SQLException, ValidationException {
@@ -160,6 +156,6 @@ public class HomeScreen extends DashboardPagesRedirect {
 				}
 			};
 		} 
-				);
+		);
 	}
 }

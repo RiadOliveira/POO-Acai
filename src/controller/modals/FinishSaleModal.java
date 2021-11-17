@@ -19,6 +19,7 @@ import model.BO.OrderProductBO;
 import model.VO.CustomerVO;
 import model.VO.OrderProductVO;
 import model.VO.OrderVO;
+import utils.Modal;
 import utils.OrderStatus;
 import utils.PaymentMethod;
 import utils.Screen;
@@ -31,7 +32,7 @@ public class FinishSaleModal extends DashboardModal {
 	
 	private ObservableList<String> customersList = FXCollections.observableArrayList();
 	
-	private OrderVO order = new OrderVO();
+	private static OrderVO order = new OrderVO();
 	private ObservableList<OrderProductVO> selectedProductsList = FXCollections.observableArrayList();
 	
 	public void initialize() {
@@ -82,6 +83,10 @@ public class FinishSaleModal extends DashboardModal {
 		}
     }
 	
+	public OrderVO getOrder() {
+		return order;
+	}
+
 	public void finishCheckout() {
 		try {
 			order.setCustomer(customersBox.getValue());
@@ -107,8 +112,8 @@ public class FinishSaleModal extends DashboardModal {
 		} catch (Exception err) {
 			System.out.println(err);
 		}
-		
+
 		ScreenLoader.load(Screen.salesScreen);
-		ModalLoader.close();
+		ModalLoader.load(Modal.generateInvoiceModal);
 	}
 }

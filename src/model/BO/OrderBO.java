@@ -220,6 +220,7 @@ public class OrderBO {
         findedOrder.setPaymentMethod(paymentMethod[findedOrderDB.getInt("payment_method")]);
         findedOrder.setOrderStatus(orderStatus[findedOrderDB.getInt("status")]);
         findedOrder.setDate(findedOrderDB.getDate("order_date").toLocalDate());
+        findedOrder.setTotalPrice(findedOrderDB.getDouble("total_price"));
 
         return findedOrder;
     }

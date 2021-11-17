@@ -3,7 +3,8 @@ package utils;
 public enum Modal {
     customerOrdersHistoricModal("customerOrdersHistoricModal"),
     finishSaleModal("finishSaleModal"), newCustomerModal("newCustomerModal"),
-    newEmployeeModal("newEmployeeModal"), newProductModal("newProductModal");
+    newEmployeeModal("newEmployeeModal"), newProductModal("newProductModal"),
+    generateInvoiceModal("generateInvoiceModal");
 
     private final String modalName;
 
