@@ -49,6 +49,7 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 	
 	public void initialize() {
 		try {
+			selectedProductsList.clear();
 			fillTable();
 		} catch (Exception err) {
 			System.out.println(err.getMessage());
@@ -173,6 +174,51 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 		} catch (Exception err) {
 			System.out.println(err.getMessage());
 		}
+	}
+	
+	public void removeFromCart() {
+		int index = selectedProductsTable.getSelectionModel().getFocusedIndex();
+		
+		
+		try {
+			orderProduct = selectedProductsTable.getItems().get(index);
+			productIndex = 0;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		selectedProductsList.forEach(product -> {
+			if (product.getProduct().getName() == orderProduct.getProduct().getName()) {
+				int quantity = product.getQuantity();
+				if (quantity > 1) {
+					try {
+						quantity -= 1;
+						System.out.println(quantity);
+						product.setQuantity(quantity);
+						System.out.println(product.getQuantity());
+					} catch (ValidationException e) {
+						System.out.println(e);
+					}
+				} else {
+					selectedProductsList.remove(productIndex);
+				}
+			}
+			
+			productIndex++;
+		});
+		
+		selectedProductsTable.setItems(selectedProductsList);
+		selectedProductQuantity.setCellValueFactory(new PropertyValueFactory<OrderProductVO, Integer>("quantity"));
+		
+		if (total > 0) {
+			total -= selectedProduct.getPrice();
+		}
+		
+		int verifyNumber = total.toString().split("\\.")[1].length();
+        String extraZero = (verifyNumber == 1) ? "0" : "";
+
+        totalPrice.setText("R$ " + total.toString().replace('.', ',') + extraZero);
+		
 	}
 	
 	public void checkout() {
