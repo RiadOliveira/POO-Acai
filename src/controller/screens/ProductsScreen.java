@@ -116,7 +116,7 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
 
     	try {
     		ProductBO.delete(ScreenLoader.getLoggedUser(), productsTable.getItems().get(index));
-    		ScreenLoader.load(Screen.productsScreen);
+            productsTable.refresh();
     	} catch (Exception err) {
     		errorMessage.setStyle(errorMessage.getStyle() + "-fx-opacity: 1;");
     	}

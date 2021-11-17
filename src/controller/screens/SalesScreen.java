@@ -179,33 +179,26 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 	public void removeFromCart() {
 		int index = selectedProductsTable.getSelectionModel().getFocusedIndex();
 		
-		
 		try {
 			orderProduct = selectedProductsTable.getItems().get(index);
 			productIndex = 0;
-		} catch (Exception e) {
-			System.out.println(e);
+		} catch (Exception err) {
+			System.out.println(err.getMessage());
 		}
-		
-		selectedProductsList.forEach(product -> {
-			if (product.getProduct().getName() == orderProduct.getProduct().getName()) {
-				int quantity = product.getQuantity();
-				if (quantity > 1) {
-					try {
-						quantity -= 1;
-						System.out.println(quantity);
-						product.setQuantity(quantity);
-						System.out.println(product.getQuantity());
-					} catch (ValidationException e) {
-						System.out.println(e);
-					}
-				} else {
-					selectedProductsList.remove(productIndex);
-				}
+
+		int listIndex = selectedProductsList.indexOf(orderProduct);
+		OrderProductVO selectedOrderProduct = selectedProductsList.get(listIndex);
+
+		try {
+			if(selectedOrderProduct.getQuantity() > 1) {
+				selectedOrderProduct.setQuantity(selectedOrderProduct.getQuantity() - 1);
+				selectedProductsList.set(listIndex, selectedOrderProduct);
+			} else {
+				selectedProductsList.remove(listIndex);
 			}
-			
-			productIndex++;
-		});
+		} catch (ValidationException err) {
+			System.out.println(err.getMessage());
+		}
 		
 		selectedProductsTable.setItems(selectedProductsList);
 		selectedProductQuantity.setCellValueFactory(new PropertyValueFactory<OrderProductVO, Integer>("quantity"));
@@ -218,7 +211,6 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
         String extraZero = (verifyNumber == 1) ? "0" : "";
 
         totalPrice.setText("R$ " + total.toString().replace('.', ',') + extraZero);
-		
 	}
 	
 	public void checkout() {
