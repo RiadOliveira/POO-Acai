@@ -14,41 +14,52 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.BO.OrderBO;
+import model.BO.OrderProductBO;
 import model.BO.ProductBO;
+import model.VO.CustomerVO;
+import model.VO.OrderProductVO;
+import model.VO.OrderVO;
 import model.VO.ProductVO;
 import model.VO.UserVO;
 import utils.Modal;
+import utils.OrderStatus;
 import view.ModalLoader;
 
 public class SalesScreen extends DashboardPagesRedirect implements DashboardPageWithTable {
 	@FXML private TableView<ProductVO> productsTable;
-	@FXML private TableView<ProductVO> selectedProductsTable;
+	@FXML private TableView<OrderProductVO> selectedProductsTable;
 	
 	@FXML private TableColumn<ProductVO, String> name;
 	@FXML private TableColumn<ProductVO, Double> price;
 
-	@FXML private TableColumn<ProductVO, String> selectedProductName;
-	@FXML private TableColumn<ProductVO, Integer> selectedProductQuantity;
-	@FXML private TableColumn<ProductVO, String> selectedProductPrice;
+	@FXML private TableColumn<OrderProductVO, ProductVO> selectedProductName;
+	@FXML private TableColumn<OrderProductVO, Integer> selectedProductQuantity;
+	@FXML private TableColumn<OrderProductVO, ProductVO> selectedProductPrice;
 	
 	@FXML private Label totalPrice;
 	
-	private static UserVO selectedEmployee = null;
 	private static ProductVO selectedProduct = null;
+	private static OrderProductVO orderProduct = null;
 	private List<ProductVO> allProducts = null;
-	private ObservableList<ProductVO> selectedProductsList = FXCollections.observableArrayList();
+	private static ObservableList<OrderProductVO> selectedProductsList = FXCollections.observableArrayList();
 	private Double total = 0.0;
+	private boolean isProductAlreadySelected = false;
+	private int productIndex = 0;
 	
 	public void initialize() {
-		if(selectedEmployee != null) {
-            selectedEmployee = null;
-        }
-		
 		try {
 			fillTable();
 		} catch (SQLException | ValidationException err) {
 			System.out.println(err.getMessage());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
+	
+	public ObservableList<OrderProductVO> getSelectedProductsList() {
+		return selectedProductsList;
 	}
 	
 	private void fillTable() throws SQLException, ValidationException {
@@ -81,20 +92,78 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 	}
 	
 	public void addToCart() {
+		
 		int index = productsTable.getSelectionModel().getFocusedIndex();
+		orderProduct = new OrderProductVO();
+		isProductAlreadySelected = false;
 		
 		try {
 			selectedProduct = productsTable.getItems().get(index);
-			selectedProductsList.add(selectedProduct);
+			orderProduct.setProduct(selectedProduct);
+			orderProduct.setQuantity(1);
+			
+			selectedProductsList.forEach(product -> {
+				if (product.getProduct().getName() == orderProduct.getProduct().getName()) {
+					isProductAlreadySelected = true;
+				}
+			});
+			
+			if (isProductAlreadySelected) {
+				productIndex = 0;
+				selectedProductsList.forEach(product -> {
+					if (product.getProduct().getName() == orderProduct.getProduct().getName()) {
+						try {
+							orderProduct.setQuantity(product.getQuantity() + 1);
+							selectedProductsList.set(productIndex, orderProduct);
+						} catch (ValidationException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					productIndex++;
+				});
+			} else {
+				selectedProductsList.add(orderProduct);
+			}
 			
 			selectedProductsTable.setItems(selectedProductsList);
 			
-			System.out.println(selectedProductsList);
-			
 			total += selectedProduct.getPrice();
 			
-			selectedProductName.setCellValueFactory(new PropertyValueFactory<ProductVO, String>("name"));
-			selectedProductPrice.setCellValueFactory(new PropertyValueFactory<ProductVO, String>("price"));
+			selectedProductName.setCellValueFactory(new PropertyValueFactory<OrderProductVO, ProductVO>("product"));
+			selectedProductQuantity.setCellValueFactory(new PropertyValueFactory<OrderProductVO, Integer>("quantity"));
+			selectedProductPrice.setCellValueFactory(new PropertyValueFactory<OrderProductVO, ProductVO>("product"));
+			
+			selectedProductName.setCellFactory(cell -> {
+				return new TableCell<OrderProductVO, ProductVO>() {
+	                @Override
+	                protected void updateItem(ProductVO item, boolean empty) {
+	                   super.updateItem(item, empty);
+	                   
+	                   if (empty) {
+	                	   setText("");
+	                   } else {
+	                	   setText(item.getName());
+	                   }
+	                }
+	            };
+			});
+			
+			selectedProductPrice.setCellFactory(cell -> {
+				return new TableCell<OrderProductVO, ProductVO>() {
+	                @Override
+	                protected void updateItem(ProductVO item, boolean empty) {
+	                   super.updateItem(item, empty);
+	                   
+	                   if (empty) {
+	                	   setText("");
+	                   } else {
+	                	   setText(String.valueOf(item.getPrice()));
+	                   }
+	                }
+	            };
+			});
 			
 			int verifyNumber = total.toString().split("\\.")[1].length();
             String extraZero = (verifyNumber == 1) ? "0" : "";
@@ -102,6 +171,14 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
             totalPrice.setText("R$ " + total.toString().replace('.', ',') + extraZero);
 		} catch (Exception err) {
 			System.out.println(err.getMessage());
+		}
+	}
+	
+	public void checkout() {
+		try {
+			ModalLoader.load(Modal.finishSaleModal);
+		} catch(Exception err) {
+			System.out.println(err);
 		}
 	}
 	

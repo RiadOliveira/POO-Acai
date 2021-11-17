@@ -193,7 +193,7 @@
                   </Label>
                </right>
                <left>
-                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="228.0" style="-fx-background-color: #4E2A84;" text="Finalizar" textFill="WHITE" BorderPane.alignment="CENTER">
+                  <Button mnemonicParsing="false" onAction="#checkout" prefHeight="60.0" prefWidth="228.0" style="-fx-background-color: #4E2A84;" text="Finalizar" textFill="WHITE" BorderPane.alignment="CENTER">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
