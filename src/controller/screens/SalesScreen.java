@@ -204,7 +204,7 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 		selectedProductQuantity.setCellValueFactory(new PropertyValueFactory<OrderProductVO, Integer>("quantity"));
 		
 		if (total > 0) {
-			total -= selectedProduct.getPrice();
+			total -= orderProduct.getProduct().getPrice();
 		}
 		
 		int verifyNumber = total.toString().split("\\.")[1].length();
