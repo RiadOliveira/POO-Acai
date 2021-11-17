@@ -175,7 +175,7 @@
                         <Insets right="10.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="57.0" prefWidth="152.0" style="-fx-background-color: #50BF77;" text="Entregar" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#setDelyvered" prefHeight="57.0" prefWidth="152.0" style="-fx-background-color: #50BF77;" text="Entregar" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

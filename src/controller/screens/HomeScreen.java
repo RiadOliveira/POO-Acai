@@ -26,7 +26,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 	@FXML private TableColumn<OrderVO, CustomerVO> onPrepCustomer;
 	@FXML private TableColumn<OrderVO, CustomerVO> doneCustomer;
 
-	private static OrderVO selectedOnHoldOrder= null;
+	private static OrderVO selectedOrder= null;
 	private static OrderVO selectedPreparingOrder= null;
 	private List<OrderVO> allOnHoldOrders = null;
 	private List<OrderVO> allPreparingOrders = null;
@@ -50,10 +50,11 @@ public class HomeScreen extends DashboardPagesRedirect {
 		int index = onHoldTable.getSelectionModel().getFocusedIndex();
 
 		try {
-			selectedOnHoldOrder = onHoldTable.getItems().get(index);
-			selectedOnHoldOrder.setOrderStatus(OrderStatus.Preparando);
+			selectedOrder = onHoldTable.getItems().get(index);
+			selectedOrder.setOrderStatus(OrderStatus.Preparando);
 
-			OrderBO.update(selectedOnHoldOrder);
+			System.out.println(selectedOrder.getCustomer().getName());
+			OrderBO.update(selectedOrder);
 
 			fillOnHoldTable();
 			fillPreparingTable();			
@@ -66,16 +67,33 @@ public class HomeScreen extends DashboardPagesRedirect {
 		int index = preparingTable.getSelectionModel().getFocusedIndex();
 
 		try {
-			selectedPreparingOrder = preparingTable.getItems().get(index);
-			selectedPreparingOrder.setOrderStatus(OrderStatus.Pronto);
+			selectedOrder = preparingTable.getItems().get(index);
+			selectedOrder.setOrderStatus(OrderStatus.Pronto);
 
-			OrderBO.update(selectedPreparingOrder);
+			OrderBO.update(selectedOrder);
 
 			fillPreparingTable();
 			fillDoneTable();
 		} catch (Exception err) {
 			System.out.println(err);
 		}
+	}
+	
+	public void setDelyvered() {
+		int index = doneTable.getSelectionModel().getFocusedIndex();
+
+		try {
+			selectedOrder = doneTable.getItems().get(index);
+			selectedOrder.setOrderStatus(OrderStatus.Entregue);
+
+			OrderBO.update(selectedOrder);
+
+			fillDoneTable();
+		} catch (Exception err) {
+			System.out.println(err);
+		}
+
+
 	}
 
 	private void fillOnHoldTable() throws SQLException, ValidationException {
