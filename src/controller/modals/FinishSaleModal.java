@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableCell;
+import javafx.util.StringConverter;
 import model.BO.CustomerBO;
 import model.BO.OrderBO;
 import model.BO.OrderProductBO;
@@ -45,6 +46,20 @@ public class FinishSaleModal extends DashboardModal {
 				customersList.add(customer.getName());
 			});
 			
+			StringConverter<CustomerVO> converter = new StringConverter<CustomerVO>() {
+				@Override
+				public String toString(CustomerVO object) {
+					return object.getName();
+				}
+	
+				@Override
+				public CustomerVO fromString(String string) {
+					return null;
+				}
+			};
+
+			customersBox.setConverter(converter);
+
 			customersBox.setItems(customers);
 			customersBox.setCellFactory(cell -> {
                 return new ListCell<CustomerVO>() {
@@ -86,12 +101,9 @@ public class FinishSaleModal extends DashboardModal {
 					orderProduct.setOrder(order);
 					OrderProductBO.insert(orderProduct);					
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			});
-			
-			
 		} catch (Exception err) {
 			System.out.println(err);
 		}

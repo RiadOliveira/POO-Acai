@@ -50,11 +50,8 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 	public void initialize() {
 		try {
 			fillTable();
-		} catch (SQLException | ValidationException err) {
+		} catch (Exception err) {
 			System.out.println(err.getMessage());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	
@@ -92,7 +89,6 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 	}
 	
 	public void addToCart() {
-		
 		int index = productsTable.getSelectionModel().getFocusedIndex();
 		orderProduct = new OrderProductVO();
 		isProductAlreadySelected = false;
@@ -116,7 +112,6 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 							orderProduct.setQuantity(product.getQuantity() + 1);
 							selectedProductsList.set(productIndex, orderProduct);
 						} catch (ValidationException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -152,19 +147,25 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 			
 			selectedProductPrice.setCellFactory(cell -> {
 				return new TableCell<OrderProductVO, ProductVO>() {
-	                @Override
-	                protected void updateItem(ProductVO item, boolean empty) {
-	                   super.updateItem(item, empty);
-	                   
-	                   if (empty) {
-	                	   setText("");
-	                   } else {
-	                	   setText(String.valueOf(item.getPrice()));
-	                   }
-	                }
-	            };
-			});
-			
+					@Override
+					protected void updateItem(ProductVO item, boolean empty) {
+					   super.updateItem(item, empty);
+	
+					   if(empty) {
+							setText("");
+					   } else {
+							Double productPrice = Double.valueOf(item.getPrice());
+
+							int verifyNumber = productPrice.toString().split("\\.")[1].length();
+							String extraZero = (verifyNumber == 1) ? "0" : "";
+	
+							setText("R$ " + productPrice.toString().replace('.', ',') + extraZero);
+					   }
+					}
+				};
+			 } 
+			);
+
 			int verifyNumber = total.toString().split("\\.")[1].length();
             String extraZero = (verifyNumber == 1) ? "0" : "";
 
@@ -184,19 +185,14 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void delete() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void openModal() {
-		// TODO Auto-generated method stub
 		ModalLoader.load(Modal.finishSaleModal);
 	}
     
