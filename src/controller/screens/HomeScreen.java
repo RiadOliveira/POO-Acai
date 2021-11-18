@@ -8,13 +8,19 @@ import errors.ValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
+import model.BO.CustomerBO;
 import model.BO.OrderBO;
 import model.VO.CustomerVO;
 import model.VO.OrderVO;
+import model.VO.ProductVO;
 import utils.OrderStatus;
 
 public class HomeScreen extends DashboardPagesRedirect {
@@ -26,13 +32,58 @@ public class HomeScreen extends DashboardPagesRedirect {
 	@FXML private TableColumn<OrderVO, CustomerVO> onPrepCustomer;
 	@FXML private TableColumn<OrderVO, CustomerVO> doneCustomer;
 
+	@FXML private DatePicker selectDate;
+	@FXML private ComboBox<CustomerVO> selectCustomer;
+	@FXML private ComboBox<ProductVO> selectProduct;
+
 	private static OrderVO selectedOrder= null;
 	private List<OrderVO> allOnHoldOrders = null;
 	private List<OrderVO> allPreparingOrders = null;
 	private List<OrderVO> allDoneOrders = null;
 
 	public void initialize() {
+		selectDate.setManaged(false);
+		selectDate.setStyle("-fx-opacity: 0;");
+
+		selectProduct.setManaged(false);
+		selectProduct.setStyle("-fx-opacity: 0;");
+
+		ObservableList<CustomerVO> customers = FXCollections.observableArrayList();
+
 		try {
+			customers.addAll(CustomerBO.findAll());
+			System.out.println(customers.size());
+
+			StringConverter<CustomerVO> converter = new StringConverter<CustomerVO>() {
+				@Override
+				public String toString(CustomerVO object) {
+					return object == null ? "" : object.getName();
+				}
+	
+				@Override
+				public CustomerVO fromString(String string) {
+					return null;
+				}
+			};
+
+			selectCustomer.setConverter(converter);
+
+			selectCustomer.setItems(customers);
+			selectCustomer.setCellFactory(cell -> {
+                return new ListCell<CustomerVO>() {
+                    @Override
+                    protected void updateItem(CustomerVO item, boolean empty) {
+                       super.updateItem(item, empty);
+    
+                       if(empty) {
+                            setText("");
+                       } else {    
+                            setText(item.getName());
+                       }
+                    }
+                };
+             } );
+
 			fillOnHoldTable();
 			fillPreparingTable();
 			fillDoneTable();
