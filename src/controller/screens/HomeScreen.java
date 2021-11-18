@@ -297,7 +297,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 
 				for(OrderProductVO orderProduct : orderProducts) {
 					if(orderProduct.getProduct().getId().equals(selectProduct.getValue().getId())) {
-						allOnHoldOrdersByProduct.add(order);
+						allPreparingOrdersByProducts.add(order);
 						break;
 					}
 				}
@@ -316,7 +316,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 
 				for(OrderProductVO orderProduct : orderProducts) {
 					if(orderProduct.getProduct().getId().equals(selectProduct.getValue().getId())) {
-						allOnHoldOrdersByProduct.add(order);
+						allDoneOrdersByProducts.add(order);
 						break;
 					}
 				}
