@@ -90,7 +90,7 @@
             </TableView>
             <HBox prefHeight="62.0" prefWidth="330.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #BBBBBB;" text="Ver detalhes" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#openOrderDetailsModal" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #BBBBBB;" text="Ver detalhes" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -130,7 +130,7 @@
             </TableView>
             <HBox prefHeight="62.0" prefWidth="330.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #BBBBBB;" text="Ver detalhes" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#openOrderDetailsModal" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #BBBBBB;" text="Ver detalhes" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -170,7 +170,7 @@
             </TableView>
             <HBox prefHeight="62.0" prefWidth="330.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #BBBBBB;" text="Ver detalhes" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#openOrderDetailsModal" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #BBBBBB;" text="Ver detalhes" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

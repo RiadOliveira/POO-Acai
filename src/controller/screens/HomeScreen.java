@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,7 +22,9 @@ import model.BO.OrderBO;
 import model.VO.CustomerVO;
 import model.VO.OrderVO;
 import model.VO.ProductVO;
+import utils.Modal;
 import utils.OrderStatus;
+import view.ModalLoader;
 
 public class HomeScreen extends DashboardPagesRedirect {
 	@FXML private TableView<OrderVO> onHoldTable;
@@ -31,6 +34,8 @@ public class HomeScreen extends DashboardPagesRedirect {
 	@FXML private TableColumn<OrderVO, CustomerVO> onHoldCustomer;
 	@FXML private TableColumn<OrderVO, CustomerVO> onPrepCustomer;
 	@FXML private TableColumn<OrderVO, CustomerVO> doneCustomer;
+	
+	@FXML private Label errorMessage;
 
 	@FXML private DatePicker selectDate;
 	@FXML private ComboBox<CustomerVO> selectCustomer;
@@ -91,6 +96,10 @@ public class HomeScreen extends DashboardPagesRedirect {
 			System.out.println(err.getMessage());
 		}
 	}
+	
+	public OrderVO getSelectedOrder() {
+		return selectedOrder;
+	}
 
 	public void sendToPreparation() {
 		int index = onHoldTable.getSelectionModel().getFocusedIndex();
@@ -108,7 +117,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 			System.out.println(err);
 		}
 	}
-	
+
 	public void sendToDone() {
 		int index = preparingTable.getSelectionModel().getFocusedIndex();
 
@@ -124,7 +133,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 			System.out.println(err);
 		}
 	}
-	
+
 	public void setDelyvered() {
 		int index = doneTable.getSelectionModel().getFocusedIndex();
 
@@ -140,6 +149,18 @@ public class HomeScreen extends DashboardPagesRedirect {
 		}
 
 
+	}
+
+	public void openOrderDetailsModal() {
+		int index = onHoldTable.getSelectionModel().getFocusedIndex();
+
+		try {
+			selectedOrder = onHoldTable.getItems().get(index);
+			System.out.println(selectedOrder);
+			ModalLoader.load(Modal.customerOrdersHistoricModal);
+		} catch (Exception err) {
+			errorMessage.setStyle(errorMessage.getStyle() + "-fx-opacity: 1;");
+		}
 	}
 
 	private void fillOnHoldTable() throws SQLException, ValidationException {
@@ -166,7 +187,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 				}
 			};
 		} 
-		);
+				);
 	}
 
 	private void fillPreparingTable() throws SQLException, ValidationException {
@@ -193,9 +214,9 @@ public class HomeScreen extends DashboardPagesRedirect {
 				}
 			};
 		} 
-		);
+				);
 	}
-	
+
 	private void fillDoneTable() throws SQLException, ValidationException {
 		ObservableList<OrderVO> orders = FXCollections.observableArrayList();
 		OrderStatus status = OrderStatus.Pronto;
@@ -220,6 +241,6 @@ public class HomeScreen extends DashboardPagesRedirect {
 				}
 			};
 		} 
-		);
+				);
 	}
 }
