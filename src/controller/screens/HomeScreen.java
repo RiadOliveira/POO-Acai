@@ -8,6 +8,7 @@ import errors.ValidationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,7 +16,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.BO.OrderBO;
 import model.VO.CustomerVO;
 import model.VO.OrderVO;
+import utils.Modal;
 import utils.OrderStatus;
+import view.ModalLoader;
 
 public class HomeScreen extends DashboardPagesRedirect {
 	@FXML private TableView<OrderVO> onHoldTable;
@@ -25,16 +28,13 @@ public class HomeScreen extends DashboardPagesRedirect {
 	@FXML private TableColumn<OrderVO, CustomerVO> onHoldCustomer;
 	@FXML private TableColumn<OrderVO, CustomerVO> onPrepCustomer;
 	@FXML private TableColumn<OrderVO, CustomerVO> doneCustomer;
+	
+	@FXML private Label errorMessage;
 
 	private static OrderVO selectedOrder= null;
-	private static OrderVO selectedPreparingOrder= null;
 	private List<OrderVO> allOnHoldOrders = null;
 	private List<OrderVO> allPreparingOrders = null;
 	private List<OrderVO> allDoneOrders = null;
-
-	//	private ObservableList<CustomerVO> onHoldCustomers = FXCollections.observableArrayList();
-	//	private ObservableList<CustomerVO> onPrepCustomers = FXCollections.observableArrayList();
-	//	private ObservableList<CustomerVO> doneCustomers = FXCollections.observableArrayList();
 
 	public void initialize() {
 		try {
@@ -44,6 +44,10 @@ public class HomeScreen extends DashboardPagesRedirect {
 		} catch (SQLException | ValidationException err) {
 			System.out.println(err.getMessage());
 		}
+	}
+	
+	public OrderVO getSelectedOrder() {
+		return selectedOrder;
 	}
 
 	public void sendToPreparation() {
@@ -62,7 +66,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 			System.out.println(err);
 		}
 	}
-	
+
 	public void sendToDone() {
 		int index = preparingTable.getSelectionModel().getFocusedIndex();
 
@@ -78,7 +82,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 			System.out.println(err);
 		}
 	}
-	
+
 	public void setDelyvered() {
 		int index = doneTable.getSelectionModel().getFocusedIndex();
 
@@ -94,6 +98,18 @@ public class HomeScreen extends DashboardPagesRedirect {
 		}
 
 
+	}
+
+	public void openOrderDetailsModal() {
+		int index = onHoldTable.getSelectionModel().getFocusedIndex();
+
+		try {
+			selectedOrder = onHoldTable.getItems().get(index);
+			System.out.println(selectedOrder);
+			ModalLoader.load(Modal.customerOrdersHistoricModal);
+		} catch (Exception err) {
+			errorMessage.setStyle(errorMessage.getStyle() + "-fx-opacity: 1;");
+		}
 	}
 
 	private void fillOnHoldTable() throws SQLException, ValidationException {
@@ -120,7 +136,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 				}
 			};
 		} 
-		);
+				);
 	}
 
 	private void fillPreparingTable() throws SQLException, ValidationException {
@@ -147,9 +163,9 @@ public class HomeScreen extends DashboardPagesRedirect {
 				}
 			};
 		} 
-		);
+				);
 	}
-	
+
 	private void fillDoneTable() throws SQLException, ValidationException {
 		ObservableList<OrderVO> orders = FXCollections.observableArrayList();
 		OrderStatus status = OrderStatus.Pronto;
@@ -174,6 +190,6 @@ public class HomeScreen extends DashboardPagesRedirect {
 				}
 			};
 		} 
-		);
+				);
 	}
 }

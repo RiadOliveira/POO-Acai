@@ -4,7 +4,7 @@ public enum Modal {
     customerOrdersHistoricModal("customerOrdersHistoricModal"),
     finishSaleModal("finishSaleModal"), newCustomerModal("newCustomerModal"),
     newEmployeeModal("newEmployeeModal"), newProductModal("newProductModal"),
-    generateInvoiceModal("generateInvoiceModal");
+    generateInvoiceModal("generateInvoiceModal"), orderDetailsModal("orderDetailsModal");
 
     private final String modalName;
 
