@@ -26,9 +26,7 @@ import view.ScreenLoader;
 public class FinishSaleModal extends DashboardModal {
 	@FXML private ComboBox<CustomerVO> customersBox;
 	@FXML private ComboBox<PaymentMethod> paymentMethodBox;
-	
-	private ObservableList<String> customersList = FXCollections.observableArrayList();
-	
+		
 	private static OrderVO order = new OrderVO();
 	private ObservableList<OrderProductVO> selectedProductsList = FXCollections.observableArrayList();
 	
@@ -39,10 +37,6 @@ public class FinishSaleModal extends DashboardModal {
 		try {
 			customers.addAll(CustomerBO.findAll());
 			paymentMethods.addAll(PaymentMethod.values());
-			
-			customers.forEach(customer -> {
-				customersList.add(customer.getName());
-			});
 			
 			StringConverter<CustomerVO> converter = new StringConverter<CustomerVO>() {
 				@Override
