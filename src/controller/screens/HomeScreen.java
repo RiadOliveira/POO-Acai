@@ -266,7 +266,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 			}
 		});
 
-		fillPreparingTable(allDoneOrdersByCustomers);
+		fillDoneTable(allDoneOrdersByCustomers);
 	}
 
 	private void setByProductsSearch() throws SQLException, ValidationException {
@@ -325,7 +325,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 			}
 		});
 
-		fillPreparingTable(allDoneOrdersByProducts);
+		fillDoneTable(allDoneOrdersByProducts);
 	}
 
 	private void setByDateSearch() throws SQLException, ValidationException {
@@ -357,7 +357,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 			}
 		});
 
-		fillPreparingTable(allDoneOrdersByDate);
+		fillDoneTable(allDoneOrdersByDate);
 	}
 
 	public void sendToPreparation() {
