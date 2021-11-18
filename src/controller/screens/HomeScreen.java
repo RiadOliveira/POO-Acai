@@ -101,14 +101,25 @@ public class HomeScreen extends DashboardPagesRedirect {
 	}
 
 	public void openOrderDetailsModal() {
-		int index = onHoldTable.getSelectionModel().getFocusedIndex();
+		int indexOnHold = onHoldTable.getSelectionModel().getFocusedIndex();
+		int indexOnPrep = preparingTable.getSelectionModel().getFocusedIndex();
+		int indexOnDone = doneTable.getSelectionModel().getFocusedIndex();
 
 		try {
-			selectedOrder = onHoldTable.getItems().get(index);
-			System.out.println(selectedOrder);
-			ModalLoader.load(Modal.customerOrdersHistoricModal);
+			if (indexOnHold >= 0) {
+				selectedOrder = onHoldTable.getItems().get(indexOnHold);				
+			} else if (indexOnPrep >= 0) {
+				selectedOrder = preparingTable.getItems().get(indexOnPrep);
+			} else if (indexOnDone >= 0) {
+				selectedOrder = doneTable.getItems().get(indexOnDone);
+			}
+			ModalLoader.load(Modal.orderDetailsModal);
+			
+			onHoldTable.getSelectionModel().clearSelection();
+			preparingTable.getSelectionModel().clearSelection();
+			doneTable.getSelectionModel().clearSelection();
 		} catch (Exception err) {
-			errorMessage.setStyle(errorMessage.getStyle() + "-fx-opacity: 1;");
+			System.out.println(err);
 		}
 	}
 
