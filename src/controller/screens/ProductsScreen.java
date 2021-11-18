@@ -20,6 +20,7 @@ import model.BO.ProductBO;
 import model.VO.ProductVO;
 import utils.Category;
 import utils.Modal;
+import utils.Screen;
 import view.ModalLoader;
 import view.ScreenLoader;
 
@@ -117,7 +118,7 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
 
     	try {
     		ProductBO.delete(ScreenLoader.getLoggedUser(), productsTable.getItems().get(index));
-            productsTable.refresh();
+            ScreenLoader.load(Screen.productsScreen);
     	} catch (Exception err) {
     		errorMessage.setStyle(errorMessage.getStyle() + "-fx-opacity: 1;");
     	}
