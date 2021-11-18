@@ -21,7 +21,9 @@ public class DashboardPagesRedirect {
     }
 
     public void redirectToEmployees() {
-        ScreenLoader.load(Screen.employeesScreen);
+    	if(ScreenLoader.getLoggedUser().getIsAdmin()) {
+    		ScreenLoader.load(Screen.employeesScreen);
+        }
     }
 
     public void redirectToReports() {
