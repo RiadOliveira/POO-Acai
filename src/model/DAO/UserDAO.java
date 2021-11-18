@@ -34,6 +34,21 @@ public class UserDAO<VO extends UserVO> extends BaseDAO<VO> implements PersonInt
         }
     }
 
+    public ResultSet findAdmin() throws SQLException {
+        Connection connection = getConnection();
+
+        String query = "SELECT * FROM users WHERE is_admin=true";
+
+        Statement statement = connection.createStatement();
+        ResultSet findedAdmin = statement.executeQuery(query);
+
+        if(!findedAdmin.next()) {
+            return null;
+        }
+
+        return findedAdmin;
+    }
+
     public ResultSet findAll() throws SQLException {
         Connection connection = getConnection();
 

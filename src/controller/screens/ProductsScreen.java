@@ -30,6 +30,7 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
     @FXML private TableColumn<ProductVO, Category> category;
     @FXML private TableColumn<ProductVO, Double> price;
     
+    @FXML private Label adminName;
     @FXML private Label errorMessage;
 
     @FXML Button newProductButton;
@@ -40,6 +41,8 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
     private List<ProductVO> allProducts = null;
 
     public void initialize() {
+		adminName.setText(admin.getName());
+
         if(selectedProduct != null) {
             selectedProduct = null;
         }

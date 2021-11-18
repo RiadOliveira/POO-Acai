@@ -40,6 +40,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 	@FXML private TableColumn<OrderVO, CustomerVO> onPrepCustomer;
 	@FXML private TableColumn<OrderVO, CustomerVO> doneCustomer;
 	
+    @FXML private Label adminName;
 	@FXML private Label errorMessage;
 
 	@FXML private ComboBox<String> filter;
@@ -54,7 +55,9 @@ public class HomeScreen extends DashboardPagesRedirect {
 	private List<OrderVO> allDoneOrders = null;
 	private String prevFilterValue = "Por Cliente";
 
-	public void initialize() {
+    public void initialize() {
+		adminName.setText(admin.getName());
+
 		selectDate.setManaged(false);
 		selectDate.setStyle("-fx-opacity: 0;");
 

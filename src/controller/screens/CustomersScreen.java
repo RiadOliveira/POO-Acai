@@ -29,6 +29,7 @@ public class CustomersScreen extends DashboardPagesRedirect implements Dashboard
     @FXML private TableColumn<CustomerVO, String> address;
     @FXML private TableColumn<CustomerVO, String> phoneNumber;
 
+    @FXML private Label adminName;
     @FXML private Label errorMessage;
 
     @FXML private TextField searchBar;
@@ -37,6 +38,8 @@ public class CustomersScreen extends DashboardPagesRedirect implements Dashboard
     private List<CustomerVO> allCustomers = null;
 
     public void initialize() {
+		adminName.setText(admin.getName());
+
         if(selectedCustomer != null) {
             selectedCustomer = null;
         }

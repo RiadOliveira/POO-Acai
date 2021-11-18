@@ -1,9 +1,24 @@
 package controller;
 
+import java.sql.SQLException;
+
+import errors.ValidationException;
+import model.BO.UserBO;
+import model.VO.UserVO;
 import utils.Screen;
 import view.ScreenLoader;
 
 public class DashboardPagesRedirect {
+    protected static UserVO admin;
+
+    public DashboardPagesRedirect() {
+        try {
+            admin = UserBO.findAdmin();
+        } catch (SQLException | ValidationException err) {
+            System.out.println(err.getMessage());
+        }
+    }
+
     public void redirectToHome() {
         ScreenLoader.load(Screen.homeScreen);
     }

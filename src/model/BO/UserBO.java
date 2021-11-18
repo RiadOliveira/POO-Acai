@@ -42,6 +42,20 @@ public class UserBO {
         user.setIsLogged(false);
     }
 
+    public static UserVO findAdmin() throws SQLException, ValidationException {
+        UserVO admin = new UserVO();
+        ResultSet findedAdmin = userDAO.findAdmin();
+
+        admin.setId(UUID.fromString(findedAdmin.getString("id")));
+        admin.setName(findedAdmin.getString("name"));
+        admin.setCpf(findedAdmin.getString("cpf"));
+        admin.setPhoneNumber(findedAdmin.getString("phone_number"));
+        admin.setPassword(findedAdmin.getString("password"));
+        admin.setIsAdmin(findedAdmin.getBoolean("is_admin"));
+
+        return admin;
+    }
+
     public static List<UserVO> findAll() throws SQLException, ValidationException {
         List<UserVO> employees = new ArrayList<UserVO>();
         ResultSet findedEmployees = userDAO.findAll();

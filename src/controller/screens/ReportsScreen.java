@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import model.BO.OrderBO;
 import utils.ReportType;
@@ -28,9 +29,13 @@ public class ReportsScreen extends DashboardPagesRedirect {
     @FXML private VBox openReportContainer;
     @FXML private Button openReportButton;
 
+    @FXML private Label adminName;
+
     private String directoryPath;
 
     public void initialize() {
+		adminName.setText(admin.getName());
+
         ObservableList<ReportType> reportTypes = FXCollections.observableArrayList();
         reportTypes.addAll(ReportType.values());
 

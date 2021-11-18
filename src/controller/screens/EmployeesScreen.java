@@ -29,6 +29,7 @@ public class EmployeesScreen extends DashboardPagesRedirect implements Dashboard
     @FXML private TableColumn<UserVO, String> cpf;
     @FXML private TableColumn<UserVO, String> phoneNumber;
 
+    @FXML private Label adminName;
     @FXML private Label errorMessage;
 
     @FXML private TextField searchBar;
@@ -39,6 +40,8 @@ public class EmployeesScreen extends DashboardPagesRedirect implements Dashboard
     private List<UserVO> allEmployees = null;
 
     public void initialize() {
+		adminName.setText(admin.getName());
+
         if(selectedEmployee != null) {
             selectedEmployee = null;
         }

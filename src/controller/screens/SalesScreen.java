@@ -32,6 +32,7 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 	@FXML private TableColumn<OrderProductVO, Integer> selectedProductQuantity;
 	@FXML private TableColumn<OrderProductVO, ProductVO> selectedProductPrice;
 	
+    @FXML private Label adminName;
 	@FXML private Label totalPrice;
 	@FXML private TextField searchBar;
 	
@@ -43,7 +44,9 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 	private boolean isProductAlreadySelected = false;
 	private int productIndex = 0;
 	
-	public void initialize() {
+    public void initialize() {
+		adminName.setText(admin.getName());
+
 		searchBar.textProperty().addListener((observable, oldValue, newValue) -> 
             handleSearchTable(newValue)
         );

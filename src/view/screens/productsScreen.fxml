@@ -38,7 +38,7 @@
       <Group>
          <children>
             <Rectangle fill="WHITE" height="80.0" layoutX="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1200.0" />
-            <Label layoutX="117.0" layoutY="19.0" text="Jhon Doe" textFill="#260742">
+            <Label fx:id="adminName" layoutX="117.0" layoutY="19.0" textFill="#260742">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
