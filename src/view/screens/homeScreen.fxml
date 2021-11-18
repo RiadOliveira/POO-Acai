@@ -66,9 +66,9 @@
                   <Image url="@../../../assets/search.png" />
                </image>
             </ImageView>
-            <DatePicker fx:id="selectDate" prefHeight="52.0" prefWidth="924.0" />
-            <ComboBox fx:id="selectProduct" prefHeight="52.0" prefWidth="924.0" style="-fx-background-color: #fff;" />
-            <ComboBox fx:id="selectCustomer" prefHeight="52.0" prefWidth="924.0" style="-fx-background-color: #fff;" />
+            <DatePicker fx:id="selectDate" onAction="#hasChangedValue" prefHeight="52.0" prefWidth="924.0" />
+            <ComboBox fx:id="selectProduct" onAction="#hasChangedValue" prefHeight="52.0" prefWidth="924.0" style="-fx-background-color: #fff;" />
+            <ComboBox fx:id="selectCustomer" onAction="#hasChangedValue" prefHeight="52.0" prefWidth="924.0" style="-fx-background-color: #fff;" />
          </children>
       </HBox>
       <ComboBox fx:id="filter" layoutX="1088.0" layoutY="120.0" onAction="#changeType" prefHeight="52.0" prefWidth="152.0" promptText="Filtrar" style="-fx-background-color: #FFF;">

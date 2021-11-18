@@ -1,6 +1,7 @@
 package controller.screens;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import controller.DashboardPagesRedirect;
@@ -20,8 +21,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 import model.BO.CustomerBO;
 import model.BO.OrderBO;
+import model.BO.OrderProductBO;
 import model.BO.ProductBO;
 import model.VO.CustomerVO;
+import model.VO.OrderProductVO;
 import model.VO.OrderVO;
 import model.VO.ProductVO;
 import utils.Modal;
@@ -45,11 +48,11 @@ public class HomeScreen extends DashboardPagesRedirect {
 	@FXML private ComboBox<CustomerVO> selectCustomer;
 	@FXML private ComboBox<ProductVO> selectProduct;
 
-	private static OrderVO selectedOrder= null;
+	private static OrderVO selectedOrder = null;
 	private List<OrderVO> allOnHoldOrders = null;
 	private List<OrderVO> allPreparingOrders = null;
 	private List<OrderVO> allDoneOrders = null;
-	private static String prevFilterValue = "Por Cliente";
+	private String prevFilterValue = "Por Cliente";
 
 	public void initialize() {
 		selectDate.setManaged(false);
@@ -66,9 +69,9 @@ public class HomeScreen extends DashboardPagesRedirect {
 
 		try {
 			setCustomerItems();
-			fillOnHoldTable();
-			fillPreparingTable();
-			fillDoneTable();
+			fillOnHoldTable(null);
+			fillPreparingTable(null);
+			fillDoneTable(null);
 		} catch (SQLException | ValidationException err) {
 			System.out.println(err.getMessage());
 		}
@@ -79,15 +82,23 @@ public class HomeScreen extends DashboardPagesRedirect {
 	}
 
 	public void changeType() {
+		try {
+			fillOnHoldTable(null);
+			fillPreparingTable(null);
+			fillDoneTable(null);
+		} catch (SQLException | ValidationException err) {
+			System.out.println(err.getMessage());
+		}
+
 		switch (prevFilterValue) {
 			case "Por Cliente": {
-				selectCustomer.setItems(null);
+				selectCustomer.setValue(null);
 				changeFieldActivity(false, selectCustomer);
 			}
 			break;
 
 			case "Por Produto": {
-				selectProduct.setItems(null);
+				selectProduct.setValue(null);
 				changeFieldActivity(false, selectProduct);
 			}
 			break;
@@ -198,14 +209,155 @@ public class HomeScreen extends DashboardPagesRedirect {
 
 	private void changeFieldActivity(boolean toActivate, Control field) {
 		if(toActivate) {
-			field.setManaged(true);
 			field.setStyle("-fx-opacity: 1;");
 			field.toFront();
+			field.setManaged(true);
 		} else {
-			field.setManaged(false);
 			field.setStyle("-fx-opacity: 0;");
 			field.toBack();
+			field.setManaged(false);
 		}
+	}
+
+	public void hasChangedValue() {
+		try {
+			if(filter.getValue().equals(prevFilterValue)) {
+				switch (filter.getValue()) {
+					case "Por Cliente": setByCustomersSearch();
+					break;
+		
+					case "Por Produto": setByProductsSearch();
+					break;
+		
+					case "Por Data": setByDateSearch();
+				}
+			}
+		} catch (SQLException | ValidationException err) {
+			System.out.println(err.getMessage());
+		}
+	}
+
+	private void setByCustomersSearch() throws SQLException, ValidationException {
+		List<OrderVO> allOnHoldOrdersByCustomer = new ArrayList<OrderVO>();
+
+		allOnHoldOrders.forEach(order -> {
+			if(order.getCustomer().getId().equals(selectCustomer.getValue().getId())) {
+				allOnHoldOrdersByCustomer.add(order);
+			}
+		});
+
+		fillOnHoldTable(allOnHoldOrdersByCustomer);
+
+		List<OrderVO> allPreparingOrdersByCustomers = new ArrayList<OrderVO>();
+
+		allPreparingOrders.forEach(order -> {
+			if(order.getCustomer().getId().equals(selectCustomer.getValue().getId())) {
+				allPreparingOrdersByCustomers.add(order);
+			}
+		});
+
+		fillPreparingTable(allPreparingOrdersByCustomers);
+
+		List<OrderVO> allDoneOrdersByCustomers = new ArrayList<OrderVO>();
+
+		allDoneOrders.forEach(order -> {
+			if(order.getCustomer().getId().equals(selectCustomer.getValue().getId())) {
+				allDoneOrdersByCustomers.add(order);
+			}
+		});
+
+		fillPreparingTable(allDoneOrdersByCustomers);
+	}
+
+	private void setByProductsSearch() throws SQLException, ValidationException {
+		List<OrderVO> allOnHoldOrdersByProduct = new ArrayList<OrderVO>();
+
+		allOnHoldOrders.forEach(order -> {
+			try {
+				List<OrderProductVO> orderProducts = OrderProductBO.findByOrder(order);
+
+				for(OrderProductVO orderProduct : orderProducts) {
+					if(orderProduct.getProduct().getId().equals(selectProduct.getValue().getId())) {
+						allOnHoldOrdersByProduct.add(order);
+						break;
+					}
+				}
+			} catch (SQLException | ValidationException err) {
+				System.out.println(err.getMessage());
+			}
+		});
+
+		fillOnHoldTable(allOnHoldOrdersByProduct);
+
+		List<OrderVO> allPreparingOrdersByProducts = new ArrayList<OrderVO>();
+
+		allPreparingOrders.forEach(order -> {
+			try {
+				List<OrderProductVO> orderProducts = OrderProductBO.findByOrder(order);
+
+				for(OrderProductVO orderProduct : orderProducts) {
+					if(orderProduct.getProduct().getId().equals(selectProduct.getValue().getId())) {
+						allOnHoldOrdersByProduct.add(order);
+						break;
+					}
+				}
+			} catch (SQLException | ValidationException err) {
+				System.out.println(err.getMessage());
+			}
+		});
+
+		fillPreparingTable(allPreparingOrdersByProducts);
+
+		List<OrderVO> allDoneOrdersByProducts = new ArrayList<OrderVO>();
+
+		allDoneOrders.forEach(order -> {
+			try {
+				List<OrderProductVO> orderProducts = OrderProductBO.findByOrder(order);
+
+				for(OrderProductVO orderProduct : orderProducts) {
+					if(orderProduct.getProduct().getId().equals(selectProduct.getValue().getId())) {
+						allOnHoldOrdersByProduct.add(order);
+						break;
+					}
+				}
+			} catch (SQLException | ValidationException err) {
+				System.out.println(err.getMessage());
+			}
+		});
+
+		fillPreparingTable(allDoneOrdersByProducts);
+	}
+
+	private void setByDateSearch() throws SQLException, ValidationException {
+		List<OrderVO> allOnHoldOrdersByDate = new ArrayList<OrderVO>();
+
+		allOnHoldOrders.forEach(order -> {
+			if(order.getDate().compareTo(selectDate.getValue()) == 0) {
+				allOnHoldOrdersByDate.add(order);
+			}
+		});
+
+		fillOnHoldTable(allOnHoldOrdersByDate);
+
+		List<OrderVO> allPreparingOrdersByDate = new ArrayList<OrderVO>();
+
+		allPreparingOrders.forEach(order -> {
+			if(order.getDate().compareTo(selectDate.getValue()) == 0) {
+				allPreparingOrdersByDate.add(order);
+			}
+		});
+
+		fillPreparingTable(allPreparingOrdersByDate);
+
+		List<OrderVO> allDoneOrdersByDate = new ArrayList<OrderVO>();
+
+		allDoneOrders.forEach(order -> {
+			if(order.getDate().compareTo(selectDate.getValue()) == 0) {
+				allDoneOrdersByDate.add(order);
+			}
+		});
+
+		fillPreparingTable(allDoneOrdersByDate);
 	}
 
 	public void sendToPreparation() {
@@ -215,11 +367,10 @@ public class HomeScreen extends DashboardPagesRedirect {
 			selectedOrder = onHoldTable.getItems().get(index);
 			selectedOrder.setOrderStatus(OrderStatus.Preparando);
 
-			System.out.println(selectedOrder.getCustomer().getName());
 			OrderBO.update(selectedOrder);
 
-			fillOnHoldTable();
-			fillPreparingTable();			
+			fillOnHoldTable(null);
+			fillPreparingTable(null);		
 		} catch (Exception err) {
 			System.out.println(err);
 		}
@@ -234,8 +385,8 @@ public class HomeScreen extends DashboardPagesRedirect {
 
 			OrderBO.update(selectedOrder);
 
-			fillPreparingTable();
-			fillDoneTable();
+			fillPreparingTable(null);
+			fillDoneTable(null);
 		} catch (Exception err) {
 			System.out.println(err);
 		}
@@ -250,7 +401,7 @@ public class HomeScreen extends DashboardPagesRedirect {
 
 			OrderBO.update(selectedOrder);
 
-			fillDoneTable();
+			fillDoneTable(null);
 		} catch (Exception err) {
 			System.out.println(err);
 		}
@@ -279,12 +430,17 @@ public class HomeScreen extends DashboardPagesRedirect {
 		}
 	}
 
-	private void fillOnHoldTable() throws SQLException, ValidationException {
+	private void fillOnHoldTable(List<OrderVO> ordersOfTable) throws SQLException, ValidationException {
 		ObservableList<OrderVO> orders = FXCollections.observableArrayList();
-		OrderStatus status = OrderStatus.Analisando;
-		allOnHoldOrders = OrderBO.findByStatus(status);
 
-		orders.addAll(allOnHoldOrders);
+		if(ordersOfTable == null) {
+			OrderStatus status = OrderStatus.Analisando;
+			allOnHoldOrders = OrderBO.findByStatus(status);
+			orders.addAll(allOnHoldOrders);
+		} else {
+			orders.addAll(ordersOfTable);
+		}
+
 		onHoldTable.setItems(orders);
 
 		onHoldCustomer.setCellValueFactory(new PropertyValueFactory<OrderVO, CustomerVO>("customer"));
@@ -303,15 +459,20 @@ public class HomeScreen extends DashboardPagesRedirect {
 				}
 			};
 		} 
-				);
+		);
 	}
 
-	private void fillPreparingTable() throws SQLException, ValidationException {
+	private void fillPreparingTable(List<OrderVO> ordersOfTable) throws SQLException, ValidationException {
 		ObservableList<OrderVO> orders = FXCollections.observableArrayList();
-		OrderStatus status = OrderStatus.Preparando;
-		allPreparingOrders = OrderBO.findByStatus(status);
 
-		orders.addAll(allPreparingOrders);
+		if(ordersOfTable == null) {
+			OrderStatus status = OrderStatus.Preparando;
+			allPreparingOrders = OrderBO.findByStatus(status);
+			orders.addAll(allPreparingOrders);
+		} else {
+			orders.addAll(ordersOfTable);
+		}
+		
 		preparingTable.setItems(orders);
 
 		onPrepCustomer.setCellValueFactory(new PropertyValueFactory<OrderVO, CustomerVO>("customer"));
@@ -330,15 +491,20 @@ public class HomeScreen extends DashboardPagesRedirect {
 				}
 			};
 		} 
-				);
+		);
 	}
 
-	private void fillDoneTable() throws SQLException, ValidationException {
+	private void fillDoneTable(List<OrderVO> ordersOfTable) throws SQLException, ValidationException {
 		ObservableList<OrderVO> orders = FXCollections.observableArrayList();
-		OrderStatus status = OrderStatus.Pronto;
-		allDoneOrders = OrderBO.findByStatus(status);
 
-		orders.addAll(allDoneOrders);
+		if(ordersOfTable == null) {
+			OrderStatus status = OrderStatus.Pronto;
+			allDoneOrders = OrderBO.findByStatus(status);
+			orders.addAll(allDoneOrders);
+		} else {
+			orders.addAll(ordersOfTable);
+		}
+		
 		doneTable.setItems(orders);
 
 		doneCustomer.setCellValueFactory(new PropertyValueFactory<OrderVO, CustomerVO>("customer"));
@@ -357,6 +523,6 @@ public class HomeScreen extends DashboardPagesRedirect {
 				}
 			};
 		} 
-				);
+		);
 	}
 }
