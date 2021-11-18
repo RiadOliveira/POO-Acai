@@ -1,6 +1,12 @@
 # Projeto da disciplina de orientação a objeto.
 
 ## Tema: Sistema de açaí.
+
+### Libs Necessárias:
+- Javafx-sdk-17.0.0.1
+- postgresql-42.2.23
+- itextpdf-5.4.0
+
 ### Exigências: 
 - a) Cadastrar, editar, atualizar, buscar, deletar e visualizar: Cliente (nome, endereço,
 telefone, data do pedido), Pedido (data do pedido, cliente, quantidade, nome do
