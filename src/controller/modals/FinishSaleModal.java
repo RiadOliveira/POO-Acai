@@ -1,8 +1,6 @@
 package controller.modals;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import controller.DashboardModal;
 import controller.screens.SalesScreen;
@@ -11,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.TableCell;
 import javafx.util.StringConverter;
 import model.BO.CustomerBO;
 import model.BO.OrderBO;

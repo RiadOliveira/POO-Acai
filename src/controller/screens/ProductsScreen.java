@@ -20,7 +20,6 @@ import model.BO.ProductBO;
 import model.VO.ProductVO;
 import utils.Category;
 import utils.Modal;
-import utils.Screen;
 import view.ModalLoader;
 import view.ScreenLoader;
 
@@ -57,7 +56,6 @@ public class ProductsScreen extends DashboardPagesRedirect implements DashboardP
         try {
             fillTable();
         } catch (SQLException | ValidationException err) {
-            //Handle exception.
             System.out.println(err.getMessage());
         }
     }

@@ -114,7 +114,6 @@ public class CustomerOrdersHistoricModal extends DashboardModal {
              } 
             );
         } catch (Exception err) {
-            //Handle exception.
             System.out.println(err.getMessage());
         }
     }

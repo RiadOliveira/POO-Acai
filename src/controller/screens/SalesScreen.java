@@ -13,17 +13,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.BO.OrderBO;
-import model.BO.OrderProductBO;
 import model.BO.ProductBO;
-import model.VO.CustomerVO;
 import model.VO.OrderProductVO;
-import model.VO.OrderVO;
 import model.VO.ProductVO;
-import model.VO.UserVO;
 import utils.Modal;
-import utils.OrderStatus;
 import view.ModalLoader;
 
 public class SalesScreen extends DashboardPagesRedirect implements DashboardPageWithTable {
@@ -38,6 +33,7 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 	@FXML private TableColumn<OrderProductVO, ProductVO> selectedProductPrice;
 	
 	@FXML private Label totalPrice;
+	@FXML private TextField searchBar;
 	
 	private static ProductVO selectedProduct = null;
 	private static OrderProductVO orderProduct = null;
@@ -48,6 +44,10 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 	private int productIndex = 0;
 	
 	public void initialize() {
+		searchBar.textProperty().addListener((observable, oldValue, newValue) -> 
+            handleSearchTable(newValue)
+        );
+
 		try {
 			selectedProductsList.clear();
 			fillTable();
@@ -59,6 +59,13 @@ public class SalesScreen extends DashboardPagesRedirect implements DashboardPage
 	public ObservableList<OrderProductVO> getSelectedProductsList() {
 		return selectedProductsList;
 	}
+
+	private void handleSearchTable(String searchedText) {
+        ObservableList<ProductVO> products = FXCollections.observableArrayList();
+        products.addAll(ProductBO.findByName(allProducts, searchedText));
+
+        productsTable.setItems(products);
+    }
 	
 	private void fillTable() throws SQLException, ValidationException {
         ObservableList<ProductVO> products = FXCollections.observableArrayList();
