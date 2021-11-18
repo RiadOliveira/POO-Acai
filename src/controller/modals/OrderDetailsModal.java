@@ -15,11 +15,14 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.BO.OrderBO;
 import model.BO.OrderProductBO;
 import model.VO.CustomerVO;
 import model.VO.OrderProductVO;
 import model.VO.OrderVO;
 import utils.PaymentMethod;
+import utils.Screen;
+import view.ScreenLoader;
 
 public class OrderDetailsModal extends DashboardModal {
     @FXML private TableView<OrderVO> historicTable;
@@ -30,10 +33,12 @@ public class OrderDetailsModal extends DashboardModal {
     @FXML private TableColumn<OrderVO, Double> totalPrice;
     @FXML private TableColumn<OrderVO, UUID> products;
 
+    private static OrderVO selectedOrder = null;
+
     public void initialize() {
         try {
             HomeScreen homeScreen = new HomeScreen();
-            OrderVO selectedOrder = homeScreen.getSelectedOrder();
+            selectedOrder = homeScreen.getSelectedOrder();
 
             ObservableList<OrderVO> orders = FXCollections.observableArrayList();
     
@@ -131,6 +136,24 @@ public class OrderDetailsModal extends DashboardModal {
             );
         } catch (Exception err) {
             //Handle exception.
+            System.out.println(err.getMessage());
+        }
+    }
+
+    public OrderVO getSelectedOrder() {
+        return selectedOrder;
+    }
+
+    public void update() {
+    }
+
+    public void delete() {
+        try {
+            OrderBO.delete(selectedOrder);
+
+            super.closeModal();
+            ScreenLoader.load(Screen.homeScreen);
+        } catch (Exception err) {
             System.out.println(err.getMessage());
         }
     }
