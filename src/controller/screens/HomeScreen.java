@@ -27,14 +27,9 @@ public class HomeScreen extends DashboardPagesRedirect {
 	@FXML private TableColumn<OrderVO, CustomerVO> doneCustomer;
 
 	private static OrderVO selectedOrder= null;
-	private static OrderVO selectedPreparingOrder= null;
 	private List<OrderVO> allOnHoldOrders = null;
 	private List<OrderVO> allPreparingOrders = null;
 	private List<OrderVO> allDoneOrders = null;
-
-	//	private ObservableList<CustomerVO> onHoldCustomers = FXCollections.observableArrayList();
-	//	private ObservableList<CustomerVO> onPrepCustomers = FXCollections.observableArrayList();
-	//	private ObservableList<CustomerVO> doneCustomers = FXCollections.observableArrayList();
 
 	public void initialize() {
 		try {

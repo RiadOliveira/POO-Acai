@@ -48,7 +48,6 @@ public class CustomersScreen extends DashboardPagesRedirect implements Dashboard
         try {
             fillTable();
         } catch (SQLException | ValidationException err) {
-            //Handle exception.
             System.out.println(err.getMessage());
         }
     }
