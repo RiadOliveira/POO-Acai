@@ -51,7 +51,8 @@ Tópicos
     $ cd POO-Acai
   
     # Executar o projeto
-      # Execute o arquivo principal do projeto (ScreenLoader.java), o qual está dentro da pasta src/view.
+      # Execute o arquivo principal do projeto (ScreenLoader.java), o qual está dentro da pasta 
+      # src/view.
   </ul>
 
 </br>
