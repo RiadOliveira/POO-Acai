@@ -113,6 +113,7 @@ public class CustomersScreen extends DashboardPagesRedirect implements Dashboard
     }
 
     public void openModal() {
+        selectedCustomer = null;
         ModalLoader.load(Modal.newCustomerModal);
     }
 }
