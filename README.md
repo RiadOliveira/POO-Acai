@@ -5,7 +5,7 @@
   
 </br>
   
-Tópicos
+Conteúdos
 =================
 <!--ts-->
    * [🛠 Tecnologias](#technologies)
@@ -57,7 +57,7 @@ Tópicos
 
 </br>
 
-<h2 id="requirements">Exigências/Features</h2>
+<h2 id="requirements">:gear: Exigências/Features</h2>
 
 - a) Cadastrar, editar, atualizar, buscar, deletar e visualizar: Cliente (nome, endereço,
 telefone, data do pedido), Pedido (data do pedido, cliente, quantidade, nome do
@@ -70,7 +70,7 @@ categoria) e Funcionário (nome e telefone);
 
 </br>
 
-<h2 id="screenshots">Screen Shots</h2>
+<h2 id="screenshots">:camera: Screen Shots</h2>
 
 - <h3 id="login">Login</h3>
 
