@@ -3,6 +3,10 @@
 <p align="center">Aplicativo para gestão de uma loja fictícia de açaí. Projeto desenvolvido durante a disciplina de orientação a objeto na 
   <a href="https://ufersa.edu.br/">UFERSA</a>.</p>
   
+<h4 align="center"> 
+	:convenience_store:&nbsp; Status :heavy_check_mark: Finalizado &nbsp; :convenience_store: </br>
+</h4>
+  
 </br>
   
 Conteúdos
