@@ -12,7 +12,7 @@
 Conteúdos
 =================
 <!--ts-->
-   * [🛠 Tecnologias](#technologies)
+   * [🛠️ Tecnologias](#technologies)
    * [:computer: Instalação e Execução](#install&run)
       * [Pré-requisitos](#prerequisites)
       * [Executando o App](#running)
@@ -29,7 +29,7 @@ Conteúdos
 
 </br>
 
-<h2 id="technologies">🛠 Tecnologias</h2>
+<h2 id="technologies">🛠️ Tecnologias</h2>
 
 - [Java](https://www.java.com/pt-BR/)
   - Javafx-sdk-17.0.0.1
