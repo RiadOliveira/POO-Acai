@@ -81,7 +81,7 @@ Before proceeding, you will need to have [Git](https://git-scm.com) installed on
 - d) Generate a report with all orders placed during a period (day, week, or month);
 - e) Only the administrator can register new products and employees; <br/><br/>
 
-<h2 id="screenshots">📷 Screen Shots</h2>
+<h2 id="screenshots">📷 Screenshots</h2>
 
 <h3 id="login">Login</h3>
 
