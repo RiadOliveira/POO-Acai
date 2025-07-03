@@ -1,6 +1,6 @@
 <h1 align="center">Açaí Management System</h1>
 
-<p align="center">Application for managing a fictional açaí store. Project developed during the object-oriented programming course at 
+<p align="center">Application for managing a fictional açaí store. Project developed during the OOP course at 
   <a href="https://ufersa.edu.br/">UFERSA</a>.
 </p>
 
