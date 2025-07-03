@@ -4,7 +4,7 @@
   <a href="https://ufersa.edu.br/">UFERSA</a>.
 </p>
 
-![image](https://user-images.githubusercontent.com/69125013/148275766-cbf88ccd-62ef-47ec-87cc-5f162f79af02.png)
+![image](https://github.com/user-attachments/assets/00fb89e5-84cd-400c-a759-9842c838669b)
 
 <br/>
   
