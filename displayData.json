@@ -1,0 +1,10 @@
+{
+  "title": "Açaí Management System",
+  "imageId": "00fb89e5-84cd-400c-a759-9842c838669b",
+  "highlightColor": "violet",
+  "technologies": [
+    "Java",
+    "PostgreSQL"
+  ],
+  "attachmentsUrl": true
+}
