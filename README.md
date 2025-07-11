@@ -3,7 +3,7 @@
 <p align="center">Açaí Management System is a comprehensive business management application developed during the Object-Oriented Programming course at <a href="https://ufersa.edu.br/">UFERSA</a>. It provides a complete digital solution for managing açaí store operations.
 </p>
 
-![image](https://github.com/user-attachments/assets/4be09943-8266-4aa1-b46b-68caaac0ea54)
+![image](https://github.com/user-attachments/assets/73c4a0b8-1e38-4f8a-b137-27bef46bda59)
 
 <br/>
   
