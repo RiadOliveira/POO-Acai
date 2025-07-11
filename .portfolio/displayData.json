@@ -1,8 +1,9 @@
 {
   "title": "Açaí Manager",
   "extendedDescription": "Açaí Management System is a comprehensive business management application developed during the Object-Oriented Programming course at UFERSA. It provides a complete digital solution for managing açaí store operations.",
-  "imageId": "148275658-b0836118-597a-4601-a804-ef1b11f9e28a.png",
+  "imageId": "4be09943-8266-4aa1-b46b-68caaac0ea54",
   "highlightColor": "violet",
+  "attachmentsUrl": true,
   "technologies": [
     "Java",
     "PostgreSQL"
