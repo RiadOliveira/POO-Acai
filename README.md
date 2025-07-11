@@ -45,7 +45,7 @@ Contents
 <h2 id="technologies">🛠️ Technologies</h2>
 Built with:
 
-* [Java](https://www.java.com/pt-BR/)
+* [Java](https://www.java.com/)
   * Javafx-sdk-17.0.0.1
   * Postgresql-42.2.23
   * Itextpdf-5.4.0  
@@ -66,13 +66,16 @@ Before running the application, ensure the following tools are installed on your
 
 ```bash
 # Clone the repository
-$ git clone https://github.com/RiadOliveira/POO-Acai.git
+$ git clone https://github.com/RiadOliveira/Acai-Manager.git
 
 # Navigate to project directory
-$ cd POO-Acai
+$ cd Acai-Manager
+
+# Compile the application and copy FXML views to the bin directory
+javac --module-path lib/javafx-sdk-* --add-modules javafx.controls,javafx.fxml -cp "lib/*:lib/javafx-sdk-*/*" -d bin $(find src -name "*.java") && cp -r src/view/screens src/view/modals bin/view/
 
 # Run the application
-# Execute the main file: src/view/ScreenLoader.java
+java --module-path lib/javafx-sdk-* --add-modules javafx.controls,javafx.fxml -cp "bin:lib/*:lib/javafx-sdk-*/*" view.ScreenLoader
 ```
 
 <br/>
