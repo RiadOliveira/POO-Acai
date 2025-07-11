@@ -15,7 +15,7 @@ Contents
     * [Prerequisites](#prerequisites)
     * [Installation & Setup](#setup)
   * [⚙️ Features](#features)
-  * [📷 Screenshots](#screenshots)
+  * [📷 Application Screenshots](#screenshots)
     * [Authentication](#authentication)
     * [Dashboard](#dashboard)
       * [Sales Overview](#sales-overview)
@@ -88,7 +88,7 @@ java --module-path lib/javafx-sdk-* --add-modules javafx.controls,javafx.fxml -c
 - **Comprehensive Reporting** - Detailed reports for orders within flexible time periods (daily, weekly, monthly).
 - **Role-Based Access Control** - Administrative privileges required for product and employee management operations. <br/><br/>
 
-<h2 id="screenshots">📷 Screenshots</h2>
+<h2 id="screenshots">📷 Application Screenshots</h2>
 
 <h3 id="authentication">Authentication</h3>
 
