@@ -46,9 +46,9 @@ Contents
 Built with:
 
 * [Java JDK 21](https://www.java.com/)
-  * [Javafx-sdk-17.0.0.1](https://openjfx.io/)
-  * [PostgreSQL JDBC-42.2.23](https://jdbc.postgresql.org/)
-  * [Itextpdf-5.4.0](https://github.com/itext/itext-java)
+  * [JavaFX SDK (17.0.0.1)](https://openjfx.io/)
+  * [PostgreSQL JDBC (42.2.23)](https://jdbc.postgresql.org/)
+  * [Itextpdf (5.4.0)](https://github.com/itext/itext-java)
 * [Postgresql](https://www.postgresql.org/) <br/><br/>
 
 <h2 id="getting-started">🚀 Getting Started</h2>
