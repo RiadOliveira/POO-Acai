@@ -45,10 +45,10 @@ Contents
 <h2 id="technologies">🛠️ Technologies</h2>
 Built with:
 
-* [Java](https://www.java.com/)
-  * Javafx-sdk-17.0.0.1
-  * Postgresql-42.2.23
-  * Itextpdf-5.4.0  
+* [Java JDK 21](https://www.java.com/)
+  * [Javafx-sdk-17.0.0.1](https://openjfx.io/)
+  * [PostgreSQL JDBC-42.2.23](https://jdbc.postgresql.org/)
+  * [Itextpdf-5.4.0](https://github.com/itext/itext-java)
 * [Postgresql](https://www.postgresql.org/) <br/><br/>
 
 <h2 id="getting-started">🚀 Getting Started</h2>
@@ -57,7 +57,7 @@ Built with:
 
 Before running the application, ensure the following tools are installed on your system:
 * [Git](https://git-scm.com)
-* [Java JDK](https://www.java.com/)
+* [Java JDK 21](https://www.java.com/)
 * [PostgreSQL](https://www.postgresql.org/)
 
 **Note**: Project dependencies (JavaFX, PostgreSQL driver, and iText PDF) are already included in the project.
