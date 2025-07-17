@@ -3,7 +3,7 @@
 <p align="center">Açaí Management System is a comprehensive business management application developed during the Object-Oriented Programming course at <a href="https://ufersa.edu.br/">UFERSA</a>. It provides a complete digital solution for managing açaí store operations.
 </p>
 
-![image](https://github.com/user-attachments/assets/80dd1e1c-7fa7-4ae1-b1f5-1e36a1a4d37d)
+![Preview](https://github.com/user-attachments/assets/80dd1e1c-7fa7-4ae1-b1f5-1e36a1a4d37d)
 
 <br/>
   
@@ -92,78 +92,78 @@ java --module-path lib/javafx-sdk-* --add-modules javafx.controls,javafx.fxml -c
 
 <h3 id="authentication">Authentication</h3>
 
-![image](https://user-images.githubusercontent.com/69125013/148275658-b0836118-597a-4601-a804-ef1b11f9e28a.png)
+![Authentication](https://user-images.githubusercontent.com/69125013/148275658-b0836118-597a-4601-a804-ef1b11f9e28a.png)
 
 <h3 id="dashboard">Dashboard</h3>
 
 - <h4 id="sales-overview">Sales Overview</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148275766-cbf88ccd-62ef-47ec-87cc-5f162f79af02.png)
+![Sales_Overview](https://user-images.githubusercontent.com/69125013/148275766-cbf88ccd-62ef-47ec-87cc-5f162f79af02.png)
 
 - <h4 id="order-management">Order Management</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148276063-9d85a0d3-658b-4a7b-be79-7eb7643a10e8.png)
+![Order_Management](https://user-images.githubusercontent.com/69125013/148276063-9d85a0d3-658b-4a7b-be79-7eb7643a10e8.png)
 
 <h3 id="point-of-sale">Point of Sale</h3>
 
-![image](https://user-images.githubusercontent.com/69125013/148275884-b4736854-bf38-4b0d-a1be-c3047704e1bb.png)
+![Point_of_Sale](https://user-images.githubusercontent.com/69125013/148275884-b4736854-bf38-4b0d-a1be-c3047704e1bb.png)
 
 <h3 id="products">Product Management</h3>
 
 - <h4 id="products-catalog">Product Catalog</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148276242-126d2433-6f80-46db-9b68-35d7a0323122.png)
+![Product_Catalog](https://user-images.githubusercontent.com/69125013/148276242-126d2433-6f80-46db-9b68-35d7a0323122.png)
 
 - <h4 id="products-creation">Add Product</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148276287-0597e854-0ed9-404c-a3a5-3be7967bc9e6.png)
+![Add_Product](https://user-images.githubusercontent.com/69125013/148276287-0597e854-0ed9-404c-a3a5-3be7967bc9e6.png)
 
 - <h4 id="products-update">Edit Product</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148276334-68375612-8a69-403d-8e38-cc386e98189e.png)
+![Edit_Product](https://user-images.githubusercontent.com/69125013/148276334-68375612-8a69-403d-8e38-cc386e98189e.png)
 
 <h3 id="customers">Customer Management</h3>
 
 - <h4 id="customers-directory">Customer Directory</h4>
  
-![image](https://user-images.githubusercontent.com/69125013/148276436-451b3e0b-ab31-4a48-ab1c-a89793ee8b48.png)
+![Customer_Directory](https://user-images.githubusercontent.com/69125013/148276436-451b3e0b-ab31-4a48-ab1c-a89793ee8b48.png)
 
 - <h4 id="customers-creation">Add Customer</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148276538-2ea433bc-cc47-48fb-bf71-6ff50f77a254.png)
+![Add_Customer](https://user-images.githubusercontent.com/69125013/148276538-2ea433bc-cc47-48fb-bf71-6ff50f77a254.png)
 
 - <h4 id="customers-update">Edit Customer</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148276584-2c604856-f730-43ec-9891-ce0e4939fe43.png)
+![Edit_Customer](https://user-images.githubusercontent.com/69125013/148276584-2c604856-f730-43ec-9891-ce0e4939fe43.png)
 
 - <h4 id="customers-history">Order History</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148276798-fd78c828-7562-4ade-a9b2-14ab5d363c84.png)
+![Order_History](https://user-images.githubusercontent.com/69125013/148276798-fd78c828-7562-4ade-a9b2-14ab5d363c84.png)
 
 <h3 id="employees">Employee Management</h3>
 
 - <h4 id="employees-directory">Employee Directory</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148276692-f8ec6ef6-e4d0-4ee3-95e1-3a5c88198fa5.png)
+![Employee_Directory](https://user-images.githubusercontent.com/69125013/148276692-f8ec6ef6-e4d0-4ee3-95e1-3a5c88198fa5.png)
 
 - <h4 id="employees-creation">Add Employee</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148276720-2e70c6ea-a6a8-4d68-b842-791196d64cfa.png)
+![Add_Employee](https://user-images.githubusercontent.com/69125013/148276720-2e70c6ea-a6a8-4d68-b842-791196d64cfa.png)
 
 - <h4 id="employees-update">Edit Employee</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148276758-5331de2b-c127-4d43-b893-3c0ad48f01dd.png)
+![Edit_Employee](https://user-images.githubusercontent.com/69125013/148276758-5331de2b-c127-4d43-b893-3c0ad48f01dd.png)
 
 <h3 id="report">Reporting</h3>
 
 - <h4 id="report-builder">Report Builder</h4>
 
-![image](https://user-images.githubusercontent.com/69125013/148276859-d01485ed-8c6a-4437-b2c6-68d1f188042b.png)
-![image](https://user-images.githubusercontent.com/69125013/148276963-dc74432d-ec9e-4559-a804-55d0288812c1.png)
+![Report_Builder_1](https://user-images.githubusercontent.com/69125013/148276859-d01485ed-8c6a-4437-b2c6-68d1f188042b.png)
+![Report_Builder_2](https://user-images.githubusercontent.com/69125013/148276963-dc74432d-ec9e-4559-a804-55d0288812c1.png)
 
 - <h4 id="report-generated">PDF Reports</h4>
 
-<img src="https://user-images.githubusercontent.com/69125013/148277015-f91190ab-e851-47d6-ab20-653395838954.png" width="500"/>
+<img src="https://user-images.githubusercontent.com/69125013/148277015-f91190ab-e851-47d6-ab20-653395838954.png" alt="PDF_Reports" width="500"/>
 
 <h2 id="authors">👨‍💻 Authors</h2>
 
@@ -181,11 +181,3 @@ java --module-path lib/javafx-sdk-* --add-modules javafx.controls,javafx.fxml -c
     <p align="center"><b>Valdir Pinheiro</b></p>
   </a>
 </kbd>
-
-## 🌐 Socials
-
-<div id="socials">
-  <a href = "mailto:riad.oliveira@hotmail.com"><img class="badge" src="https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white" target="_blank"/></a>
-  <a href = "mailto:riad.oliveira@gmail.com"><img class="badge" src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"/></a>
-  <a href="https://www.linkedin.com/in/ríad-oliveira" target="_blank"><img class="badge" src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"/></a>
-</div>
